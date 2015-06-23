@@ -1,0 +1,247 @@
+{
+	"name": "Carson's American Bistro",
+	"type": "bistro",
+	"hours": {
+		"Monday-Thursday": "11am - 10pm",
+		"Friday": "11am - 11pm",
+		"Saturday": "4pm - 11pm",
+		"Sunday": "10am - 9pm"
+	},
+	"address": {
+		"": "2000 Commonwealth Blvd.",
+		"city": "Ann Arbor",
+		"state": "MI",
+		"zip": "48105"
+	},
+	"staff" : {
+		"General Manager": "Scott Behler",
+		"Chef": "Alex Wannemacher"
+	},
+	"advisory": "Notice: These items may be raw, undercooked or cooked to order. Ask your server about menu items that are cooked to order or served raw. Consuming raw or undercooked meats, poultry, seafood, shellfish or eggs may increase your risk of foodborne illness. Please notify us of food allergies. Not responsible for personal property. All menu items and pricing on our menu are subject to change, without notice based on availability and market price.",
+	"categories": [
+		{	"name": "Starters",
+			"description": "",
+			"items": [
+				{	"name": "Bistro Chips",
+					"description": "house-made chips, roasted garlic, applewood smoked bacon, cheddar and blue cheeses",
+					"price": 7.95
+				},
+				{	"name": "Flash Fried Calamari",
+					"description": "sweet chili sauce",
+					"price": 12.95
+				},
+				{	"name": "Boneless Chicken Wings",
+					"description": "blue cheese dressing",
+					"price": 9.95
+				},
+				{
+					"name": "Bacon Wrapped Shrimp",
+					"description": "honey mustard beurre blanc",
+					"price": 12.95
+				},
+				{
+					"name": "Crispy Fried Brussels Sprouts",
+					"description": "flash fried, shaved parmesan, pecans, maple balsamic glaze",
+					"price": 9.95
+				}
+			]
+		},
+		{	"name": "Soups and Salads",
+			"items": [
+				{	"name": "Soup of the Day",
+					"description": "",
+					"price": {
+						"cup": 4.95,
+						"bowl": 6.95
+					}
+				},
+				{
+					"name": "Corn Chowder",
+					"description": "bacon and cheese garnish",
+					"price": {
+						"cup": 4.95,
+						"bowl": 6.95
+					}
+				},
+				{
+					"name": "The Carson's Wedge",
+					"description": "double wedge of iceberg lettuce, tomato, applewood smoked bacon, blue cheese dressing",
+					"price": 8.95
+				},
+				{
+					"name": "Classic Caesar",
+					"options": [
+						{	"name": "traditional",
+							"description": "",
+							"price": 8.95
+						},
+						{
+							"name": "with grilled chicken",
+							"price": 12.95
+						},
+						{
+							"name": "with grilled salmon",
+							"price": 14.95
+						},
+						{
+							"name": "sub Caesar w/ entr&eacute;e",
+							"price": 2.95
+						}
+					]
+				},
+				{	"name": "Carson's Chopped Salad",
+					"description": "grilled chicken, avocado, tomatoes, blue cheese, eggs, scallions, bacon, corn, crispy tortilla strips.",
+					"price": 14.95,
+					"options": [
+						{	
+							"name": "with grilled salmon",
+							"price": 16.95
+						}
+					]
+				},
+				{
+					"name": "Thai Chicken Salad",
+					"description": "grilled chicken, greens, peanuts, edamame, peppers, crispy wontons, ginger-lime-cilantro vinaigrette",
+					"price": 14.95
+				},
+				{
+					"name": "House Salad",
+					"description": "mixed greens, tomato, cucumber, blue cheese, tossed with our house vinaigrette",
+					"price": 4.95,
+					"options": [
+						{
+							"name": "sub house w/ entr&eacute;e",
+							"price": "2.95"
+						}
+					]
+				},
+				{
+					"name": "Blue Cheese Vinaigrette Coleslaw",
+					"price": 2.95
+				}
+			]
+		},
+		{	"name": "Sandwiches",
+			"description": "includes fries and blue cheese coleslaw, add cup of soup for 3.95. burgers include lettuce, tomato, choice of Vermont cheddar, blue cheese, jalapeno jack cheese, swiss, caramelized onions on a choice of our traditional, whole wheat or whole wheat &quote;skinny&quote; bun applewood smoked bacon add 1.00",
+			"items": [
+				{
+					"name": "Carson's Bistro Burger",
+					"description": "half pound of 100% USDA prime beef",
+					"price": 10.95
+				},
+				{
+					"name": "Bison Burger",
+					"description": "lean ground American bison, high in omega-3, iron, protein and other nutrients, and lower in calories",
+					"price": 10.95
+				},
+				{
+					"name": "Gobble Burger",
+					"description": "8oz lean ground turkey, cranberry mayo",
+					"price": 9.95
+				},
+				{
+					"name": "Grilled Chicken Club",
+					"description": "lettuce, tomato, applewood smoked bacon, avocado, jalapeno jack cheese, herb mayonnaise",
+					"price": 9.95
+				},
+				{
+					"name": "Fish Tacos",
+					"description": "warm corn tortilla, spice rubbed lemon sole, red cabbage slaw, roasted corn relish",
+					"price": 12.95
+				},
+				{
+					"name": "Prime Rib Dip",
+					"description": "sliced prime rib, Swiss cheese, horsey sauce, on ciabatta roll, house-made au jus",
+					"price": 13.95
+				}
+			]
+		},
+		{
+			"name": "Sides",
+			"items": [
+				{
+					"name": "Crispy Fried Brussels Sprouts",
+					"description": "flash fried, maple balsamic glaze",
+					"price": 4.95
+				},
+				{
+					"name": "Garlic Mashed Potatoes",
+					"price": 3.95
+				},
+				{
+					"name": "Roasted Seasonal Vegetables",
+					"price": 5.95
+				},
+				{
+					"name": "Couscous",
+					"description": "pearl couscous, herb butter",
+					"price": 3.95
+				},
+				{
+					"name": "Baked Sweet Potato",
+					"price": 4.95
+				}
+			]
+		},
+		{
+			"name": "Fresh Catch",
+			"description": "Choose grilled, broiled or blackened, and select a sauce: sweet chili sauce, avocado mango salsa or housemade tartar sauce. Served with broccoli and couscous. Lunch portions are available until 5pm.",
+			"items": [
+				{
+					"name": "Foley's North Atlantic Salmon",
+					"options": [
+						{
+							"price": 12.95
+						},
+						{
+							"price": 20.95
+						}
+					]
+				},
+				{
+					"name": "Block Island Swordfish",
+					"options": [
+						{
+							"price": 13.95
+						},
+						{
+							"price": 21.95
+						}
+					]
+				},
+				{
+					"name": "Lake Superior Whitefish",
+					"options": [
+						{
+							"price": 10.95
+						},
+						{
+							"price": 18.95
+						}
+					]
+				},
+				{
+					"name": "Lake Erie Perch",
+					"options": [
+						{
+							"price": 14.95
+						},
+						{
+							"price": 22.95
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Seafood",
+			"items": [
+				{
+					"name": "Beer Battered Fish &amp; Chips",
+					"description": "house-made tartar sauce",
+					"price": 15.95
+				}
+			]
+		}
+	]
+}
