@@ -1,0 +1,14 @@
+{	"name": "Boneless Chicken Wings",
+					"description": "blue cheese dressing",
+					"price": 9.95
+			},
+			{	"name": "Carson's Chopped Salad",
+					"description": "grilled chicken, avocado, tomatoes, blue cheese, eggs, scallions, bacon, corn, crispy tortilla strips.",
+					"price": 14.95,
+					"options": [
+						{	
+							"name": "with grilled salmon",
+							"price": 16.95
+						}
+					]
+				}

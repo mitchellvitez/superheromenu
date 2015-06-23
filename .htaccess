@@ -1,0 +1,5 @@
+Options +ExecCGI
+AddHandler fcgid-script .fcgi
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !=/home4/vitezme/public_html/rest/main.fcgi
+RewriteRule ^(.*)$ main.fcgi/$1 [QSA,L]
