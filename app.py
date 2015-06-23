@@ -48,6 +48,13 @@ def login():
 	login_user(User('mitchellvitez', 'testpass', 'mitchellvitez@gmail.com'))
 	return "logged in %s" % str(current_user.username)
 
+@app.route("/logout")
+@login_required
+def logout():
+	myUser = current_user.username
+	logout_user()
+	return 'logged out %s' % myUser
+
 @app.route('/testdb')
 @login_required
 def testDatabase():
@@ -77,6 +84,7 @@ def create():
 	return "Menu creation screen here"
 
 @app.route('/analytics')
+@login_required
 def analytics():
 	return "Analytics screen here"
 
