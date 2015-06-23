@@ -1,5 +1,15 @@
 from flask import Flask
+from flask.ext.pymongo import PyMongo
+
 app = Flask(__name__)
+mongo = PyMongo(app)
+
+@app.route('/testdb')
+def testDatabase():
+	mongo.db.users.remove() # remove all users
+	mongo.db.users.save({'username':'mitchellvitez', 'online':True})
+	# return str( mongo.db.users.find_one() )
+	return 'users online: %s' % mongo.db.users.find_one({'online': True})
 
 @app.route('/api/<restaurantName>/search/<query>')
 def search(restaurantName, query):
