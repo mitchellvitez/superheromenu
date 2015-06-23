@@ -1,8 +1,28 @@
-from flask import Flask
+from flask import Flask, redirect, url_for
 from flask.ext.pymongo import PyMongo
+from flask.ext.login import LoginManager, login_required, login_user, logout_user, current_user
+
+"""
+Flask for login/security issues, api
+Angular for separate frontendy things
+"""
 
 app = Flask(__name__)
+
+# set up database
 mongo = PyMongo(app)
+
+# set up user logins
+login_manager = LoginManager()
+login_manager.init_app(app)
+
+@login_manager.user_loader
+def load_user(username):
+	return mongo.db.users.find_one({'username': username})
+
+@app.route('/login',methods=['GET','POST'])
+def login():
+    return "redirect(url_for('index'))"
 
 @app.route('/testdb')
 def testDatabase():
@@ -27,6 +47,7 @@ def restaurantInfo(restaurantName):
 		return 'No such restaurant'
 
 @app.route('/create')
+@login_required
 def create():
 	return "Menu creation screen here"
 
@@ -43,4 +64,5 @@ def landingPage():
 	return "Landing page here"
 
 if __name__ == '__main__':
+	app.config['SECRET_KEY'] = 'TotallySecret2937498374982'
 	app.run(debug=True)
