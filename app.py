@@ -6,6 +6,13 @@ import datetime
 """
 Flask for login/security issues, api
 Angular for separate frontendy things
+Four angular apps: 
+	/app - analytics, dashboard
+		analytics - view stats on menu usage
+		dashboard - add menus, items, change prices, etc
+	/menu - view actual menu (patron view)
+	/ - landing page
+
 """
 
 app = Flask(__name__)
@@ -79,25 +86,20 @@ def restaurantInfo(restaurantName):
 	else:
 		return 'No such restaurant'
 
-@app.route('/api/<restaurantName>/insert')
+# @app.route('/api/<restaurantName>/insert')
 
-@app.route('/create')
+@app.route('/app')
 @login_required
-def create():
-	return render_template('create.html') # "Menu creation screen here"
-
-@app.route('/analytics')
-@login_required
-def analytics():
-	return "Analytics screen here"
+def application():
+	return render_template('app.html')
 
 @app.route('/menu/<restaurantName>')
 def menu(restaurantName):
-	return "Menu for %s that goes in iframe here" % restaurantName
+	return render_template('menu.html', restaurantName=restaurantName)
 
 @app.route('/')
-def landingPage():
-	return "Landing page here"
+def home():
+	return render_template('home.html')
 
 if __name__ == '__main__':
 	app.config['SECRET_KEY'] = 'TotallySecret2937498374982'
