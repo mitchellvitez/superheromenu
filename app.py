@@ -88,10 +88,10 @@ def restaurantInfo(restaurantName):
 
 # @app.route('/api/<restaurantName>/insert')
 
-@app.route('/app')
+@app.route('/manage')
 @login_required
-def application():
-	return render_template('app.html')
+def manage():
+	return render_template('manage.html')
 
 @app.route('/menu/<restaurantName>')
 def menu(restaurantName):
