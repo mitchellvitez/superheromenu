@@ -9,6 +9,18 @@
 
 var app = angular.module('manager', ['ngRoute']);
 
+function getCategoriesFromDatabase($http) {
+	user.username = 'carsons';
+	$http.get('/api/' + user.username + '/categories').
+	  success(function(data, status, headers, config) {
+	    console.log(data);
+	    return data;
+	  }).
+	  error(function(data, status, headers, config) {
+	    return [];
+	  });
+}
+
 app.config(function($routeProvider, $locationProvider) {
 	// $routeProvider
 	// 	.when('/', {
@@ -39,8 +51,16 @@ app.controller('sidebar', function($scope, $http) {
 });
 
 app.controller('addCategory', function($scope, $http) {
-	// TODO pull the categories from the database
-	$scope.categories = ['Appetizers', 'Salad', 'Dessert'];
+
+	user.username = 'carsons';
+	$http.get('/api/' + user.username + '/categories').
+	  	success(function(data, status, headers, config) {
+	    	console.log(data);
+	    	$scope.categories = data;
+	  	}).
+	  	error(function(data, status, headers, config) {
+	    	$scope.categories = [];
+	  	});
 
 	function reset() {
 		$scope.newCategory = '';
@@ -52,7 +72,7 @@ app.controller('addCategory', function($scope, $http) {
     // $http.post(url, data); 
 	function save(data) {
 		// takes in array of categories like: ['Appetizers', 'Salad', 'Dessert']
-		
+
 	}
 
 	$scope.addAndSaveCategory = function() {
@@ -73,8 +93,16 @@ app.controller('addCategory', function($scope, $http) {
 
 app.controller('addItem', function($scope, $http) {
 
-	// TODO pull the categories from the database
-	$scope.categories = ['Appetizers', 'Salad', 'Dessert'];
+
+	user.username = 'carsons';
+	$http.get('/api/' + user.username + '/categories').
+	  	success(function(data, status, headers, config) {
+	    	console.log(data);
+	    	$scope.categories = data;
+	  	}).
+	  	error(function(data, status, headers, config) {
+	    	$scope.categories = [];
+	  	});
 
 	function reset() {
     	$scope.item = {};

@@ -93,6 +93,14 @@ def restaurantInfo(restaurantName):
 	else:
 		return 'No such restaurant'
 
+@app.route('/api/<restaurantName>/categories')
+def getCategories(restaurantName):
+	restaurantName = restaurantName.lower()
+	if restaurantName == 'carsons':
+		return '["Appetizers", "Salad", "Dessert"]';
+	else:
+		return '[]';
+
 # @app.route('/api/<restaurantName>/insert')
 
 @app.route('/manage')
