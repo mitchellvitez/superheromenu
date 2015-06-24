@@ -1,16 +1,36 @@
 {% extends "main.html" %}
 {% block head %}
-	<title>Menu Manage</title>
+	<title>Menu Manager</title>
     <script src="{{ url_for('static', filename='js/manage.js') }}"></script>
     <script>
     	var user = {{ userAsJson()|safe }};
-    	console.log(user);
     </script>
     <base href="/">
+    <link href="{{ url_for('static', filename='css/simple-sidebar.css') }}" rel="stylesheet">
 {% endblock %}
 {% block body %}
 	<body ng-app="manager">
-    	{% include "additem.html" %}
+		<div id="wrapper">
+			{% include "sidebar.html" %}
+        	<div id="page-content-wrapper">
+        		{% include "sidebarexpander.html" %}
+				<div class="container-fluid">
+					<div class="col-md-8">
+						<h1>Menu View</h1>
+						<iframe src="//www.jamieoliver.com/italian/menu" width="100%" height="500px" frameBorder="0"></iframe>
+					</div>
+					<div class="col-md-4">
+		    			{% include "additem.html" %}
+		    		</div>
+		    		<!-- <div class="col-md-4">
+		    			{% include "categories.html" %}
+		    		</div> -->
+		    		<div class="col-md-4">
+		    			{% include "embed.html" %}
+		    		</div>
+		    	</div>
+		    </div>
+    	</div>
 	</body>
 	
 {% endblock %}

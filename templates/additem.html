@@ -1,23 +1,57 @@
 {% raw %}
 <div ng-controller="addItem">
-<select ng-options="category for category in categories" ng-model="item.category"></select>
-<button>new category</button><br>
-item <input type="text" ng-model="item.name"><br>
-description <input type="text" ng-model="item.description"><br>
-price <input type="text" ng-model="item.price"><br>
+<h2>Add Item</h2>
 
-  <!-- <input ng-model=collapse type=checkbox>add options
-  <div ng-show=collapse>
-     Only shown when checkbox is clicked
-  </div> -->
-        <div ng-repeat="option in options track by $index">
-        	option<input type="text" ng-model="item['option' + $index].name"><br>
-			description <input type="text" ng-model="item['option' + $index].description"><br>
-			price <input type="text" ng-model="item['option' + $index].price"><br>
-        </div>
-        <button ng-click="addOption()">Add Option</button>
+<div class="dropdown form-group">
+  <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+    {{ item.category || "Category" }}
+    <span class="caret" ng-hide="item.category"></span>
+  </button>
+  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+  	<li ng-repeat="category in categories" ng-click="item.category = category"><a href="#">{{ category }}</a></li>
+  </ul>
+  <button class="btn btn-link">New Category</button><br>
+</div>
 
-<button ng-click="saveItem()">Save Item</button>
+	<div class="form-group">
+		<label for="name">Item</label>
+		<input type="text" id="name" class="form-control" ng-model="item.name">
+	</div>
+	<div class="form-group">
+		<label for="description">Description</label>
+		<input type="text" id="description" class="form-control" ng-model="item.description">
+	</div>
+	<div class="form-group">
+		<label for="price">Price</label>
+		<input type="text" id="price" class="form-control" ng-model="item.price">
+	</div>
+
+	<div ng-repeat="option in options track by $index" class="form-horizontal">
+		<br>
+		<h6 class="text-center">Option {{$index + 1}}</h6>
+		<div class="form-group">
+			<label for="optionname" class="col-md-3 control-label">Name</label>
+			<div class="col-md-9">
+				<input type="text" id="optionname" class="form-control" ng-model="item['option' + $index].name">
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="optiondescription" class="col-md-3 control-label">Description</label>
+			<div class="col-md-9">
+				<input type="text" id="optiondescription" class="form-control" ng-model="item['option' + $index].description">
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="optionprice" class="col-md-3 control-label">Price</label>
+			<div class="col-md-9">
+				<input type="text" id="optionprice" class="form-control" ng-model="item['option' + $index].price">
+			</div>
+		</div>
+	</div>
+
+	<button class="btn btn-default" ng-click="addOption()">Add Option</button>
+
+	<button class="btn btn-primary" ng-click="saveItem()">Save Item</button>
 
 </div>
 {% endraw %}

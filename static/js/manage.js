@@ -18,19 +18,30 @@ app.config(function($routeProvider, $locationProvider) {
 	$locationProvider.html5Mode(true);
 });
 
-app.controller('mainController', function($scope, $http) {
-	$scope.message = 'I am in the main controller';
+app.controller('sidebarController', function($scope, $http) {
+	$scope.sidebarInstruction = "←";
+
+	$scope.sidebarClick = function() {
+		$("#wrapper").toggleClass("toggled");
+
+		if ($scope.sidebarInstruction == "←") {
+			$scope.sidebarInstruction = "→";
+		}
+		else {
+			$scope.sidebarInstruction = "←";
+		}
+	}
 });
 
-app.controller('mainController2', function($scope, $http) {
-	$scope.message = 'I am in the main 2 controller';
+app.controller('sidebar', function($scope, $http) {
+	$scope.menus = ['Main Menu', 'Wine List', 'Dessert Menu'];
 });
 
 app.controller('addItem', function($scope, $http) {
 	$scope.categories = ['Appetizers', 'Salad', 'Dessert'];
 	function reset() {
     	$scope.item = {};
-    	$scope.item.category = $scope.categories[0];
+    	// $scope.item.category = $scope.categories[0];
         $scope.options = [];
     }
 
