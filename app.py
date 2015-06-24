@@ -1,4 +1,4 @@
-from flask import Flask, redirect, url_for
+from flask import Flask, redirect, url_for, render_template
 from flask.ext.pymongo import PyMongo
 from flask.ext.login import LoginManager, login_required, login_user, logout_user, current_user
 import datetime
@@ -45,6 +45,7 @@ def load_user(username):
 
 @app.route('/login',methods=['GET','POST'])
 def login():
+	# remember=True
 	login_user(User('mitchellvitez', 'testpass', 'mitchellvitez@gmail.com'))
 	return "logged in %s" % str(current_user.username)
 
@@ -78,10 +79,12 @@ def restaurantInfo(restaurantName):
 	else:
 		return 'No such restaurant'
 
+@app.route('/api/<restaurantName>/insert')
+
 @app.route('/create')
 @login_required
 def create():
-	return "Menu creation screen here"
+	return render_template('create.html') # "Menu creation screen here"
 
 @app.route('/analytics')
 @login_required
