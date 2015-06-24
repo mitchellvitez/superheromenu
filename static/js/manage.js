@@ -34,14 +34,50 @@ app.controller('sidebarController', function($scope, $http) {
 });
 
 app.controller('sidebar', function($scope, $http) {
+	// TODO pull these menus from the database
 	$scope.menus = ['Main Menu', 'Wine List', 'Dessert Menu'];
 });
 
-app.controller('addItem', function($scope, $http) {
+app.controller('addCategory', function($scope, $http) {
+	// TODO pull the categories from the database
 	$scope.categories = ['Appetizers', 'Salad', 'Dessert'];
+
+	function reset() {
+		$scope.newCategory = '';
+	}
+
+	reset();
+
+	// TODO post this data for the added category to a relevant API endpoint
+    // $http.post(url, data); 
+	function save(data) {
+		// takes in array of categories like: ['Appetizers', 'Salad', 'Dessert']
+		
+	}
+
+	$scope.addAndSaveCategory = function() {
+        $scope.categories.push($scope.newCategory);
+        save($scope.categories);
+        reset();
+    };
+
+    $scope.remove = function(category) {
+    	console.log(category);
+    	var index = $scope.categories.indexOf(category);
+    	if (index !== -1) {
+    		$scope.categories.splice(index, 1);
+    	}
+    	save($scope.categories);
+    };
+});
+
+app.controller('addItem', function($scope, $http) {
+
+	// TODO pull the categories from the database
+	$scope.categories = ['Appetizers', 'Salad', 'Dessert'];
+
 	function reset() {
     	$scope.item = {};
-    	// $scope.item.category = $scope.categories[0];
         $scope.options = [];
     }
 
@@ -55,6 +91,7 @@ app.controller('addItem', function($scope, $http) {
     	var data = $scope.item;
         console.log(data);
         reset();
+        // TODO post this data for the added item to a relevant API endpoint
         // $http.post(url, data);  
     };
 

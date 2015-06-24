@@ -1,4 +1,19 @@
 {% raw %}
+<div ng-controller="addCategory">
 	<h2>Categories</h2>
-	<p>Here you can view, manage, and add new categories</p>
+	<p ng-repeat="category in categories track by $index">{{ category }} <a class="btn btn-xs" ng-click="remove(category)">&times;</a></p>
+
+
+			<div class="input-group">
+			   <input type="text" placeholder="New Category" id="categoryToAdd" class="form-control" ng-model="newCategory">
+			   <span class="input-group-btn">
+			        <button class="btn btn-primary" class="form-control" ng-click="addAndSaveCategory()">Add Category</button>
+			   </span>
+			</div>
+
+
+	
+
+	<!-- <button class="btn btn-primary" ng-click="saveCategory()">Save Categories</button> -->
+</div>
 {% endraw %}
