@@ -7,3 +7,45 @@
 // 			alert( "failure message: " + JSON.stringify({data: data}));
 // 		});
 
+var app = angular.module('manager', ['ngRoute']);
+
+app.config(function($routeProvider, $locationProvider) {
+	// $routeProvider
+	// 	.when('/', {
+	// 		controller: 'mainController'
+	// 	});
+
+	$locationProvider.html5Mode(true);
+});
+
+app.controller('mainController', function($scope, $http) {
+	$scope.message = 'I am in the main controller';
+});
+
+app.controller('mainController2', function($scope, $http) {
+	$scope.message = 'I am in the main 2 controller';
+});
+
+app.controller('addItem', function($scope, $http) {
+	$scope.categories = ['Appetizers', 'Salad', 'Dessert'];
+	function reset() {
+    	$scope.item = {};
+    	$scope.item.category = $scope.categories[0];
+        $scope.options = [];
+    }
+
+	reset();
+
+    $scope.addOption = function() {
+        $scope.options.push(0);
+    };
+
+    $scope.saveItem = function() {
+    	var data = $scope.item;
+        console.log(data);
+        reset();
+        // $http.post(url, data);  
+    };
+
+    
+});

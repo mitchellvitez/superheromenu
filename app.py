@@ -2,6 +2,7 @@ from flask import Flask, redirect, url_for, render_template
 from flask.ext.pymongo import PyMongo
 from flask.ext.login import LoginManager, login_required, login_user, logout_user, current_user
 import datetime
+import json
 
 """
 Flask for login/security issues, api
@@ -62,6 +63,12 @@ def logout():
 	myUser = current_user.username
 	logout_user()
 	return 'logged out %s' % myUser
+
+def userAsJson():
+	# TODO: remove password field from this dictionary
+    return json.dumps(current_user.__dict__)
+
+app.jinja_env.globals.update(userAsJson=userAsJson)
 
 @app.route('/testdb')
 @login_required

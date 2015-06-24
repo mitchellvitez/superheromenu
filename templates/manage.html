@@ -1,7 +1,16 @@
 {% extends "main.html" %}
 {% block head %}
 	<title>Menu Manage</title>
+    <script src="{{ url_for('static', filename='js/manage.js') }}"></script>
+    <script>
+    	var user = {{ userAsJson()|safe }};
+    	console.log(user);
+    </script>
+    <base href="/">
 {% endblock %}
 {% block body %}
-	<p>this is where menus are made, items changed around, etc.</p>
+	<body ng-app="manager">
+    	{% include "additem.html" %}
+	</body>
+	
 {% endblock %}

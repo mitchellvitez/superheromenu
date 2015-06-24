@@ -1,0 +1,23 @@
+{% raw %}
+<div ng-controller="addItem">
+<select ng-options="category for category in categories" ng-model="item.category"></select>
+<button>new category</button><br>
+item <input type="text" ng-model="item.name"><br>
+description <input type="text" ng-model="item.description"><br>
+price <input type="text" ng-model="item.price"><br>
+
+  <!-- <input ng-model=collapse type=checkbox>add options
+  <div ng-show=collapse>
+     Only shown when checkbox is clicked
+  </div> -->
+        <div ng-repeat="option in options track by $index">
+        	option<input type="text" ng-model="item['option' + $index].name"><br>
+			description <input type="text" ng-model="item['option' + $index].description"><br>
+			price <input type="text" ng-model="item['option' + $index].price"><br>
+        </div>
+        <button ng-click="addOption()">Add Option</button>
+
+<button ng-click="saveItem()">Save Item</button>
+
+</div>
+{% endraw %}
