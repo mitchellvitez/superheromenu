@@ -1,10 +1,10 @@
 {% extends "main.html" %}
 {% block head %}
 	<title>Menu Manager</title>
-    <script src="{{ url_for('static', filename='js/manage.js') }}"></script>
-    <script>
+	<script>
     	var user = {{ userAsJson()|safe }};
     </script>
+    <script src="{{ url_for('static', filename='js/manage.js') }}"></script>
     <base href="/">
     <link href="{{ url_for('static', filename='css/simple-sidebar.css') }}" rel="stylesheet">
 {% endblock %}
@@ -17,7 +17,7 @@
 				<div class="container-fluid">
 					<div class="col-md-8">
 						<h1>Menu View</h1>
-						<iframe src="//www.jamieoliver.com/italian/menu" width="100%" height="500px" frameBorder="0"></iframe>
+						<iframe src="//vitez.me" width="100%" height="500px" frameBorder="0"></iframe>
 					</div>
 					<div class="col-md-4">
 		    			{% include "additem.html" %}

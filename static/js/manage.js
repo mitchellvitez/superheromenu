@@ -9,17 +9,8 @@
 
 var app = angular.module('manager', ['ngRoute']);
 
-function getCategoriesFromDatabase($http) {
-	user.username = 'carsons';
-	$http.get('/api/' + user.username + '/categories').
-	  success(function(data, status, headers, config) {
-	    console.log(data);
-	    return data;
-	  }).
-	  error(function(data, status, headers, config) {
-	    return [];
-	  });
-}
+console.log(user.username);
+user.username = 'carsons';
 
 app.config(function($routeProvider, $locationProvider) {
 	// $routeProvider
@@ -46,13 +37,19 @@ app.controller('sidebarController', function($scope, $http) {
 });
 
 app.controller('sidebar', function($scope, $http) {
-	// TODO pull these menus from the database
-	$scope.menus = ['Main Menu', 'Wine List', 'Dessert Menu'];
+
+	$http.get('/api/' + user.username + '/menus').
+	  	success(function(data, status, headers, config) {
+	    	console.log(data);
+	    	$scope.menus = data;
+	  	}).
+	  	error(function(data, status, headers, config) {
+	    	$scope.menus = [];
+	  	});
 });
 
 app.controller('addCategory', function($scope, $http) {
 
-	user.username = 'carsons';
 	$http.get('/api/' + user.username + '/categories').
 	  	success(function(data, status, headers, config) {
 	    	console.log(data);
@@ -94,7 +91,6 @@ app.controller('addCategory', function($scope, $http) {
 app.controller('addItem', function($scope, $http) {
 
 
-	user.username = 'carsons';
 	$http.get('/api/' + user.username + '/categories').
 	  	success(function(data, status, headers, config) {
 	    	console.log(data);

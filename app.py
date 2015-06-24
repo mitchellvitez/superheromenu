@@ -49,12 +49,12 @@ class User():
 def load_user(username):
 	# returns user object, sans password, from this user id
 	# return db.users.find_one({'username': username}, {'password': False})
-	return User('mitchellvitez', 'testpass', 'mitchellvitez@gmail.com')
+	return User('carsons', 'testpass222', 'totallyemail@gmail.com')
 
 @app.route('/login',methods=['GET','POST'])
 def login():
 	# remember=True
-	login_user(User('mitchellvitez', 'testpass', 'mitchellvitez@gmail.com'))
+	login_user(User('carsons', 'testpass222', 'totallyemail@gmail.com'))
 	return "logged in %s" % str(current_user.username)
 
 @app.route("/logout")
@@ -97,7 +97,15 @@ def restaurantInfo(restaurantName):
 def getCategories(restaurantName):
 	restaurantName = restaurantName.lower()
 	if restaurantName == 'carsons':
-		return '["Appetizers", "Salad", "Dessert"]';
+		return '["Appetizers", "Salad", "Dessert", "Antipasti", "Burgers", "Ice Cream"]';
+	else:
+		return '[]';
+
+@app.route('/api/<restaurantName>/menus')
+def getMenus(restaurantName):
+	restaurantName = restaurantName.lower()
+	if restaurantName == 'carsons':
+		return '["Main Menu", "Wine List", "Dessert Menu", "Breakfast Menu"]';
 	else:
 		return '[]';
 
