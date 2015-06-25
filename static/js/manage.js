@@ -50,6 +50,16 @@ app.controller('sidebar', function($scope, $http) {
 
 app.controller('addCategory', function($scope, $http) {
 
+	$scope.hover = function(category) {
+        // Shows/hides the delete button on hover
+        console.log(category.showDelete);
+        return category.showDelete = ! category.showDelete;
+    };
+
+    $scope.showDelete = function(category) {
+    	return true;
+    }
+
 	$http.get('/api/' + user.username + '/categories').
 	  	success(function(data, status, headers, config) {
 	    	console.log(data);
@@ -82,6 +92,8 @@ app.controller('addCategory', function($scope, $http) {
         save($scope.categories);
         reset();
     };
+
+    
 
     $scope.remove = function(category) {
     	console.log(category);

@@ -101,10 +101,10 @@ def categories(restaurantName):
 			return 'ERROR', 401
 		else:
 			# put data in db
-			return '["Appetizers", "Salad", "Dessert", "Antipasti", "Burgers", "Ice Cream"]';
+			return request.data
 	elif restaurantName == 'carsons':
-		return '["Appetizers", "Salad", "Dessert", "Antipasti", "Burgers", "Ice Cream"]';
-	return '[]';
+		return '["Appetizers", "Salad", "Dessert", "Antipasti", "Burgers", "Ice Cream"]'
+	return '[]'
 
 @app.route('/api/<restaurantName>/items', methods=['GET', 'POST'])
 def items(restaurantName):
