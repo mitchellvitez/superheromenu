@@ -1,5 +1,6 @@
 from flask import Flask, redirect, url_for, render_template, request
 from flask.ext.pymongo import PyMongo
+from bson.json_util import dumps
 from flask.ext.login import LoginManager, login_required, login_user, logout_user, current_user
 import datetime
 import json
@@ -70,14 +71,6 @@ def userAsJson():
 
 app.jinja_env.globals.update(userAsJson=userAsJson)
 
-@app.route('/testdb')
-@login_required
-def testDatabase():
-	# db.users.remove() # remove all users
-	# db.users.save({'username':'mitchellvitez', 'online':True})
-	# return str( mongo.db.users.find_one() )
-	return 'users: %s' % db.users.find_one()
-
 @app.route('/api/<restaurantName>/search/<query>')
 def search(restaurantName, query):
 	if query == 'blue cheese' and restaurantName == 'carsons':
@@ -88,10 +81,7 @@ def search(restaurantName, query):
 @app.route('/api/<restaurantName>')
 def restaurantInfo(restaurantName):
 	restaurantName = restaurantName.lower()
-	if restaurantName == 'carsons':
-		return app.send_static_file('test/carsons.json')
-	else:
-		return 'No such restaurant'
+	return dumps(db.menus.find_one({"identifier": restaurantName}))
 
 @app.route('/api/<restaurantName>/categories', methods=['GET', 'POST'])
 def categories(restaurantName):
@@ -100,7 +90,7 @@ def categories(restaurantName):
 		if current_user.username != restaurantName:
 			return 'ERROR', 401
 		else:
-			# put data in db
+			# TODO: some form of db.categories.update()
 			return request.data
 	elif restaurantName == 'carsons':
 		return '["Appetizers", "Salad", "Dessert", "Antipasti", "Burgers", "Ice Cream"]'
