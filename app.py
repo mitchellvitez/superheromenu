@@ -1,4 +1,4 @@
-from flask import Flask, redirect, url_for, render_template
+from flask import Flask, redirect, url_for, render_template, request
 from flask.ext.pymongo import PyMongo
 from flask.ext.login import LoginManager, login_required, login_user, logout_user, current_user
 import datetime
@@ -49,9 +49,9 @@ class User():
 def load_user(username):
 	# returns user object, sans password, from this user id
 	# return db.users.find_one({'username': username}, {'password': False})
-	return User('carsons', 'testpass222', 'totallyemail@gmail.com')
+	return User(username, '', 'totallyemail@gmail.com')
 
-@app.route('/login',methods=['GET','POST'])
+@app.route('/login', methods=['GET','POST'])
 def login():
 	# remember=True
 	login_user(User('carsons', 'testpass222', 'totallyemail@gmail.com'))
@@ -93,13 +93,30 @@ def restaurantInfo(restaurantName):
 	else:
 		return 'No such restaurant'
 
-@app.route('/api/<restaurantName>/categories')
-def getCategories(restaurantName):
+@app.route('/api/<restaurantName>/categories', methods=['GET', 'POST'])
+def categories(restaurantName):
 	restaurantName = restaurantName.lower()
-	if restaurantName == 'carsons':
+	if request.method == 'POST':
+		if current_user.username != restaurantName:
+			return 'ERROR', 401
+		else:
+			# put data in db
+			return '["Appetizers", "Salad", "Dessert", "Antipasti", "Burgers", "Ice Cream"]';
+	elif restaurantName == 'carsons':
 		return '["Appetizers", "Salad", "Dessert", "Antipasti", "Burgers", "Ice Cream"]';
-	else:
-		return '[]';
+	return '[]';
+
+@app.route('/api/<restaurantName>/items', methods=['GET', 'POST'])
+def items(restaurantName):
+	restaurantName = restaurantName.lower()
+	if request.method == 'POST':
+		if current_user.username != restaurantName:
+			return 'ERROR', 401
+		else:
+			# put data in db
+			return '[]';
+	# TODO: return items as JSON
+	return '[]';
 
 @app.route('/api/<restaurantName>/menus')
 def getMenus(restaurantName):

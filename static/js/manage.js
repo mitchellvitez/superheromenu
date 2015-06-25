@@ -65,11 +65,16 @@ app.controller('addCategory', function($scope, $http) {
 
 	reset();
 
-	// TODO post this data for the added category to a relevant API endpoint
-    // $http.post(url, data); 
 	function save(data) {
 		// takes in array of categories like: ['Appetizers', 'Salad', 'Dessert']
-
+		$http.post('/api/' + user.username + '/categories', data).
+			success(function(data, status, headers, config) {
+				console.log(data);
+				$scope.categories = data;
+			}).
+			error(function(data, status, headers, config) {
+	    		$scope.categories = [];
+	  		});
 	}
 
 	$scope.addAndSaveCategory = function() {
@@ -115,8 +120,13 @@ app.controller('addItem', function($scope, $http) {
     	var data = $scope.item;
         console.log(data);
         reset();
-        // TODO post this data for the added item to a relevant API endpoint
-        // $http.post(url, data);  
+        $http.post('/api/' + user.username + '/items', data).
+			success(function(data, status, headers, config) {
+				console.log(data);
+			}).
+			error(function(data, status, headers, config) {
+				console.log(data);
+	  		});  
     };
 
     
