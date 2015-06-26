@@ -1,10 +1,30 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <title>Untitled Document</title>
-    </head>
-    
-    <body>
-    </body>
-</html>
+{% extends "main.html" %}
+{% block head %}
+	<title>Menu Viewer</title>
+	<script>
+    	var user = {{ userAsJson()|safe }};
+    	var restaurantName = '{{ restaurantName }}';
+    </script>
+    <script src="{{ url_for('static', filename='js/menu.js') }}"></script>
+    <base href="/">
+{% endblock %}
+{% block body %}
+	{% raw %}
+	<body ng-app="menu">
+		<div ng-controller="menu">
+			<div class="container-fluid">
+				<h1 class="text-center">{{ menu.name }}</h1>
+				<div class="col-md-6" ng-repeat="category in menu.categories">
+					<h2>{{ category.name }}</h2>
+					<p>{{ category.description }}</p>
+					<div ng-repeat="item in category.items">
+						<h3>{{ item.name }}</h3>
+						<p>{{ item.description }}</p>
+						<p>${{ item.price }}</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	{% endraw %}
+{% endblock %}

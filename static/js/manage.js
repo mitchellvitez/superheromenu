@@ -48,7 +48,11 @@ app.controller('sidebar', function($scope, $http) {
 	  	});
 });
 
-app.controller('categories', function($scope, $http) {
+app.controller('embed', function($scope, $http) {
+	$scope.username = user.username;
+});
+
+app.controller('categories', function($scope, $http, $rootScope) {
 
 	load();
 	reset();
@@ -69,6 +73,7 @@ app.controller('categories', function($scope, $http) {
 			success(function(data, status, headers, config) {
 				$scope.categories = data.categories;
 			});
+		$rootScope.$broadcast('categoryRefresh');
 	}
 
 	$scope.add = function(categoryName) {
@@ -78,7 +83,7 @@ app.controller('categories', function($scope, $http) {
     };
 
     $scope.remove = function(category) {
-    	if (! confirm('Are you sure you want to remove the category ' + category.name + '? This may alter or even delete the items in it.')) {
+    	if (! confirm('Are you sure you want to remove the category ' + category.name + '? This will delete all of the items in it.')) {
     		return;
     	}
 
@@ -91,7 +96,7 @@ app.controller('categories', function($scope, $http) {
     };
 });
 
-app.controller('items', function($scope, $http) {
+app.controller('items', function($scope, $http, $rootScope) {
 
 	load();
 	reset();
@@ -102,6 +107,10 @@ app.controller('items', function($scope, $http) {
 	    	$scope.categories = data.categories;
 	  	});
 	}
+
+	$scope.$on('categoryRefresh', function(event, args) {
+		load();
+	});
 
 	function reset() {
     	$scope.item = {};
