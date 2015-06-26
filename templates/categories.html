@@ -1,21 +1,14 @@
 {% raw %}
-<div ng-controller="addCategory">
+<div ng-controller="categories">
 	<h2>Categories</h2>
-	<p ng-repeat="category in categories track by $index"  ng-init="showDelete = false" ng-mouseenter="showDelete = true" ng-mouseleave="showDelete = false">{{ category.name }} 
+	<p ng-repeat="category in categories track by $index"  ng-init="showDelete=false" ng-mouseenter="showDelete=true" ng-mouseleave="showDelete=false">{{ category.name }} 
 		<a ng-show="showDelete" style="cursor: pointer; text-decoration: none;" ng-click="remove(category)">&times;</a>
 	</p>
-
-
-			<div class="input-group">
-			   <input type="text" placeholder="New Category" id="categoryToAdd" class="form-control" ng-model="newCategory">
-			   <span class="input-group-btn">
-			        <button class="btn btn-primary" class="form-control" ng-click="addAndSaveCategory()">Add Category</button>
-			   </span>
-			</div>
-
-
-	
-
-	<!-- <button class="btn btn-primary" ng-click="saveCategory()">Save Categories</button> -->
+	<div class="input-group">
+		<input type="text" placeholder="New Category" class="form-control" ng-model="newCategoryName">
+		<span class="input-group-btn">
+			<button class="btn btn-primary" class="form-control" ng-click="add(newCategoryName)">Add Category</button>
+		</span>
+	</div>
 </div>
 {% endraw %}

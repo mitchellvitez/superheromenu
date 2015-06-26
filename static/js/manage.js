@@ -48,55 +48,46 @@ app.controller('sidebar', function($scope, $http) {
 	  	});
 });
 
-app.controller('addCategory', function($scope, $http) {
+app.controller('categories', function($scope, $http) {
 
-	$scope.hover = function(category) {
-        // Shows/hides the delete button on hover
-        console.log(category.showDelete);
-        return category.showDelete = ! category.showDelete;
-    };
-
-    $scope.showDelete = function(category) {
-    	return true;
-    }
-
-	$http.get('/api/' + user.username + '/categories').
-	  	success(function(data, status, headers, config) {
-	    	console.log(data.categories);
-	    	$scope.categories = data.categories;
-	  	});
-
-	function reset() {
-		$scope.newCategory = '';
-	}
-
+	load();
 	reset();
 
-	function save(data) {
+	function load() {
+		$http.get('/api/' + user.username + '/categories').
+	  	success(function(data, status, headers, config) {
+	    	$scope.categories = data.categories;
+	  	});
+	}
+
+	function reset() {
+		$scope.newCategoryName = '';
+	}
+
+	function post(data) {
 		$http.post('/api/' + user.username + '/categories', data).
 			success(function(data, status, headers, config) {
-				console.log(data);
 				$scope.categories = data.categories;
 			});
 	}
 
-	$scope.addAndSaveCategory = function() {
-        $scope.categories.push({"name": $scope.newCategory});
-        save( {"action":"push", "category":{"name": $scope.newCategory}} );
+	$scope.add = function(categoryName) {
+        $scope.categories.push({"name": categoryName});
+        post( {"action":"save", "category":{"name": categoryName}} );
         reset();
     };
 
     $scope.remove = function(category) {
-    	if (! confirm('Are you sure you want to remove the category ' + category.name + '? This may alter or even remove the items in it.')) {
+    	if (! confirm('Are you sure you want to remove the category ' + category.name + '? This may alter or even delete the items in it.')) {
     		return;
     	}
-    	var index = $scope.categories.indexOf(category);
 
+    	var index = $scope.categories.indexOf(category);
     	if (index !== -1) {
     		$scope.categories.splice(index, 1);
     	}
-    	save({"action":"delete", category});
-		
+
+    	post({"action":"delete", category});
     };
 });
 

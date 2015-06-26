@@ -100,48 +100,14 @@ def categories(restaurantName):
 	restaurantName = restaurantName.lower()
 	if request.method == 'POST':
 		if current_user.username != restaurantName:
-			return 'ERROR', 401
+			return 'ERROR', 401 # TODO: better error data and error code handling
 		else:
-			print "Request data: ", request.data
-
 			request.data = ast.literal_eval(request.data)
-
-			if request.data["action"] == "delete":
-				print "ACTION IS DELETE"
-				db.menus.update({"identifier": restaurantName}, {"$pull": {"categories": request.data['category'] } })
 			
-			elif request.data["action"] == "push":
-				print "ACTION IS PUSH"
+			if request.data["action"] == "delete":
+				db.menus.update({"identifier": restaurantName}, {"$pull": {"categories": request.data['category'] } })
+			elif request.data["action"] == "save":
 				db.menus.update({"identifier": restaurantName}, {"$push": {"categories": request.data['category'] } })
-
-				"""
-				categoryNum = request.data.count('"name"')
-				s = request.data.replace('{', '').replace('}', '').replace('[', '{').replace(']', '}')
-
-				for i in range(categoryNum):
-					# s = s.replace('"name"', '"categories.%d.name"' % i, 1)
-					s = s.replace('"name"', '"categories.$.name"')
-					# s = s.replace(',,', ',')
-				print s
-
-				categoriesAsDict = ast.literal_eval(s)
-				resultDict = {}
-				deleteDict = {}
-				for key, value in categoriesAsDict.items():
-					if value not in resultDict.values():
-						resultDict[key] = value
-					else:
-						deleteDict[key] = value
-
-				print '====='
-				print resultDict
-				print deleteDict
-
-				# if len(deleteDict) > 0:
-				# 	db.menus.update({"identifier": restaurantName}, { "$set": resultDict, "$unset": deleteDict })
-				# else:
-				db.menus.update({"identifier": restaurantName}, { "$set": resultDict })
-				"""
 
 	return dumps(db.menus.find_one({"identifier": restaurantName}, {"categories.name": True}))
 
