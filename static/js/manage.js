@@ -62,11 +62,8 @@ app.controller('addCategory', function($scope, $http) {
 
 	$http.get('/api/' + user.username + '/categories').
 	  	success(function(data, status, headers, config) {
-	    	console.log(data);
-	    	$scope.categories = data;
-	  	}).
-	  	error(function(data, status, headers, config) {
-	    	$scope.categories = [];
+	    	console.log(data.categories);
+	    	$scope.categories = data.categories;
 	  	});
 
 	function reset() {
@@ -76,32 +73,30 @@ app.controller('addCategory', function($scope, $http) {
 	reset();
 
 	function save(data) {
-		// takes in array of categories like: ['Appetizers', 'Salad', 'Dessert']
 		$http.post('/api/' + user.username + '/categories', data).
 			success(function(data, status, headers, config) {
 				console.log(data);
-				$scope.categories = data;
-			}).
-			error(function(data, status, headers, config) {
-	    		$scope.categories = [];
-	  		});
+				$scope.categories = data.categories;
+			});
 	}
 
 	$scope.addAndSaveCategory = function() {
-        $scope.categories.push($scope.newCategory);
-        save($scope.categories);
+        $scope.categories.push({"name": $scope.newCategory});
+        save( {"action":"push", "category":{"name": $scope.newCategory}} );
         reset();
     };
 
-    
-
     $scope.remove = function(category) {
-    	console.log(category);
+    	if (! confirm('Are you sure you want to remove the category ' + category.name + '? This may alter or even remove the items in it.')) {
+    		return;
+    	}
     	var index = $scope.categories.indexOf(category);
+
     	if (index !== -1) {
     		$scope.categories.splice(index, 1);
     	}
-    	save($scope.categories);
+    	save({"action":"delete", category});
+		
     };
 });
 
@@ -111,10 +106,7 @@ app.controller('addItem', function($scope, $http) {
 	$http.get('/api/' + user.username + '/categories').
 	  	success(function(data, status, headers, config) {
 	    	console.log(data);
-	    	$scope.categories = data;
-	  	}).
-	  	error(function(data, status, headers, config) {
-	    	$scope.categories = [];
+	    	$scope.categories = data.categories;
 	  	});
 
 	function reset() {

@@ -1,7 +1,7 @@
 {% raw %}
 <div ng-controller="addCategory">
 	<h2>Categories</h2>
-	<p ng-repeat="category in categories track by $index"  ng-init="showDelete = false" ng-mouseenter="showDelete = true" ng-mouseleave="showDelete = false">{{ category }} 
+	<p ng-repeat="category in categories track by $index"  ng-init="showDelete = false" ng-mouseenter="showDelete = true" ng-mouseleave="showDelete = false">{{ category.name }} 
 		<a ng-show="showDelete" style="cursor: pointer; text-decoration: none;" ng-click="remove(category)">&times;</a>
 	</p>
 

@@ -8,7 +8,7 @@
     <span class="caret" ng-hide="item.category"></span>
   </button>
   <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-  	<li ng-repeat="category in categories" ng-click="item.category = category"><a href="#">{{ category }}</a></li>
+  	<li ng-repeat="category in categories" ng-click="item.category = category"><a href="#">{{ category.name }}</a></li>
   </ul>
   <!-- <button class="btn btn-link">New Category</button><br> -->
 </div>
