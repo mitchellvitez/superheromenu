@@ -91,38 +91,38 @@ app.controller('categories', function($scope, $http) {
     };
 });
 
-app.controller('addItem', function($scope, $http) {
+app.controller('items', function($scope, $http) {
 
+	load();
+	reset();
 
-	$http.get('/api/' + user.username + '/categories').
+	function load() {
+		$http.get('/api/' + user.username + '/categories').
 	  	success(function(data, status, headers, config) {
-	    	console.log(data);
 	    	$scope.categories = data.categories;
 	  	});
+	}
 
 	function reset() {
     	$scope.item = {};
         $scope.options = [];
     }
 
-	reset();
+    function post(data) {
+    	console.log(data);
+    	$http.post('/api/' + user.username + '/items', data).
+			success(function(data, status, headers, config) {
+				console.log(data);
+			});
+    }
 
     $scope.addOption = function() {
         $scope.options.push(0);
     };
 
-    $scope.saveItem = function() {
-    	var data = $scope.item;
-        console.log(data);
+    $scope.save = function() {
+    	var item = $scope.item;
+    	post({"action":"save", item });
         reset();
-        $http.post('/api/' + user.username + '/items', data).
-			success(function(data, status, headers, config) {
-				console.log(data);
-			}).
-			error(function(data, status, headers, config) {
-				console.log(data);
-	  		});  
     };
-
-    
 });

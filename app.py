@@ -103,7 +103,7 @@ def categories(restaurantName):
 			return 'ERROR', 401 # TODO: better error data and error code handling
 		else:
 			request.data = ast.literal_eval(request.data)
-			
+
 			if request.data["action"] == "delete":
 				db.menus.update({"identifier": restaurantName}, {"$pull": {"categories": request.data['category'] } })
 			elif request.data["action"] == "save":
@@ -118,19 +118,30 @@ def items(restaurantName):
 		if current_user.username != restaurantName:
 			return 'ERROR', 401
 		else:
-			# put data in db
-			return '[]';
+			request.data = ast.literal_eval(request.data)
+
+			categoryName = request.data['item']['category']['name']
+			try:
+				del request.data['item']['category']
+			except KeyError:
+				pass # "category" should always be a key
+
+			if request.data["action"] == "save":
+				db.menus.update({"identifier": restaurantName, "categories.name": categoryName },
+					{"$push" : {"categories.$.items" : request.data['item'] } } )
+					
+			# elif request.data["action"] == "delete":
+			# 	db.menus.update({"identifier": restaurantName}, {"$pull": {"categories": request.data['category'] } })
+
 	return dumps(db.menus.find_one({"identifier": restaurantName}, {"categories": True}))
 
-@app.route('/api/<restaurantName>/menus')
-def getMenus(restaurantName):
-	restaurantName = restaurantName.lower()
-	if restaurantName == 'carsons':
-		return '["Main Menu", "Wine List", "Dessert Menu", "Breakfast Menu"]';
-	else:
-		return '[]';
-
-# @app.route('/api/<restaurantName>/insert')
+# @app.route('/api/<restaurantName>/menus')
+# def getMenus(restaurantName):
+# 	restaurantName = restaurantName.lower()
+# 	if restaurantName == 'carsons':
+# 		return '["Main Menu", "Wine List", "Dessert Menu", "Breakfast Menu"]'
+# 	else:
+# 		return '[]'
 
 @app.route('/manage')
 @login_required

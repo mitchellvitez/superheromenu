@@ -1,17 +1,16 @@
 {% raw %}
-<div ng-controller="addItem">
-<h2>Add Item</h2>
+<div ng-controller="items">
+	<h2>Add Item</h2>
 
-<div class="dropdown form-group">
-  <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-    {{ item.category || "Category" }}
-    <span class="caret" ng-hide="item.category"></span>
-  </button>
-  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-  	<li ng-repeat="category in categories" ng-click="item.category = category"><a href="#">{{ category.name }}</a></li>
-  </ul>
-  <!-- <button class="btn btn-link">New Category</button><br> -->
-</div>
+	<div class="dropdown form-group">
+	  <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+	    {{ item.category.name || "Category" }}
+	    <span class="caret" ng-hide="item.category"></span>
+	  </button>
+	  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+	  	<li ng-repeat="category in categories" ng-click="item.category = category"><a href="manage#">{{ category.name }}</a></li>
+	  </ul>
+	</div>
 
 	<div class="form-group">
 		<label for="name">Item</label>
@@ -51,7 +50,7 @@
 
 	<button class="btn btn-default" ng-click="addOption()">Add Option</button>
 
-	<button class="btn btn-primary" ng-click="saveItem()">Save Item</button>
+	<button class="btn btn-primary" ng-click="save()">Save Item</button>
 
 </div>
 {% endraw %}
