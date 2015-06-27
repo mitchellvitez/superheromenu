@@ -51,18 +51,30 @@
 			"items": [
 				{	"name": "Soup of the Day",
 					"description": "",
-					"price": {
-						"cup": 4.95,
-						"bowl": 6.95
-					}
+					"options": [
+						{
+							"name": "cup",
+							"price": 4.95
+						},
+						{
+							"name": "bowl",
+							"price": 6.95
+						}
+					]
 				},
 				{
 					"name": "Corn Chowder",
 					"description": "bacon and cheese garnish",
-					"price": {
-						"cup": 4.95,
-						"bowl": 6.95
-					}
+					"options": [
+						{
+							"name": "cup",
+							"price": 4.95
+						},
+						{
+							"name": "bowl",
+							"price": 6.95
+						}
+					]
 				},
 				{
 					"name": "The Carson's Wedge",
@@ -85,7 +97,7 @@
 							"price": 14.95
 						},
 						{
-							"name": "sub Caesar w/ entr&eacute;e",
+							"name": "sub Caesar w/ entrée",
 							"price": 2.95
 						}
 					]
@@ -111,7 +123,7 @@
 					"price": 4.95,
 					"options": [
 						{
-							"name": "sub house w/ entr&eacute;e",
+							"name": "sub house w/ entrée",
 							"price": "2.95"
 						}
 					]
@@ -123,7 +135,7 @@
 			]
 		},
 		{	"name": "Sandwiches",
-			"description": "includes fries and blue cheese coleslaw, add cup of soup for 3.95. burgers include lettuce, tomato, choice of Vermont cheddar, blue cheese, jalapeno jack cheese, swiss, caramelized onions on a choice of our traditional, whole wheat or whole wheat &quote;skinny&quote; bun applewood smoked bacon add 1.00",
+			"description": "includes fries and blue cheese coleslaw, add cup of soup for 3.95. burgers include lettuce, tomato, choice of Vermont cheddar, blue cheese, jalapeno jack cheese, swiss, caramelized onions on a choice of our traditional, whole wheat or whole wheat \"skinny\" bun applewood smoked bacon add 1.00",
 			"items": [
 				{
 					"name": "Carson's Bistro Burger",
@@ -238,7 +250,7 @@
 			"name": "Seafood",
 			"items": [
 				{
-					"name": "Beer Battered Fish &amp; Chips",
+					"name": "Beer Battered Fish & Chips",
 					"description": "house-made tartar sauce",
 					"price": 15.95
 				}

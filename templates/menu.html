@@ -20,7 +20,12 @@
 					<div ng-repeat="item in category.items">
 						<h3>{{ item.name }}</h3>
 						<p>{{ item.description }}</p>
-						<p>${{ item.price }}</p>
+						<p ng-show="item.price">${{ item.price }}</p>
+						<div ng-repeat="option in item.options">
+							<h4>{{ option.name }}</h4>
+							<p>{{ option.description }}</p>
+							<p>${{ option.price }}</p>
+						</div>
 					</div>
 				</div>
 			</div>
