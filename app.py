@@ -30,10 +30,9 @@ login_manager = LoginManager()
 login_manager.init_app(app)
 
 class User():
-	def __init__(self, username, password, email):
+	def __init__(self, username, password):
 		self.username = username
 		self.password = password
-		self.email = email
 
 	def is_authenticated(self):
 		return True
@@ -51,7 +50,7 @@ class User():
 def load_user(username):
 	# returns user object, sans password, from this user id
 	# return db.users.find_one({'username': username}, {'password': False})
-	return User(username, '', 'totallyemail@gmail.com')
+	return User(username, '')
 
 @app.route('/login', methods=['GET','POST'])
 def login():
@@ -68,7 +67,7 @@ def logout():
 
 def userAsJson():
 	# TODO: remove password field from this dictionary
-    return json.dumps(current_user.__dict__)
+    return json.dumps(current_user.__dict__.pop("password", None))
 
 app.jinja_env.globals.update(userAsJson=userAsJson)
 
@@ -134,6 +133,22 @@ def items(restaurantName):
 			# 	db.menus.update({"identifier": restaurantName}, {"$pull": {"categories": request.data['category'] } })
 
 	return dumps(db.menus.find_one({"identifier": restaurantName}, {"categories": True}))
+
+@app.route('/api/<restaurantName>/style', methods=['GET', 'POST'])
+def style(restaurantName):
+	restaurantName = restaurantName.lower()
+	if request.method == 'POST':
+		if current_user.username != restaurantName:
+			return 'ERROR', 401 # TODO: better error data and error code handling
+		else:
+			request.data = ast.literal_eval(request.data)
+
+			# if request.data["action"] == "delete":
+			# 	db.menus.update({"identifier": restaurantName}, {"$pull": {"style": request.data['element'] } })
+			if request.data["action"] == "save":
+				db.menus.update({"identifier": restaurantName}, {"$set": {"style": request.data['style'] } })
+
+	return dumps(db.menus.find_one({"identifier": restaurantName}, {"style": True}))
 
 # @app.route('/api/<restaurantName>/menus')
 # def getMenus(restaurantName):

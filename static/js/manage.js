@@ -135,3 +135,30 @@ app.controller('items', function($scope, $http, $rootScope) {
         reset();
     };
 });
+
+app.controller('style', function($scope, $http, $rootScope) {
+
+	load();
+
+	function load() {
+		$http.get('/api/' + user.username + '/style').
+		  	success(function(data, status, headers, config) {
+		  		console.log(data);
+		    	$scope.style = data.style;
+		  	});
+	}
+
+	function post(data) {
+		$http.post('/api/' + user.username + '/style', data).
+			success(function(data, status, headers, config) {
+				$scope.style = data.style;
+			});
+		$rootScope.$broadcast('styleRefresh');
+	}
+
+	$scope.save = function() {
+    	var style = $scope.style;
+    	post({"action":"save", style });
+    };
+
+});

@@ -19,6 +19,17 @@
 		"Chef": "Alex Wannemacher"
 	},
 	"advisory": "Notice: These items may be raw, undercooked or cooked to order. Ask your server about menu items that are cooked to order or served raw. Consuming raw or undercooked meats, poultry, seafood, shellfish or eggs may increase your risk of foodborne illness. Please notify us of food allergies. Not responsible for personal property. All menu items and pricing on our menu are subject to change, without notice based on availability and market price.",
+	"style": [
+		{	"name": "primary color",
+		 	"value": "red"
+		},
+		{	"name": "text color",
+			"value": "#444"
+		},
+		{	"name": "currency symbol",
+			"value": "$"
+		}
+	],
 	"categories": [
 		{	"name": "Starters",
 			"description": "",

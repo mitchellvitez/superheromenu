@@ -1,0 +1,10 @@
+{% raw %}
+<div ng-controller="style">
+	<h2>Style</h2>
+		<div class="input-group form-group" ng-repeat="element in style track by $index">
+			<span class="input-group-addon">{{ element.name }}</span>
+			<input type="text" class="form-control" ng-model="element.value">
+		</div>
+	<button class="btn btn-primary" ng-click="save()">Save Style</button>
+</div>
+{% endraw %}

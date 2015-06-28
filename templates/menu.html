@@ -11,20 +11,25 @@
 {% block body %}
 	{% raw %}
 	<body ng-app="menu">
-		<div ng-controller="menu">
-			<div class="container-fluid">
+		<div ng-controller="menu" ng-style="{
+				color: getElement('text color'),
+				'background-color': getElement('primary color'),
+				'font-size': getElement('font size'),
+				'font-family': 'Ultramagnetic'
+			}">
+			<div class="container" >
 				<h1 class="text-center">{{ menu.name }}</h1>
-				<div class="col-md-6" ng-repeat="category in menu.categories">
+				<div class="row" ng-repeat="category in menu.categories">
 					<h2>{{ category.name }}</h2>
 					<p>{{ category.description }}</p>
-					<div ng-repeat="item in category.items">
+					<div class="col-md-6" ng-repeat="item in category.items">
 						<h3>{{ item.name }}</h3>
 						<p>{{ item.description }}</p>
-						<p ng-show="item.price">${{ item.price }}</p>
+						<p ng-show="item.price">{{ getElement("currency symbol") }}{{ item.price }}</p>
 						<div ng-repeat="option in item.options">
 							<h4>{{ option.name }}</h4>
 							<p>{{ option.description }}</p>
-							<p>${{ option.price }}</p>
+							<p>{{ getElement("currency symbol") }}{{ option.price }}</p>
 						</div>
 					</div>
 				</div>
