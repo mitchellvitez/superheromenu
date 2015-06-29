@@ -1,33 +1,83 @@
 {
 	"identifier": "carsons",
 	"name": "Carson's American Bistro",
-	"type": "bistro",
-	"hours": {
-		"Monday-Thursday": "11am - 10pm",
-		"Friday": "11am - 11pm",
-		"Saturday": "4pm - 11pm",
-		"Sunday": "10am - 9pm"
-	},
-	"address": {
-		"": "2000 Commonwealth Blvd.",
-		"city": "Ann Arbor",
-		"state": "MI",
-		"zip": "48105"
-	},
-	"staff" : {
-		"General Manager": "Scott Behler",
-		"Chef": "Alex Wannemacher"
-	},
-	"advisory": "Notice: These items may be raw, undercooked or cooked to order. Ask your server about menu items that are cooked to order or served raw. Consuming raw or undercooked meats, poultry, seafood, shellfish or eggs may increase your risk of foodborne illness. Please notify us of food allergies. Not responsible for personal property. All menu items and pricing on our menu are subject to change, without notice based on availability and market price.",
+	"info": [
+		{
+			"name": "Hours",
+			"value": [
+				{
+					"name": "Monday-Thursday",
+					"value": "11am - 10pm"
+				},
+				{
+					"name": "Friday",
+					"value": "11am - 11pm"
+				},
+				{
+					"name": "Saturday",
+					"value": "4pm - 11pm"
+				},
+				{
+					"name": "Sunday",
+					"value": "10am - 9pm"
+				},
+			]
+		},
+		{
+			"name": "Address",
+			"value": [
+				{
+					"name": "",
+					"value": "2000 Commonwealth Blvd.",
+				},
+				{
+					"name": "city",
+					"value": "Ann Arbor",
+				},
+				{
+					"name": "state",
+					"value": "MI",
+				},
+				{
+					"name": "zip",
+					"value": "48105"
+				}
+			]
+		},
+		{
+			"name": "Staff",
+			"value": [
+				{
+					"name": "General Manager",
+					"value": "Scott Behler"
+				},
+				{
+					"name": "Chef",
+					"value": "Alex Wannemacher"
+				}
+			]
+		},
+		{
+			"name": "Advisory",
+			"value": "These items may be raw, undercooked or cooked to order. Ask your server about menu items that are cooked to order or served raw. Consuming raw or undercooked meats, poultry, seafood, shellfish or eggs may increase your risk of foodborne illness. Please notify us of food allergies. Not responsible for personal property. All menu items and pricing on our menu are subject to change, without notice based on availability and market price."
+		}
+	],
 	"style": [
-		{	"name": "primary color",
-		 	"value": "red"
+		{	"name": "Background Color",
+		 	"value": "#ffffff"
 		},
-		{	"name": "text color",
-			"value": "#444"
+		{	"name": "Text Color",
+			"value": "#444444"
 		},
-		{	"name": "currency symbol",
+		{	"name": "Currency Symbol",
 			"value": "$"
+		},
+		{	"name": "Font",
+			"value": "'Hoefler Text', 'Baskerville Old Face', Garamond, 'Times New Roman', serif"
+		},
+		{
+			"name": "Title Font Size",
+			"value": "300%"
 		}
 	],
 	"categories": [

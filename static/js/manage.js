@@ -9,9 +9,6 @@
 
 var app = angular.module('manager', ['ngRoute']);
 
-console.log(user.username);
-user.username = 'carsons';
-
 app.config(function($routeProvider, $locationProvider) {
 	// $routeProvider
 	// 	.when('/', {
@@ -40,7 +37,6 @@ app.controller('sidebar', function($scope, $http) {
 
 	$http.get('/api/' + user.username + '/menus').
 	  	success(function(data, status, headers, config) {
-	    	console.log(data);
 	    	$scope.menus = data;
 	  	}).
 	  	error(function(data, status, headers, config) {
@@ -50,6 +46,39 @@ app.controller('sidebar', function($scope, $http) {
 
 app.controller('embed', function($scope, $http) {
 	$scope.username = user.username;
+});
+
+app.controller('info', function($scope, $http, $rootScope) {
+
+	load();
+
+	function load() {
+		$http.get('/api/' + user.username + '/info').
+	  	success(function(data, status, headers, config) {
+	    	$scope.info = data.info;
+	  	});
+	}
+	
+});
+
+app.controller('iframe', function($scope, $http) {
+	$scope.username = user.username;
+
+	function load() {
+		$('#iframe').attr('src', $('#iframe').attr('src'));
+	}
+
+	$scope.$on('categoryRefresh', function(event, args) {
+		load();
+	});
+
+	$scope.$on('itemRefresh', function(event, args) {
+		load();
+	});
+
+	$scope.$on('styleRefresh', function(event, args) {
+		load();
+	});
 });
 
 app.controller('categories', function($scope, $http, $rootScope) {
@@ -118,11 +147,11 @@ app.controller('items', function($scope, $http, $rootScope) {
     }
 
     function post(data) {
-    	console.log(data);
     	$http.post('/api/' + user.username + '/items', data).
 			success(function(data, status, headers, config) {
-				console.log(data);
+
 			});
+		$rootScope.$broadcast('itemRefresh');
     }
 
     $scope.addOption = function() {
@@ -143,7 +172,6 @@ app.controller('style', function($scope, $http, $rootScope) {
 	function load() {
 		$http.get('/api/' + user.username + '/style').
 		  	success(function(data, status, headers, config) {
-		  		console.log(data);
 		    	$scope.style = data.style;
 		  	});
 	}

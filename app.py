@@ -33,12 +33,15 @@ class User():
 	def __init__(self, username, password):
 		self.username = username
 		self.password = password
+		db.users.update({'username': self.username, "password": self.password}, {"username": self.username, "password": self.password}, upsert=True)
+		# TODO: create basic menu structure
+		# db.menus.update({'identifier': self.username}, , upsert=True)
 
 	def is_authenticated(self):
-		return True
+		return db.users.find({'username': self.username, "password": self.password}).limit(1).count() > 0
 
 	def is_active(self):
-		return True
+		return True # return db.users.find({'username': self.username, "password": self.password}).limit(1).count() > 0
 
 	def is_anonymous(self):
 		return False
@@ -47,16 +50,44 @@ class User():
 		return unicode(self.username)
 
 @login_manager.user_loader
-def load_user(username):
+def load_user(username, password=''):
 	# returns user object, sans password, from this user id
-	# return db.users.find_one({'username': username}, {'password': False})
-	return User(username, '')
+	return User(username, password)
+
+# TODO !IMPORTANT: Hash passwords
+
+@app.route('/signup', methods=['GET','POST'])
+def signup():
+	if request.method == 'POST':
+		db.users.insert( {'username': request.form['username'], "password": request.form['password'] } )
+
+		# TODO: load default style values, default categories/items maybe (as an example, to teach deletion etc.)
+		db.menus.insert( {'identifier': request.form['username'], 'style': [ {'name': 'background color', 'value': 'red' } ], 'categories': [] } )
+
+		login_user(User(request.form['username'], request.form['password']))
+		if current_user.is_authenticated():
+			return redirect('../manage')
+	return render_template('signup.html')
+
+@app.route('/motivation')
+def motivation():
+	return "<h1>MEDIOCRITY WILL NOT DO</h1>"
 
 @app.route('/login', methods=['GET','POST'])
 def login():
-	# remember=True
-	login_user(User('carsons', 'testpass222', 'totallyemail@gmail.com'))
-	return "logged in %s" % str(current_user.username)
+	# TODO: "remember me" checkbox
+	if request.method == 'POST':
+		for i in db.users.find():
+			print i
+		if db.users.find( {'username': request.form['username'], "password": request.form['password'] } ).count() > 0:
+			login_user(User(request.form['username'], request.form['password']))
+			return redirect('../manage')
+
+	if current_user.is_authenticated():
+		return redirect('../manage')
+
+	return render_template('login.html')
+
 
 @app.route("/logout")
 @login_required
@@ -66,8 +97,7 @@ def logout():
 	return 'logged out %s' % myUser
 
 def userAsJson():
-	# TODO: remove password field from this dictionary
-    return json.dumps(current_user.__dict__.pop("password", None))
+    return json.dumps(current_user.__dict__) #.pop("password", None))
 
 app.jinja_env.globals.update(userAsJson=userAsJson)
 
@@ -89,10 +119,27 @@ def resetDatabase():
 	if current_user.username != 'carsons' and current_user.username != 'mitchellvitez':
 		return 'Authentication failure', 403
 	db.menus.remove({})
+	db.users.remove({})
 	with open ("static/test/carsons.json", "r") as myfile:
 		data = myfile.read().replace('\n', '')
 		db.menus.insert(ast.literal_eval(data))
 	return "Success: reset database"
+
+@app.route('/api/<restaurantName>/info', methods=['GET', 'POST'])
+def info(restaurantName):
+	restaurantName = restaurantName.lower()
+	if request.method == 'POST':
+		if current_user.username != restaurantName:
+			return 'ERROR', 401 # TODO: better error data and error code handling
+		else:
+			request.data = ast.literal_eval(request.data)
+
+			# if request.data["action"] == "delete":
+			# 	db.menus.update({"identifier": restaurantName}, {"$pull": {"info": request.data['info'] } })
+			# elif request.data["action"] == "save":
+			# 	db.menus.update({"identifier": restaurantName}, {"$push": {"info": request.data['info'] } })
+
+	return dumps(db.menus.find_one({"identifier": restaurantName}, {"info": True}))
 
 @app.route('/api/<restaurantName>/categories', methods=['GET', 'POST'])
 def categories(restaurantName):
@@ -161,7 +208,7 @@ def style(restaurantName):
 @app.route('/manage')
 @login_required
 def manage():
-	return render_template('manage.html')
+	return render_template('manage.html', username=current_user.username)
 
 @app.route('/menu/<restaurantName>')
 def menu(restaurantName):

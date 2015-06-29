@@ -1,2 +1,15 @@
+/* $font-stack: Geneva, Tahoma, Verdana, sans-serif;
+$primary-color: #333;
+
+body {
+  font: $font-stack;
+  color: $primary-color;
+}
+
+h1, h2, h3, h4, h5, h6 {
+ 	color: $primary-color;
+}
+
+*/
 
 /*# sourceMappingURL=main.css.map */

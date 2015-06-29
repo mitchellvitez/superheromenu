@@ -7,6 +7,7 @@
     <script src="{{ url_for('static', filename='js/manage.js') }}"></script>
     <base href="/">
     <link href="{{ url_for('static', filename='css/simple-sidebar.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/manage.css') }}" rel="stylesheet">
 {% endblock %}
 {% block body %}
 	<body ng-app="manager">
@@ -16,8 +17,7 @@
         		{# {% include "sidebarexpander.html" %} #} -->
 				<div class="container-fluid">
 					<div class="col-md-8">
-						<h1>Menu View</h1>
-						<iframe src="/menu/carsons" width="100%" height="500px" frameBorder="0" style="border: 1px solid #ddd"></iframe>
+						{% include "iframe.html" %}
 					</div>
 					<div class="col-md-4">
 		    			{% include "additem.html" %}
@@ -31,9 +31,13 @@
 		    		<div class="col-md-4">
 		    			{% include "style.html" %}
 		    		</div>
+		    		<div class="col-md-4">
+		    			{% include "info.html" %}
+		    		</div>
 		    	</div>
 		   <!-- </div>
     	</div> -->
+    	<div style="height: 30px"></div>
 	</body>
 	
 {% endblock %}

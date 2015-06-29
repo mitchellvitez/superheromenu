@@ -10,12 +10,23 @@
 	});
 
 	app.controller('menu', function($scope, $http) {
-        $http.get('/api/' + restaurantName).
-        	success(function(data, status, headers, config) {
-			    $scope.menu = data;
-		  	});
+
+		load();
+
+		function load() {
+	        $http.get('/api/' + restaurantName).
+	        	success(function(data, status, headers, config) {
+				    $scope.menu = data;
+			  	});
+		}
+
+		$scope.L = function(elementName) {
+			return $scope.getElement(elementName);
+		}
 
 		$scope.getElement = function(elementName) {
+			if (! $scope.menu)
+				return;
 			var idx = indexOf($scope.menu.style, "name", elementName);
 			if (idx == -1) {
 				return "null";
