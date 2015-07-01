@@ -58,6 +58,10 @@ app.controller('info', function($scope, $http, $rootScope) {
 	    	$scope.info = data.info;
 	  	});
 	}
+
+	$scope.isArray = function(array) {
+		return Object.prototype.toString.call( array ) === '[object Array]';
+	}
 	
 });
 

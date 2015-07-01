@@ -23,12 +23,12 @@
 					<p>{{ category.description }}</p>
 					<div class="col-md-6" ng-repeat="item in category.items">
 						<h3>{{ item.name }}</h3>
-						<p>{{ item.description }}</p>
-						<p ng-show="item.price">{{ getElement("Currency Symbol") }}{{ item.price }}</p>
-						<div ng-repeat="option in item.options">
-							<h4>{{ option.name }}</h4>
-							<p>{{ option.description }}</p>
-							<p>{{ getElement("Currency Symbol") }}{{ option.price }}</p>
+						<p class="col-md-10">{{ item.description }}</p>
+						<p class="col-md-2" ng-show="item.price">{{ getElement("Currency Symbol") }}{{ item.price }}</p>
+						<div class="row" ng-repeat="option in item.options">
+							<p class="col-md-5">{{ option.name }}</p>
+							<p class="col-md-5">{{ option.description }}</p>
+							<p class="col-md-2">{{ getElement("Currency Symbol") }}{{ option.price }}</p>
 						</div>
 					</div>
 				</div>

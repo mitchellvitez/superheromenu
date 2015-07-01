@@ -27,19 +27,19 @@
 			"name": "Address",
 			"value": [
 				{
-					"name": "",
+					"name": "Street Address",
 					"value": "2000 Commonwealth Blvd.",
 				},
 				{
-					"name": "city",
+					"name": "City",
 					"value": "Ann Arbor",
 				},
 				{
-					"name": "state",
+					"name": "State",
 					"value": "MI",
 				},
 				{
-					"name": "zip",
+					"name": "Zip",
 					"value": "48105"
 				}
 			]
