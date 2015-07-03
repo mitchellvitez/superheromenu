@@ -14,22 +14,33 @@
 		<div ng-controller="menu" ng-style="{
 				color: L('Text Color'),
 				'background-color': L('Background Color'),
-				'font-family': L('Font')
+				'font-family': L('Font'),
+				'font-size': L('Font Size')
 			}">
 			<div class="container" >
 				<h1 class="text-center" ng-style="{'font-size': L('Title Font Size')}">{{ menu.name }}</h1>
 				<div class="row" ng-repeat="category in menu.categories">
 					<h2>{{ category.name }}</h2>
-					<p>{{ category.description }}</p>
+					<p class="col-md-12">{{ category.description }}</p>
 					<div class="col-md-6" ng-repeat="item in category.items">
 						<h3>{{ item.name }}</h3>
-						<p class="col-md-10">{{ item.description }}</p>
+						<p class="col-md-10" style="font-style: italic;">{{ item.description }}</p>
 						<p class="col-md-2" ng-show="item.price">{{ getElement("Currency Symbol") }}{{ item.price }}</p>
 						<div class="row" ng-repeat="option in item.options">
 							<p class="col-md-5">{{ option.name }}</p>
 							<p class="col-md-5">{{ option.description }}</p>
 							<p class="col-md-2">{{ getElement("Currency Symbol") }}{{ option.price }}</p>
 						</div>
+					</div>
+				</div>
+				<br>
+				<h2 class="text-center">Other Information</h2>
+				<div class="col-md-6" ng-repeat="item in menu.info track by $index">
+					<h3>{{ item.name }}</h3>
+					<p ng-hide="isArray(item.value)">{{ item.value }}</p>
+					<div ng-show="isArray(item.value)" ng-repeat="pair in item.value track by $index">
+						<p class="col-md-6">{{ pair.name }}</p>
+						<p class="col-md-6">{{ pair.value }}</p>
 					</div>
 				</div>
 			</div>

@@ -76,6 +76,10 @@
 			"value": "'Hoefler Text', 'Baskerville Old Face', Garamond, 'Times New Roman', serif"
 		},
 		{
+			"name": "Font Size",
+			"value": "120%"
+		},
+		{
 			"name": "Title Font Size",
 			"value": "300%"
 		}

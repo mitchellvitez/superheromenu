@@ -20,6 +20,10 @@
 			  	});
 		}
 
+		$scope.isArray = function(array) {
+			return Object.prototype.toString.call( array ) === '[object Array]';
+		}
+
 		$scope.L = function(elementName) {
 			return $scope.getElement(elementName);
 		}

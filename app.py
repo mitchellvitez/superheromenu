@@ -54,19 +54,129 @@ def load_user(username, password=''):
 	# returns user object, sans password, from this user id
 	return User(username, password)
 
+@login_manager.unauthorized_handler
+def unauthorized():
+    return redirect("login")
+
+
 # TODO !IMPORTANT: Hash passwords
 
 @app.route('/signup', methods=['GET','POST'])
 def signup():
+	if current_user.is_authenticated():
+		return redirect('../manage')
+
 	if request.method == 'POST':
-		db.users.insert( {'username': request.form['username'], "password": request.form['password'] } )
+
+		username = request.form['username']
+		password = request.form['password']
+		email = request.form['email']
+
+		if not username.isalnum():
+			return render_template('signup.html')
+
+		db.users.insert( {'username': username, "password": password, "email": email } )
 
 		# TODO: load default style values, default categories/items maybe (as an example, to teach deletion etc.)
-		db.menus.insert( {'identifier': request.form['username'], 'style': [ {'name': 'background color', 'value': 'red' } ], 'categories': [] } )
+		db.menus.insert( {'identifier': username,
+			'style': [
+				{	"name": "Background Color",
+				 	"value": "#ffffff"
+				},
+				{	"name": "Text Color",
+					"value": "#444444"
+				},
+				{	"name": "Currency Symbol",
+					"value": "$"
+				},
+				{	"name": "Font",
+					"value": "'Hoefler Text', 'Baskerville Old Face', Garamond, 'Times New Roman', serif"
+				},
+				{
+					"name": "Font Size",
+					"value": "120%"
+				},
+				{
+					"name": "Title Font Size",
+					"value": "300%"
+				}
+			],
+			'name': username,
+			'info' : [
+					{
+						"name": "Hours",
+						"value": [
+							{
+								"name": "Monday-Friday",
+								"value": "11am - 10pm"
+							},
+							{
+								"name": "Weekends",
+								"value": "Open 24 hours"
+							},
+						]
+					},
+					{
+						"name": "Address",
+						"value": [
+							{
+								"name": "Street Address",
+								"value": "123 Great Restaurant Road",
+							},
+							{
+								"name": "City",
+								"value": "Menutown",
+							},
+							{
+								"name": "Country",
+								"value": "USA",
+							},
+						]
+					},
+					{
+						"name": "Advisory",
+						"value": "Eat raw meat at your own risk"
+					}
+				],
+			'categories': [
+					{	"name": "First Category",
+						"description": "Menus are divided into categories of items. You can add and change categories and items in the manager.",
+						"items": [
+							{	"name": "Test Item",
+								"description": "delicious, made with a house sauce and lots of love",
+								"options": [
+									{
+										"name": "cup",
+										"price": 4.50
+									},
+									{
+										"name": "bowl",
+										"price": 8
+									}
+								]
+							},
+							{	"name": "Item 2",
+								"description": "You can also adjust the look and feel of your menu with \"Style\" in the manager",
+								"price": 19.95
+							}
+						]
+					},
+					{	"name": "Appetizers",
+						"description": "Yummy little pre-meal treats",
+						"items": [
+							{	"name": "Celery sticks",
+								"description": "Like eating crunchy water",
+								"price": 99
+							}, 
+						]
+					}
+				]
+			})
 
-		login_user(User(request.form['username'], request.form['password']))
+		login_user(User(username, password))
 		if current_user.is_authenticated():
 			return redirect('../manage')
+
 	return render_template('signup.html')
 
 @app.route('/motivation')
@@ -77,10 +187,12 @@ def motivation():
 def login():
 	# TODO: "remember me" checkbox
 	if request.method == 'POST':
-		for i in db.users.find():
-			print i
-		if db.users.find( {'username': request.form['username'], "password": request.form['password'] } ).count() > 0:
-			login_user(User(request.form['username'], request.form['password']))
+		
+		username = request.form['username']
+		password = request.form['password']
+
+		if db.users.find( {'username': username, "password": password } ).count() > 0:
+			login_user(User(username, password))
 			return redirect('../manage')
 
 	if current_user.is_authenticated():
@@ -101,12 +213,12 @@ def userAsJson():
 
 app.jinja_env.globals.update(userAsJson=userAsJson)
 
-@app.route('/api/<restaurantName>/search/<query>')
-def search(restaurantName, query):
-	if query == 'blue cheese' and restaurantName == 'carsons':
-		return app.send_static_file('test/carsonsbluecheese.json')
-	else:
-		return '"%s" not found for restaurant "%s"' % (query, restaurantName)
+# @app.route('/api/<restaurantName>/search/<query>')
+# def search(restaurantName, query):
+# 	if query == 'blue cheese' and restaurantName == 'carsons':
+# 		return app.send_static_file('test/carsonsbluecheese.json')
+# 	else:
+# 		return '"%s" not found for restaurant "%s"' % (query, restaurantName)
 
 @app.route('/api/<restaurantName>')
 def restaurantInfo(restaurantName):
