@@ -13,3 +13,62 @@ h1, h2, h3, h4, h5, h6 {
 */
 
 /*# sourceMappingURL=main.css.map */
+
+
+body {
+	font-family: Geneva, Tahoma, Verdana, sans-serif;
+}
+
+.form-control {
+	border: 2px solid #ccc;
+}
+
+.input-group-addon {
+	border: 2px solid #ccc;
+	background-color: #e8f8e8;
+}
+
+pre {
+	border: none;
+	background-color: #f8e8e8;
+}
+
+.btn {
+	border: none;
+	background: #f8e8f8;
+	outline: none;
+}
+
+.btn:active {
+	background-color: #d6c5d6;
+}
+
+.btn:hover {
+	background-color: #e7d6e7;
+}
+
+.btn-primary:active {
+	background-color: #0d79ba;
+}
+
+.btn:focus, .btn:active:focus {
+	outline: none;
+	background-color: #d6c5d6;
+}
+
+.btn-primary:active:focus, .btn-primary:focus {
+	background-color: #0d79ba;
+}
+
+.btn:active:focus {
+	outline: none;
+}
+
+.btn-primary {
+	background: #2faced;
+	color: #f8f8f8;
+}
+
+.btn-primary:hover {
+	background: #0e8acb;
+}

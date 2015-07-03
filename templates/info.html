@@ -1,0 +1,13 @@
+{% raw %}
+<div ng-controller="info">
+	<h2>More Information</h2>
+	<div ng-repeat="item in info track by $index">
+		<h3>{{ item.name }}</h3>
+		<p ng-hide="isArray(item.value)">{{ item.value }}</p>
+		<div ng-show="isArray(item.value)" ng-repeat="pair in item.value track by $index">
+			<p class="col-md-6">{{ pair.name }}</p>
+			<p class="col-md-6">{{ pair.value }}</p>
+		</div>
+	</div>
+</div>
+{% endraw %}

@@ -1,0 +1,42 @@
+x	a	create login form
+x	a	create signup form
+x	a	make iframe load for user properly
+
+-	a	add more styling elements
+			What other styles should be changeable?
+				..... between item and price
+				fonts for headers vs items
+				text decoration for headers???
+			
+x	a	auto-refresh iframe on changes
+x	a	refresh iframe on item add
+
+-	a	more info (name, hours, gm and chef names)
+			needs interactivity, but will come back to this
+
+x	a	landing page
+	
+x	b 	override bootstrap css so pretty
+
+-	b	item deletion/update
+x	b	security of login
+x		Hash passwords
+x	b	security of JSON from db (( was already okay, just need to escape json after getting from /api ))
+x	b	styling of manager itself
+	b	get a salesperson
+	
+	c	analytics (# of searches for an item, # of menu views per day over time)
+	c	search for an item
+	c	documentation for future programmers
+	c	incorporate
+	c	better "unauthorized" page, 404 page
+x	c 	forum for feature requests
+
+	d 	dairy-free, nut-free, shellfish etc. filters
+	d 	advanced users add new element to style array using css "border-radius":"4px"
+	d 	multiple language support
+	d	manual for restaurant owners
+
+	e 	calorie counter linking to myfitnesspal / export
+	e 	automate payments (stripe?)
+	e 	'remember me' for login

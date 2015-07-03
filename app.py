@@ -5,6 +5,7 @@ from flask.ext.login import LoginManager, login_required, login_user, logout_use
 import datetime
 import json
 import ast
+import bcrypt
 
 """
 Flask for login/security issues, api
@@ -58,8 +59,9 @@ def load_user(username, password=''):
 def unauthorized():
     return redirect("login")
 
-
-# TODO !IMPORTANT: Hash passwords
+@app.errorhandler(404)
+def page_not_found(e):
+    return "FOUR OH FOUR NOT FOUND", 404
 
 @app.route('/signup', methods=['GET','POST'])
 def signup():
@@ -69,7 +71,8 @@ def signup():
 	if request.method == 'POST':
 
 		username = request.form['username']
-		password = request.form['password']
+		password = bcrypt.hashpw(request.form['password'], bcrypt.gensalt())
+		print password
 		email = request.form['email']
 
 		if not username.isalnum():
@@ -191,9 +194,12 @@ def login():
 		username = request.form['username']
 		password = request.form['password']
 
-		if db.users.find( {'username': username, "password": password } ).count() > 0:
-			login_user(User(username, password))
-			return redirect('../manage')
+		if db.users.find( {'username': username } ).count() > 0:
+			userdata = db.users.find_one({'username': username}, {'_id': 0})
+			userdata = ast.literal_eval(str(userdata))
+
+			if bcrypt.checkpw(password, userdata['password']):
+				login_user(User(username, password))
 
 	if current_user.is_authenticated():
 		return redirect('../manage')
@@ -204,9 +210,8 @@ def login():
 @app.route("/logout")
 @login_required
 def logout():
-	myUser = current_user.username
 	logout_user()
-	return 'logged out %s' % myUser
+	return redirect('/')
 
 def userAsJson():
     return json.dumps(current_user.__dict__) #.pop("password", None))
@@ -226,10 +231,10 @@ def restaurantInfo(restaurantName):
 	return dumps(db.menus.find_one({"identifier": restaurantName}))
 
 @app.route('/admin/resetdb')
-@login_required
+#@login_required
 def resetDatabase():
-	if current_user.username != 'carsons' and current_user.username != 'mitchellvitez':
-		return 'Authentication failure', 403
+	# if current_user.username != 'carsons' and current_user.username != 'mitchellvitez':
+	# 	return 'Authentication failure', 403
 	db.menus.remove({})
 	db.users.remove({})
 	with open ("static/test/carsons.json", "r") as myfile:
@@ -321,6 +326,11 @@ def style(restaurantName):
 @login_required
 def manage():
 	return render_template('manage.html', username=current_user.username)
+
+@app.route('/discuss')
+@login_required
+def discuss():
+	return render_template('discuss.html')
 
 @app.route('/menu/<restaurantName>')
 def menu(restaurantName):
