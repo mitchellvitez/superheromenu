@@ -35,8 +35,6 @@ class User():
 		self.username = username
 		self.password = password
 		db.users.update({'username': self.username, "password": self.password}, {"username": self.username, "password": self.password}, upsert=True)
-		# TODO: create basic menu structure
-		# db.menus.update({'identifier': self.username}, , upsert=True)
 
 	def is_authenticated(self):
 		return db.users.find({'username': self.username, "password": self.password}).limit(1).count() > 0
@@ -61,7 +59,7 @@ def unauthorized():
 
 @app.errorhandler(404)
 def page_not_found(e):
-    return "FOUR OH FOUR NOT FOUND", 404
+    return render_template('404.html'), 404
 
 @app.route('/signup', methods=['GET','POST'])
 def signup():
@@ -72,15 +70,25 @@ def signup():
 
 		username = request.form['username']
 		password = bcrypt.hashpw(request.form['password'], bcrypt.gensalt())
-		print password
 		email = request.form['email']
+		
+		rememberMe = request.form.get('remember')
+		if rememberMe == 'true':
+			rememberMe = True
+		else:
+			rememberMe = False
+
+		if db.users.find( {'username': username } ).count() > 0:
+			return redirect('login')
+
+		if db.users.find( {'email': email } ).count() > 0:
+			return redirect('login')
 
 		if not username.isalnum():
 			return render_template('signup.html')
 
 		db.users.insert( {'username': username, "password": password, "email": email } )
 
-		# TODO: load default style values, default categories/items maybe (as an example, to teach deletion etc.)
 		db.menus.insert( {'identifier': username,
 			'style': [
 				{	"name": "Background Color",
@@ -138,7 +146,13 @@ def signup():
 					},
 					{
 						"name": "Advisory",
-						"value": "Eat raw meat at your own risk"
+						# "value": "Eat raw meat at your own risk"
+						"value": [
+							{
+								"name": "Eat raw meat at your own risk",
+								"value": ""
+							}
+						]
 					}
 				],
 			'categories': [
@@ -176,9 +190,9 @@ def signup():
 				]
 			})
 
-		login_user(User(username, password))
+		login_user(User(username, password), remember=rememberMe)
 		if current_user.is_authenticated():
-			return redirect('../manage')
+			return redirect('login')
 
 	return render_template('signup.html')
 
@@ -188,18 +202,23 @@ def motivation():
 
 @app.route('/login', methods=['GET','POST'])
 def login():
-	# TODO: "remember me" checkbox
 	if request.method == 'POST':
 		
 		username = request.form['username']
 		password = request.form['password']
+
+		rememberMe = request.form.get('remember')
+		if rememberMe == 'true':
+			rememberMe = True
+		else:
+			rememberMe = False
 
 		if db.users.find( {'username': username } ).count() > 0:
 			userdata = db.users.find_one({'username': username}, {'_id': 0})
 			userdata = ast.literal_eval(str(userdata))
 
 			if bcrypt.checkpw(password, userdata['password']):
-				login_user(User(username, password))
+				login_user(User(username, password), remember=rememberMe)
 
 	if current_user.is_authenticated():
 		return redirect('../manage')
@@ -233,8 +252,8 @@ def restaurantInfo(restaurantName):
 @app.route('/admin/resetdb')
 #@login_required
 def resetDatabase():
-	# if current_user.username != 'carsons' and current_user.username != 'mitchellvitez':
-	# 	return 'Authentication failure', 403
+	if current_user.username != 'carsons' and current_user.username != 'mitchellvitez':
+		return 'Authentication failure', 403
 	db.menus.remove({})
 	db.users.remove({})
 	with open ("static/test/carsons.json", "r") as myfile:
@@ -247,14 +266,15 @@ def info(restaurantName):
 	restaurantName = restaurantName.lower()
 	if request.method == 'POST':
 		if current_user.username != restaurantName:
-			return 'ERROR', 401 # TODO: better error data and error code handling
+			return 'ERROR', 401
 		else:
+			print request.data
 			request.data = ast.literal_eval(request.data)
 
 			# if request.data["action"] == "delete":
 			# 	db.menus.update({"identifier": restaurantName}, {"$pull": {"info": request.data['info'] } })
-			# elif request.data["action"] == "save":
-			# 	db.menus.update({"identifier": restaurantName}, {"$push": {"info": request.data['info'] } })
+			if request.data["action"] == "save":
+				db.menus.update({"identifier": restaurantName}, {"$set": {"info": request.data['info']['info'] } })
 
 	return dumps(db.menus.find_one({"identifier": restaurantName}, {"info": True}))
 
@@ -263,7 +283,7 @@ def categories(restaurantName):
 	restaurantName = restaurantName.lower()
 	if request.method == 'POST':
 		if current_user.username != restaurantName:
-			return 'ERROR', 401 # TODO: better error data and error code handling
+			return 'ERROR', 401
 		else:
 			request.data = ast.literal_eval(request.data)
 
@@ -303,7 +323,7 @@ def style(restaurantName):
 	restaurantName = restaurantName.lower()
 	if request.method == 'POST':
 		if current_user.username != restaurantName:
-			return 'ERROR', 401 # TODO: better error data and error code handling
+			return 'ERROR', 401
 		else:
 			request.data = ast.literal_eval(request.data)
 
@@ -328,7 +348,7 @@ def manage():
 	return render_template('manage.html', username=current_user.username)
 
 @app.route('/discuss')
-@login_required
+# @login_required
 def discuss():
 	return render_template('discuss.html')
 

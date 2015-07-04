@@ -51,6 +51,7 @@ app.controller('embed', function($scope, $http) {
 app.controller('info', function($scope, $http, $rootScope) {
 
 	load();
+	reset();
 
 	function load() {
 		$http.get('/api/' + user.username + '/info').
@@ -59,8 +60,37 @@ app.controller('info', function($scope, $http, $rootScope) {
 	  	});
 	}
 
+	function reset() {
+		$scope.sectionName = '';
+	}
+
+	function post(data) {
+		$http.post('/api/' + user.username + '/info', data).
+			success(function(data, status, headers, config) {
+				$scope.info = data.info;
+			});
+		$rootScope.$broadcast('infoRefresh');
+	}
+
 	$scope.isArray = function(array) {
 		return Object.prototype.toString.call( array ) === '[object Array]';
+	}
+
+	$scope.add = function(item) {
+		console.log(item);
+		item.value.push({"name": "", "value": ""});
+	}
+
+	$scope.addSection = function() {
+		var sectionName = $scope.sectionName;
+		$scope.info.push({"name": sectionName, "value": [{"name": "", "value": ""}]});
+		reset();
+	}
+
+	$scope.save = function() {
+		var info = $scope.info;
+		post( {"action":"save", "info":{ info }} );
+		reset();
 	}
 	
 });
@@ -73,6 +103,10 @@ app.controller('iframe', function($scope, $http) {
 	}
 
 	$scope.$on('categoryRefresh', function(event, args) {
+		load();
+	});
+
+	$scope.$on('infoRefresh', function(event, args) {
 		load();
 	});
 

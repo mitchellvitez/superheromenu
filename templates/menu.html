@@ -24,8 +24,19 @@
 					<p class="col-md-12">{{ category.description }}</p>
 					<div class="col-md-6" ng-repeat="item in category.items">
 						<h3>{{ item.name }}</h3>
-						<p class="col-md-10" style="font-style: italic;">{{ item.description }}</p>
-						<p class="col-md-2" ng-show="item.price">{{ getElement("Currency Symbol") }}{{ item.price }}</p>
+
+						<div ng-hide="dotted">
+							<p class="col-md-10" style="font-style: italic;">{{ item.description }}</p>
+							<p class="col-md-2" ng-show="item.price">{{ getElement("Currency Symbol") }}{{ item.price }}</p>
+						</div>
+
+						<!-- <ul ng-show="dotted">
+						    <li>
+						    	<span style="font-style: italic;">{{ item.description }}</span>
+						    	<span ng-show="item.price">{{ getElement("Currency Symbol") }}{{ item.price }}</span>
+						    </li>
+						</ul> -->
+
 						<div class="row" ng-repeat="option in item.options">
 							<p class="col-md-5">{{ option.name }}</p>
 							<p class="col-md-5">{{ option.description }}</p>
@@ -34,7 +45,7 @@
 					</div>
 				</div>
 				<br>
-				<h2 class="text-center">Other Information</h2>
+				<h2 class="text-center" ng-show="menu.info.length > 0">Information</h2>
 				<div class="col-md-6" ng-repeat="item in menu.info track by $index">
 					<h3>{{ item.name }}</h3>
 					<p ng-hide="isArray(item.value)">{{ item.value }}</p>
