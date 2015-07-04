@@ -17,9 +17,16 @@ Four angular apps:
 	/menu - view actual menu (patron view)
 	/ - landing page
 
+from flask import Flask, redirect, url_for, render_template, request
+app = Flask(__name__)
+ctx = app.test_request_context()
+ctx.push()
+
 """
 
 app = Flask(__name__)
+app.secret_key = 'TotallySecret2937498374982'
+
 
 # set up database
 mongo = PyMongo(app)
@@ -232,10 +239,12 @@ def logout():
 	logout_user()
 	return redirect('/')
 
+
 def userAsJson():
     return json.dumps(current_user.__dict__) #.pop("password", None))
 
 app.jinja_env.globals.update(userAsJson=userAsJson)
+
 
 @app.route('/api/<restaurantName>/filter/<query>')
 def filter(restaurantName, query):
@@ -397,5 +406,6 @@ def home():
 	return render_template('home.html')
 
 if __name__ == '__main__':
+	app.secret_key = 'TotallySecret2937498374982'
 	app.config['SECRET_KEY'] = 'TotallySecret2937498374982'
 	app.run(debug=True)
