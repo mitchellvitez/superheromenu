@@ -71,7 +71,7 @@ def signup():
 		username = request.form['username']
 		password = bcrypt.hashpw(request.form['password'], bcrypt.gensalt())
 		email = request.form['email']
-		
+
 		rememberMe = request.form.get('remember')
 		if rememberMe == 'true':
 			rememberMe = True
@@ -237,12 +237,29 @@ def userAsJson():
 
 app.jinja_env.globals.update(userAsJson=userAsJson)
 
-# @app.route('/api/<restaurantName>/search/<query>')
-# def search(restaurantName, query):
-# 	if query == 'blue cheese' and restaurantName == 'carsons':
-# 		return app.send_static_file('test/carsonsbluecheese.json')
-# 	else:
-# 		return '"%s" not found for restaurant "%s"' % (query, restaurantName)
+@app.route('/api/<restaurantName>/search/<query>')
+def search(restaurantName, query):
+
+	# only deal with lowercase
+	query = query.lower().split(' ')
+	menu = ast.literal_eval(dumps( db.menus.find_one({"identifier": restaurantName}, {"categories": True}) ).lower())
+
+	result = {"categories": [], "items": []}
+
+	print query
+
+	for category in menu['categories']:
+		for word in query:
+			if word in category['name'] or word in category.get('description', ''):
+				result['categories'].append(category)
+
+	for category in menu['categories']:
+		for item in category['items']:
+			for word in query:
+				if word in item['name'] or word in item.get('description', ''):
+					result['items'].append(item)
+
+	return dumps(result)
 
 @app.route('/api/<restaurantName>')
 def restaurantInfo(restaurantName):
