@@ -12,12 +12,30 @@
 	app.controller('menu', function($scope, $http) {
 
 		load();
+		reset();
 
 		function load() {
 	        $http.get('/api/' + restaurantName).
 	        	success(function(data, status, headers, config) {
 				    $scope.menu = data;
 			  	});
+		}
+
+		function reset() {
+			$scope.query = '';
+		}
+
+		$scope.search = function(query) {
+			if (query == '') {
+				reset();
+				load();
+			}
+
+			$http.get('/api/' + restaurantName + '/search/' + query).
+		  	success(function(data, status, headers, config) {
+		    	$scope.menu.categories = data.categories;
+		    	$scope.menu.items = data.items;
+		  	});
 		}
 
 		$scope.isArray = function(array) {

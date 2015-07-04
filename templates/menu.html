@@ -17,8 +17,53 @@
 				'font-family': L('Font'),
 				'font-size': L('Font Size')
 			}">
+
+			<nav class="navbar navbar-default" role="navigation">
+				        <div class="container">
+				            <div class="navbar-header">
+				            </div>
+				            <div id="navbar">
+				            	<ul class="nav navbar-nav">
+				                    <li><input type="text" class="form-control" style="margin: 10px" ng-keyup="$event.keyCode == 13 && search(query)" ng-model="query"></li>
+				                    <li><button class="btn btn-primary" style="margin: 10px; margin-left: 20px" ng-click="search(query)">Search</button></li>
+				                </ul>
+				            </div>
+				        </div>
+				    </nav>
+
 			<div class="container" >
 				<h1 class="text-center" ng-style="{'font-size': L('Title Font Size')}">{{ menu.name }}</h1>
+
+
+
+
+				<div class="row">
+					<div class="col-md-6" ng-repeat="item in menu.items">
+							<h3>{{ item.name }}</h3>
+
+							<div ng-hide="dotted">
+								<p class="col-md-10" style="font-style: italic;">{{ item.description }}</p>
+								<p class="col-md-2" ng-show="item.price">{{ getElement("Currency Symbol") }}{{ item.price }}</p>
+							</div>
+							<div class="row" ng-repeat="option in item.options">
+								<p class="col-md-5">{{ option.name }}</p>
+								<p class="col-md-5">{{ option.description }}</p>
+								<p class="col-md-2">{{ getElement("Currency Symbol") }}{{ option.price }}</p>
+							</div>
+					</div>
+				</div>
+
+
+
+
+
+
+
+
+
+
+
+
 				<div class="row" ng-repeat="category in menu.categories">
 					<h2>{{ category.name }}</h2>
 					<p class="col-md-12">{{ category.description }}</p>
@@ -45,6 +90,10 @@
 					</div>
 				</div>
 				<br>
+
+
+
+				<br><hr><br>
 				<h2 class="text-center" ng-show="menu.info.length > 0">Information</h2>
 				<div class="col-md-6" ng-repeat="item in menu.info track by $index">
 					<h3>{{ item.name }}</h3>

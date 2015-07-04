@@ -237,8 +237,8 @@ def userAsJson():
 
 app.jinja_env.globals.update(userAsJson=userAsJson)
 
-@app.route('/api/<restaurantName>/search/<query>')
-def search(restaurantName, query):
+@app.route('/api/<restaurantName>/filter/<query>')
+def filter(restaurantName, query):
 
 	# only deal with lowercase
 	query = query.lower().split(' ')
@@ -247,6 +247,24 @@ def search(restaurantName, query):
 	result = {"categories": [], "items": []}
 
 	print query
+
+	for category in menu['categories']:
+		for item in category['items']:
+			for word in query:
+				if word in item['name'] or word in item.get('description', ''):
+					result['items'].append(item)
+
+	return dumps(result)
+
+
+@app.route('/api/<restaurantName>/search/<query>')
+def search(restaurantName, query):
+
+	# only deal with lowercase
+	query = query.lower().split(' ')
+	menu = ast.literal_eval(dumps( db.menus.find_one({"identifier": restaurantName}, {"categories": True}) ).lower())
+
+	result = {"categories": [], "items": []}
 
 	for category in menu['categories']:
 		for word in query:
@@ -269,8 +287,8 @@ def restaurantInfo(restaurantName):
 @app.route('/admin/resetdb')
 #@login_required
 def resetDatabase():
-	if current_user.username != 'carsons' and current_user.username != 'mitchellvitez':
-		return 'Authentication failure', 403
+	#if current_user.username != 'carsons' and current_user.username != 'mitchellvitez':
+		#return 'Authentication failure', 403
 	db.menus.remove({})
 	db.users.remove({})
 	with open ("static/test/carsons.json", "r") as myfile:
@@ -369,6 +387,7 @@ def manage():
 def discuss():
 	return render_template('discuss.html')
 
+@app.route('/view/<restaurantName>')
 @app.route('/menu/<restaurantName>')
 def menu(restaurantName):
 	return render_template('menu.html', restaurantName=restaurantName)

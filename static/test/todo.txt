@@ -27,7 +27,7 @@ x	b	styling of manager itself
 	b	get a salesperson
 	
 	c	analytics (# of searches for an item, # of menu views per day over time)
-	c	search for an item
+x	c	search for an item
 	c	documentation for future programmers
 	c	incorporate
 x	c	better "unauthorized" page, 404 page
@@ -35,11 +35,13 @@ x	c 	forum for feature requests
 
 	d 	dairy-free, nut-free, shellfish etc. filters
 	d 	advanced users add new element to style array using css "border-radius":"4px"
-	d 	multiple language support
+x	d 	multiple language support (selling point, better than pdf)
 	d	manual for restaurant owners
 
 	e 	calorie counter linking to myfitnesspal / export
 	e 	automate payments (stripe?)
 x	e 	'remember me' for login
 
-	better error data and error code handling
+	e 	better error data and error code handling
+	e 	food images
+	e 	"feedback survey" link (at bottom of menu, more info for restaurant owner)
