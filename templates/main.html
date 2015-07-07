@@ -8,8 +8,9 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 		<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-        <link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/bootstrap-theme.min.css') }}">
-		<link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/main.css') }}">
+        <script src="{{ url_for('static', filename='js/ui-bootstrap-0.13.0.min.js') }}"></script>
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap-theme.min.css') }}">
+		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main.css') }}">
         {% block head %}{% endblock %}
     </head>
     {% block body %}{% endblock %}

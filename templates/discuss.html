@@ -1,3 +1,16 @@
+{% extends "main.html" %}
+{% block head %}
+	<title>Superhero Menu Discussion</title>
+	<script>
+    	var user = {{ userAsJson()|safe }};
+    	var restaurantName = '{{ restaurantName }}';
+    </script>
+    <script src="{{ url_for('static', filename='js/home.js') }}"></script>
+    <base href="/">
+    <link href='http://fonts.googleapis.com/css?family=Bitter' rel='stylesheet' type='text/css'>
+{% endblock %}
+{% block body %}
+<body style="padding: 20px">
 <div id="disqus_thread"></div>
 <script type="text/javascript">
     /* * * CONFIGURATION VARIABLES * * */
@@ -11,3 +24,5 @@
     })();
 </script>
 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+</body>
+{% endblock %}

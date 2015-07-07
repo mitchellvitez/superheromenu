@@ -10,13 +10,8 @@
 {% endblock %}
 {% block body %}
 	{% raw %}
-	<body ng-app="menu">
-		<div ng-controller="menu" ng-style="{
-				color: L('Text Color'),
-				'background-color': L('Background Color'),
-				'font-family': L('Font'),
-				'font-size': L('Font Size')
-			}">
+	<body ng-app="menu" style="background: white">
+		<div ng-controller="menu" ng-style="{'background-color': L('Background Color')}">
 
 			<nav class="navbar navbar-default" role="navigation">
 				        <div class="container">
@@ -31,7 +26,11 @@
 				        </div>
 				    </nav>
 
-			<div class="container" >
+			<div class="container" ng-style="{
+				color: L('Text Color'),
+				'font-family': L('Font'),
+				'font-size': L('Font Size')
+			}" >
 				<h1 class="text-center" ng-style="{'font-size': L('Title Font Size')}">{{ menu.name }}</h1>
 
 

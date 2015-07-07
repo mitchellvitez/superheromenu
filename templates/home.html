@@ -7,6 +7,7 @@
     </script>
     <script src="{{ url_for('static', filename='js/home.js') }}"></script>
     <base href="/">
+    <link href='http://fonts.googleapis.com/css?family=Bitter' rel='stylesheet' type='text/css'>
 {% endblock %}
 {% block body %}
 	<body ng-app="home">
@@ -34,9 +35,9 @@
 				<div class="container">
 					<div class="row">
 						<div class="col-md-6 col-md-offset-3">
-							<h1 class="text-center">Superhero Menu</h1>
-							<p class="text-center" style="font-size: 200%">Menus weren't meant to sit around</h2><br>
-							<img width="80%" src="{{ url_for('static', filename='img/superhero.jpg') }}">
+							<h1 class="text-center bigheader"><strong>SUPERHERO MENU</strong></h1>
+							<p class="text-center bigsub">Menus weren't meant to sit around</p>
+							<p><img class="center-block" width="80%" src="{{ url_for('static', filename='img/superhero.png') }}"></p>
 						</div>
 					</div>
 				</div>
@@ -44,25 +45,51 @@
 				<div class="container">
 					<div class="row col-md-4 col-md-offset-4">
 						<p>&nbsp;</p>
-						<a class="btn btn-primary center-block" href="signup">Sign Up</a>
+						<a class="btn btn-primary center-block signupbutton" href="signup">Start Fighting Crime</a>
 						<p>&nbsp;</p>
 					</div>
 				</div>
 
 				<div class="container">
-					<div class="row">
+					<div class="row bluebox">
 						<div class="col-md-4">
-							<h2>No more PDFs</h2>
-							<p>Static menus suck. You can't search them, reorganize them, filter them, or really do anything. All they do is sit there. No more.</p>
+							<h2 class="text-center">No more PDFs</h2>
+							<p>Static menus aren't that great. You can't search them, reorganize them, filter them, or really do anything. All they do is sit there. No more.</p>
 						</div>
 						<div class="col-md-4">
-							<h2>Kill Allergens</h2>
+							<h2 class="text-center">Kill Allergens</h2>
 							<p>If you have an allergy, you shouldn't have to step around a minefield of a menu to feel safe. Filter out common allergy causes and remove your worries.</p>
 						</div>
 						<div class="col-md-4">
-							<h2>Know Thyself</h2>
+							<h2 class="text-center">Know Thyself</h2>
 							<p>Find out exactly what you're getting into. No more "prices are seasonal"—just look at the current price. Restaurateurs: find out what your customers want and when. Deliver the best.</p>
 						</div>
+					</div>
+				</div>
+
+				<br><br>
+				<div class="shaded">
+				<br><br>
+					<div class="container">
+						<div class="row">
+							<div class="col-md-6">
+								<h2 class="text-center">No more PDFs</h2>
+								<p>Static menus aren't that great. You can't search them, reorganize them, filter them, or really do anything. All they do is sit there. No more.</p>
+							</div>
+							<div class="col-md-6">
+								<h2 class="text-center">Kill Allergens</h2>
+								<p>If you have an allergy, you shouldn't have to step around a minefield of a menu to feel safe. Filter out common allergy causes and remove your worries.</p>
+							</div>
+						</div>
+					</div>
+					<br><br>
+				</div>
+
+				<div class="container">
+					<div class="row col-md-4 col-md-offset-4">
+						<p>&nbsp;</p>
+						<a class="btn btn-primary center-block signupbutton" href="signup">Save the World</a>
+						<p>&nbsp;</p>
 					</div>
 				</div>
 

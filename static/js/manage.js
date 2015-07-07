@@ -7,7 +7,7 @@
 // 			alert( "failure message: " + JSON.stringify({data: data}));
 // 		});
 
-var app = angular.module('manager', ['ngRoute']);
+var app = angular.module('manager', ['ngRoute', 'ui.bootstrap']);
 
 app.config(function($routeProvider, $locationProvider) {
 	// $routeProvider
@@ -31,6 +31,14 @@ app.controller('sidebarController', function($scope, $http) {
 			$scope.sidebarInstruction = "←";
 		}
 	}
+});
+
+app.controller('toolbar', function($scope, $http) {
+
+	$scope.embed = function() {
+		alert(1);
+	}
+
 });
 
 app.controller('sidebar', function($scope, $http) {

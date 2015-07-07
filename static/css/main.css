@@ -1,74 +1,235 @@
-/* $font-stack: Geneva, Tahoma, Verdana, sans-serif;
-$primary-color: #333;
-
-body {
-  font: $font-stack;
-  color: $primary-color;
-}
-
-h1, h2, h3, h4, h5, h6 {
- 	color: $primary-color;
-}
-
-*/
-
-/*# sourceMappingURL=main.css.map */
-
 
 body {
 	font-family: Geneva, Tahoma, Verdana, sans-serif;
+	background-color: #cbe9fc;
+}
+
+.bigheader {
+	font-family: 'Bitter', Geneva, Tahoma, Verdana, sans-serif;
+	font-size: 390%;
+	font-weight: 900;
+	color: #256697;
+	text-shadow: 0px 3px 0px #182C61;
+	margin-bottom: 0px;
+}
+
+.bigsub {
+	font-size: 200%;
+	color: #6c6c6c;
+	text-shadow: 0px 1px 0px #182C61;
+}
+
+.nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
+
+.navbar {
+	background: #fff;
+	border-radius: 0px 0px 30px 30px;
+	-moz-border-radius: 0px 0px 30px 30px;
+	-webkit-border-radius: 0px 0px 30px 30px;
+	/* border: 3px solid #256697; */
+	margin-right: 60px;
+	margin-left: 60px;
 }
 
 .form-control {
-	border: 2px solid #ccc;
+	border: 2px solid #ddd;
+	box-shadow: 0px 2px #ddd;
+	background-color: #f8f8f8;
+
+}
+
+.form-control:focus {
+  	border-color: #6E96BB;
+  	box-shadow: 0px 2px #6E96BB;
 }
 
 .input-group-addon {
-	border: 2px solid #ccc;
-	background-color: #e8f8e8;
+	border: 2px solid #ddd;
+	box-shadow: 0px 2px #ddd;
+	color: #333;
+	background: #e8e8e8;
+
+
 }
 
 pre {
 	border: none;
-	background-color: #f8e8e8;
+	background-color: #f8f8f8;
+	box-shadow: 0px 4px #ddd;
 }
+
+
+
 
 .btn {
 	border: none;
-	background: #f8e8f8;
+	background: #f8f8f8;
 	outline: none;
+	color: #333;
+	box-shadow: 0px 2px #ddd;
 }
+
+.btn:focus {
+	background-color: #f8f8f8;
+	outline: none;
+	box-shadow: 0px 2px #ddd;
+}
+
 
 .btn:active {
-	background-color: #d6c5d6;
-}
-
-.btn:hover {
-	background-color: #e7d6e7;
-}
-
-.btn-primary:active {
-	background-color: #0d79ba;
-}
-
-.btn:focus, .btn:active:focus {
-	outline: none;
-	background-color: #d6c5d6;
-}
-
-.btn-primary:active:focus, .btn-primary:focus {
-	background-color: #0d79ba;
+	background-color: #ccc;
+	box-shadow: 0px 2px #ddd;
 }
 
 .btn:active:focus {
 	outline: none;
+	box-shadow: 0px 2px #ddd;
 }
 
+.btn:hover {
+	background-color: #ddd;
+	box-shadow: 0px 2px #ccc;
+}
+
+.btn:active:focus {
+	outline: none;
+	background-color: #ccc;
+	box-shadow: 0px 2px #ddd;
+}
+
+
+
 .btn-primary {
-	background: #2faced;
+	background: #CC1414;
 	color: #f8f8f8;
+	box-shadow: 0px 2px #B21717;
+}
+
+.btn-primary:focus {
+	background: #CC1414;
+	box-shadow: 0px 2px #B21717;
+}
+
+
+.btn-primary:active {
+	background-color: #A81010;
+	box-shadow: 0px 2px #B21717;
 }
 
 .btn-primary:hover {
-	background: #0e8acb;
+	background: #A81010;
+	box-shadow: 0px 2px #B21717;
+}
+
+
+
+.btn-primary:active:focus {
+	background-color: #A81010;
+	box-shadow: 0px 2px #B21717;
+}
+
+.btn-warning, .btn-warning:focus {
+	background: #FFED00;
+	color: #333;
+}
+
+.btn-warning:hover, .btn-warning:active, .btn-warning:active:focus {
+	color: #333;
+	background: none;
+	background-size: 30px 30px;
+	background-image: linear-gradient(
+	    45deg, 
+	    #D4C93F  25%, 
+	    #FFED00       25%, 
+	    #FFED00      50%, 
+	    #D4C93F  50%, 
+	    #D4C93F  75%, 
+	    #FFED00      75%, 
+	    #FFED00
+	);  
+  	animation: barberpole 0.5s linear infinite;
+}
+
+@keyframes barberpole {
+  from { background-position: 0 0; }
+  to   { background-position: 60px 30px; }
+}
+
+
+.signupbutton {
+	box-shadow: 0 8px #A81010;
+	min-height: 40px;
+	padding: 12px;
+	margin-top: 6px;
+	margin-bottom: 6px;
+	text-decoration: bold;
+	font-size: 18px;
+}
+
+.signupbutton:focus {
+	background: #CC1414;
+	box-shadow: 0 8px #A81010;
+}
+
+.signupbutton:hover {
+	background: #A81010;
+	box-shadow: 0 8px #7F0C0C;
+}
+
+.signupbutton:active {
+	margin-top: 16px;
+	margin-bottom: 0px;
+	box-shadow: 0 4px #7F0C0C;
+}
+
+.signupbutton:active:focus {
+	margin-top: 16px;
+	margin-bottom: 0px;
+	box-shadow: 0 4px #7F0C0C;
+}
+
+
+.bluebox {
+	color: #f8f8f8;
+	border-radius: 30px;
+	background-color: #6E96BB;
+	padding: 42px;
+	box-shadow: 0 6px #4B667F;
+}
+
+
+
+.shaded {
+	background-color: #9EDAFF;
+	border-top: 20px solid #81CEFF;
+}
+
+.dropdown-menu {
+	background-color: #f8f8f8;
+	border: 2px solid #aaa;
+	border-radius: 0px 12px 12px 12px;
+	margin-top: 0;
+}
+
+.dropdown-menu>li>a:hover {
+	background: #6E96BB;
+	color: #f8f8f8;
+}
+
+
+
+
+.modal-content {
+	border-radius: 12px;
+	background-color: #cbe9fc;
+}
+
+.modal-body {
+	  background-color: #cbe9fc;
+  border-radius: 12px;
+  box-shadow: 0px 8px #9EDAFF;
+}
+
+.modal-header {
+	border-bottom: none;
 }
