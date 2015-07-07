@@ -18,6 +18,19 @@ app.config(function($routeProvider, $locationProvider) {
 	$locationProvider.html5Mode(true);
 });
 
+app.service('sharedItem', function () {
+    var item = {};
+
+    return {
+        get: function () {
+            return item;
+        },
+        set: function(value) {
+            item = value;
+        }
+    };
+});
+
 app.controller('sidebarController', function($scope, $http) {
 	$scope.sidebarInstruction = "←";
 
@@ -85,7 +98,6 @@ app.controller('info', function($scope, $http, $rootScope) {
 	}
 
 	$scope.add = function(item) {
-		console.log(item);
 		item.value.push({"name": "", "value": ""});
 	}
 
@@ -211,6 +223,154 @@ app.controller('items', function($scope, $http, $rootScope) {
     };
 });
 
+app.controller('edititem', function($scope, $http, $rootScope, sharedItem) {
+
+
+	categoryLoad();
+
+	var originalItem = {};
+
+	function categoryLoad() {
+		$http.get('/api/' + user.username + '/categories').
+	  	success(function(data, status, headers, config) {
+	    	$scope.categories = data.categories;
+	  	});
+	}
+
+	$scope.$on('categoryRefresh', function(event, args) {
+		categoryLoad();
+	});
+
+	function load() {
+		$scope.item = sharedItem.get();
+		originalItem = JSON.parse(JSON.stringify($scope.item));
+	}
+
+	$scope.$on('editItem', function(event, args) {
+		load();
+	});
+
+	function post(data) {
+    	$http.post('/api/' + user.username + '/items', data).
+			success(function(data, status, headers, config) {
+
+			});
+		$rootScope.$broadcast('itemRefresh');
+    }
+
+    $scope.addOption = function() {
+        $scope.item.options.push(0);
+    };
+
+    $scope.save = function() {
+    	var item = $scope.item;
+    	post({"action":"update", item, originalItem });
+    };
+
+});
+
+app.controller('view', function($scope, $http, $rootScope, sharedItem) {
+
+	load();
+	reset();
+
+	$scope.$on('categoryRefresh', function(event, args) {
+		load();
+	});
+
+	$scope.$on('infoRefresh', function(event, args) {
+		load();
+	});
+
+	$scope.$on('itemRefresh', function(event, args) {
+		load();
+	});
+
+	$scope.$on('styleRefresh', function(event, args) {
+		load();
+	});
+
+	function load() {
+        $http.get('/api/' + restaurantName).
+        	success(function(data, status, headers, config) {
+			    $scope.menu = data;
+		  	});
+	}
+
+	function reset() {
+		$scope.query = '';
+	}
+
+	$scope.edit = function(item, category, options) {
+		item.category = {};
+		item.category.name = category.name;
+		item.options = options;
+		sharedItem.set(item);
+		$rootScope.$broadcast('editItem');
+		$('#edititem').modal('show');
+
+	}
+
+	$scope.search = function(query) {
+		if (query == '') {
+			reset();
+			load();
+		}
+
+		$http.get('/api/' + restaurantName + '/search/' + query).
+	  	success(function(data, status, headers, config) {
+	    	$scope.menu.categories = data.categories;
+	    	$scope.menu.items = data.items;
+	  	});
+	}
+
+	$scope.isArray = function(array) {
+		return Object.prototype.toString.call( array ) === '[object Array]';
+	}
+
+	$scope.L = function(component, elementName) {
+		return $scope.getElement(component, elementName);
+	}
+
+	$scope.getElement = function(component, elementName) {
+		if (! $scope.menu)
+			return;
+		var idx = indexOf($scope.menu.style[component], "name", elementName);
+		if (idx == -1) {
+			return "null";
+		}
+		return $scope.menu.style[component][idx].value;
+	}
+
+	function indexOf(array, key, value) {
+
+		for (var i = 0; i < array.length; i++) {
+			if (array[i][key] == value)
+				return i;
+		}
+
+		return -1;
+	}
+
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 app.controller('stylegeneral', function($scope, $http, $rootScope) {
 
 	load();
@@ -232,7 +392,6 @@ app.controller('stylegeneral', function($scope, $http, $rootScope) {
 
 	$scope.save = function() {
     	var style = $scope.style;
-    	console.log($scope.style);
     	post({"action":"save", "component":"general", style });
     };
 
@@ -259,7 +418,6 @@ app.controller('styletitle', function($scope, $http, $rootScope) {
 
 	$scope.save = function() {
     	var style = $scope.style;
-    	console.log($scope.style);
     	post({"action":"save", "component":"title", style });
     };
 
@@ -285,7 +443,6 @@ app.controller('stylecategory', function($scope, $http, $rootScope) {
 
 	$scope.save = function() {
     	var style = $scope.style;
-    	console.log($scope.style);
     	post({"action":"save", "component":"category", style });
     };
 
@@ -311,7 +468,6 @@ app.controller('styleitem', function($scope, $http, $rootScope) {
 
 	$scope.save = function() {
     	var style = $scope.style;
-    	console.log($scope.style);
     	post({"action":"save", "component":"item", style });
     };
 
@@ -337,7 +493,6 @@ app.controller('styleoption', function($scope, $http, $rootScope) {
 
 	$scope.save = function() {
     	var style = $scope.style;
-    	console.log($scope.style);
     	post({"action":"save", "component":"option", style });
     };
 
@@ -363,7 +518,6 @@ app.controller('styleinfo', function($scope, $http, $rootScope) {
 
 	$scope.save = function() {
     	var style = $scope.style;
-    	console.log("saving: " +  style);
     	post({"action":"save", "component":"info", style });
     };
 

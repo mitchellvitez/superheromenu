@@ -3,6 +3,7 @@
 	<title>Menu Manager</title>
 	<script>
     	var user = {{ userAsJson()|safe }};
+    	var restaurantName = '{{ restaurantName }}';
     </script>
     <script src="{{ url_for('static', filename='js/manage.js') }}"></script>
     <base href="/">
@@ -66,16 +67,18 @@
 					</div>
 
 					<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#additem">Add Item</button>
+					<!-- <a href="menu" class="btn btn-success">View Menu</a> -->
 
 
 					<div>
 
 					<br><br>
-					<div class="col-md-12">
-						{% include "iframe.html" %}
-					</div>
+					<!-- <div class="col-md-12">
+						{ % include "iframe.html" % }
+					</div> -->
+					{% include "view.html" %}
 
-					{% for modal in ['embed', 'info', 'additem', 'categories'] %}
+					{% for modal in ['embed', 'info', 'additem', 'categories', 'edititem'] %}
 				        	<div class="modal fade" id="{{ modal }}" tabindex="-1" role="dialog" aria-labelledby="{{ modal }}" aria-hidden="true">
 							  <div class="modal-dialog" role="document">
 							    <div class="modal-content">

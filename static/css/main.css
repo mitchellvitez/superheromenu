@@ -247,3 +247,15 @@ pre {
 .modal-header {
 	border-bottom: none;
 }
+
+.outlineonhover {
+	border: none;
+	padding: 3px;
+}
+
+.outlineonhover:hover {
+	background-color: rgba(0, 0, 0, 0.1);
+	padding: 0px;
+	  border: 3px solid rgba(255, 255, 255, 0.5);
+	  cursor: pointer;
+}

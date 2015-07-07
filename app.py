@@ -97,28 +97,147 @@ def signup():
 		db.users.insert( {'username': username, "password": password, "email": email } )
 
 		db.menus.insert( {'identifier': username,
-			'style': [
-				{	"name": "Background Color",
-				 	"value": "#ffffff"
-				},
-				{	"name": "Text Color",
-					"value": "#444444"
-				},
-				{	"name": "Currency Symbol",
-					"value": "$"
-				},
-				{	"name": "Font",
-					"value": "'Hoefler Text', 'Baskerville Old Face', Garamond, 'Times New Roman', serif"
-				},
-				{
-					"name": "Font Size",
-					"value": "120%"
-				},
-				{
-					"name": "Title Font Size",
-					"value": "300%"
-				}
-			],
+			"style": {
+				"general" : [
+					{	"name": "Background Color",
+					 	"value": "#ffffff"
+					},
+					{	"name": "Text Color",
+						"value": "#444444"
+					},
+					{	"name": "Currency Symbol",
+						"value": "$"
+					},
+					{	"name": "Font",
+						"value": "'Hoefler Text', 'Baskerville Old Face', Garamond, 'Times New Roman', serif"
+					},
+				],
+				"title": [
+					{	"name": "Text Color",
+						"value": "#444444"
+					},
+					{	"name": "Font",
+						"value": "'Hoefler Text', 'Baskerville Old Face', Garamond, 'Times New Roman', serif"
+					},
+					{
+						"name": "Font Size",
+						"value": "300%"
+					}
+				],
+				"category": [
+					{	"name": "Header Text Color",
+						"value": "#444444"
+					},
+					{
+						"name": "Header Font",
+						"value": "'Hoefler Text', 'Baskerville Old Face', Garamond, 'Times New Roman', serif"
+					},
+					{
+						"name": "Header Font Size",
+						"value": "220%"
+					},
+					{	"name": "Description Text Color",
+						"value": "#444444"
+					},
+					{
+						"name": "Description Font",
+						"value": "'Hoefler Text', 'Baskerville Old Face', Garamond, 'Times New Roman', serif"
+					},
+					{
+						"name": "Description Font Size",
+						"value": "120%"
+					}
+				],
+				"item": [
+					{	"name": "Header Text Color",
+						"value": "#444444"
+					},
+					{
+						"name": "Header Font",
+						"value": "'Hoefler Text', 'Baskerville Old Face', Garamond, 'Times New Roman', serif"
+					},
+					{
+						"name": "Header Font Size",
+						"value": "24px"
+					},
+					{	"name": "Description Text Color",
+						"value": "#444444"
+					},
+					{
+						"name": "Description Font",
+						"value": "'Hoefler Text', 'Baskerville Old Face', Garamond, 'Times New Roman', serif"
+					},
+					{
+						"name": "Description Font Size",
+						"value": "120%"
+					},
+					{
+						"name": "Description Style",
+						"value": "italic"
+					},
+					{	"name": "Price Text Color",
+						"value": "#444444"
+					},
+					{
+						"name": "Price Font",
+						"value": "'Hoefler Text', 'Baskerville Old Face', Garamond, 'Times New Roman', serif"
+					},
+					{
+						"name": "Price Font Size",
+						"value": "120%"
+					},
+				],
+				"option": [
+					{	
+						"name": "Header Text Color",
+						"value": "#444444"
+					},
+					{
+						"name": "Header Font",
+						"value": "'Hoefler Text', 'Baskerville Old Face', Garamond, 'Times New Roman', serif"
+					},
+					{
+						"name": "Header Font Size",
+						"value": "120%"
+					},
+					{	
+						"name": "Price Text Color",
+						"value": "#444444"
+					},
+					{
+						"name": "Price Font",
+						"value": "'Hoefler Text', 'Baskerville Old Face', Garamond, 'Times New Roman', serif"
+					},
+					{
+						"name": "Price Font Size",
+						"value": "120%"
+					}
+				],
+				"info": [
+					{	"name": "Header Text Color",
+						"value": "#444444"
+					},
+					{
+						"name": "Header Font",
+						"value": "'Hoefler Text', 'Baskerville Old Face', Garamond, 'Times New Roman', serif"
+					},
+					{
+						"name": "Header Font Size",
+						"value": "20px"
+					},
+					{	"name": "Text Color",
+						"value": "#444444"
+					},
+					{
+						"name": "Font",
+						"value": "'Hoefler Text', 'Baskerville Old Face', Garamond, 'Times New Roman', serif"
+					},
+					{
+						"name": "Font Size",
+						"value": "120%"
+					}
+				]
+			},
 			'name': username,
 			'info' : [
 					{
@@ -271,19 +390,19 @@ def search(restaurantName, query):
 
 	# only deal with lowercase
 	query = query.lower().split(' ')
-	menu = ast.literal_eval(dumps( db.menus.find_one({"identifier": restaurantName}, {"categories": True}) ).lower())
+	menu = ast.literal_eval(dumps( db.menus.find_one({"identifier": restaurantName}, {"categories": True}) ))
 
 	result = {"categories": [], "items": []}
 
 	for category in menu['categories']:
 		for word in query:
-			if word in category['name'] or word in category.get('description', ''):
+			if word in category['name'].lower() or word in category.get('description', '').lower():
 				result['categories'].append(category)
 
 	for category in menu['categories']:
 		for item in category['items']:
 			for word in query:
-				if word in item['name'] or word in item.get('description', ''):
+				if word in item['name'].lower() or word in item.get('description', '').lower():
 					result['items'].append(item)
 
 	return dumps(result)
@@ -356,6 +475,19 @@ def items(restaurantName):
 			if request.data["action"] == "save":
 				db.menus.update({"identifier": restaurantName, "categories.name": categoryName },
 					{"$push" : {"categories.$.items" : request.data['item'] } } )
+
+			elif request.data["action"] == "update":
+
+				originalCategoryName = request.data['originalItem']['category']['name']
+				try:
+					del request.data['originalItem']['category']
+				except KeyError:
+					pass # "category" should always be a key
+
+				db.menus.update({"identifier": restaurantName, "categories.name": originalCategoryName },
+					{"$pull" : {"categories.$.items" : request.data['originalItem'] } } )
+				db.menus.update({"identifier": restaurantName, "categories.name": categoryName },
+					{"$push" : {"categories.$.items" : request.data['item'] } } )
 					
 			# elif request.data["action"] == "delete":
 			# 	db.menus.update({"identifier": restaurantName}, {"$pull": {"categories": request.data['category'] } })
@@ -378,7 +510,7 @@ def style(restaurantName):
 
 				print styleAndComponent
 				print request.data
-				
+
 				db.menus.update({"identifier": restaurantName}, {"$set": {styleAndComponent: request.data['style'] } })
 
 	return dumps(db.menus.find_one({"identifier": restaurantName}, {"style": True}))
@@ -394,7 +526,7 @@ def style(restaurantName):
 @app.route('/manage')
 @login_required
 def manage():
-	return render_template('manage.html', username=current_user.username)
+	return render_template('manage.html', username=current_user.username, restaurantName=current_user.username)
 
 @app.route('/discuss')
 # @login_required

@@ -1,0 +1,57 @@
+{% raw %}
+<div ng-controller="edititem">
+	<h2>Edit Item</h2>
+
+	<div class="dropdown form-group">
+	  <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+	    {{ item.category.name || "Category" }}
+	    <span class="caret" ng-hide="item.category"></span>
+	  </button>
+	  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+	  	<li ng-repeat="category in categories" ng-click="item.category = category"><a href="javascript:void(0)">{{ category.name }}</a></li>
+	  </ul>
+	</div>
+
+	<div class="form-group">
+		<label for="name">Item</label>
+		<input type="text" id="name" class="form-control" ng-model="item.name">
+	</div>
+	<div class="form-group">
+		<label for="description">Description</label>
+		<input type="text" id="description" class="form-control" ng-model="item.description">
+	</div>
+	<div class="form-group">
+		<label for="price">Price</label>
+		<input type="number" id="price" class="form-control" ng-model="item.price">
+	</div>
+
+	<div ng-repeat="option in item.options track by $index" class="form-horizontal">
+		<br>
+		<h5 class="text-center">Option {{$index + 1}}</h5>
+		<div class="form-group">
+			<label for="optionname" class="col-md-3 control-label">Name</label>
+			<div class="col-md-9">
+				<input type="text" id="optionname" class="form-control" ng-model="option.name">
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="optiondescription" class="col-md-3 control-label">Description</label>
+			<div class="col-md-9">
+				<input type="text" id="optiondescription" class="form-control" ng-model="option.description">
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="optionprice" class="col-md-3 control-label">Price</label>
+			<div class="col-md-9">
+				<input type="number" id="optionprice" class="form-control" ng-model="option.price">
+			</div>
+		</div>
+	</div>
+
+	<button class="btn btn-default center-block" ng-click="addOption()">Add Option</button><br>
+	<button class="btn btn-warning" data-dismiss="modal">Cancel</button>
+	<button class="btn btn-primary" data-dismiss="modal" ng-click="save()">Save Item</button>
+	<!-- make this mirror the 'add item' screen
+			add api endpoint for updating items (give original and new, api figures out replacement stuff) -->
+</div>
+{% endraw %}

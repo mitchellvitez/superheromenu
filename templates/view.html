@@ -1,32 +1,6 @@
-{% extends "main.html" %}
-{% block head %}
-	<title>Menu Viewer</title>
-	<script>
-    	var user = {{ userAsJson()|safe }};
-    	var restaurantName = '{{ restaurantName }}';
-    </script>
-    <script src="{{ url_for('static', filename='js/menu.js') }}"></script>
-    <base href="/">
-{% endblock %}
-{% block body %}
-	{% raw %}
-	<body ng-app="menu" style="background: white">
-		<div ng-controller="menu" ng-style="{'background-color': L('general', 'Background Color')}">
-
-			<nav class="navbar navbar-default" role="navigation">
-		        <div class="container">
-		            <div class="navbar-header">
-		            </div>
-		            <div id="navbar">
-		            	<ul class="nav navbar-nav">
-		                    <li><input type="text" class="form-control" style="margin: 10px" ng-keyup="$event.keyCode == 13 && search(query)" ng-model="query"></li>
-		                    <li><button class="btn" style="margin: 10px; margin-left: 20px;" ng-click="search(query)">Search</button></li>
-		                </ul>
-		            </div>
-		        </div>
-		    </nav>
-
-			<div class="container" ng-style="{
+{% raw %}
+<div ng-controller="view" style="padding: 20px; padding-left: 30px"  ng-style="{'background-color': L('general', 'Background Color')}">
+	<div class="container" style="width: 100%" ng-style="{
 				color: L('general', 'Text Color'),
 				'font-family': L('general', 'Font')
 			}" >
@@ -40,7 +14,7 @@
 				</h1>
 
 
-				<div class="row">
+				<!-- <div class="row">
 					<div class="col-md-6" ng-repeat="item in menu.items">
 							<h3>{{ item.name }}</h3>
 
@@ -55,7 +29,7 @@
 							</div>
 					</div>
 
-				</div>
+				</div> -->
 
 				<div class="row" ng-repeat="category in menu.categories" >
 					<h2 ng-style="{
@@ -69,7 +43,7 @@
 						'font-family': L('category', 'Description Font')
 					}">{{ category.description }}</p>
 
-					<div class="col-md-6" ng-repeat="item in category.items">
+					<div class="col-md-6 outlineonhover" ng-repeat="item in category.items" ng-click="edit(item, category, item.options)">
 						<h3 ng-style="{
 						'font-size': L('item', 'Header Font Size'),
 						color: L('item', 'Header Text Color'),
@@ -89,12 +63,16 @@
 					}">{{ getElement('general', "Currency Symbol") }}{{ item.price }}</p>
 
 						<div class="row" ng-repeat="option in item.options">
-							<p class="col-md-10" ng-style="{
+							<p class="col-md-5" ng-style="{
 						'font-size': L('option', 'Header Font Size'),
 						color: L('option', 'Header Text Color'),
 						'font-family': L('option', 'Header Font')
 					}">{{ option.name }}</p>
-							<!-- <p class="col-md-5">{{ option.description }}</p> -->
+							<p class="col-md-5" ng-style="{
+						'font-size': L('option', 'Header Font Size'),
+						color: L('option', 'Header Text Color'),
+						'font-family': L('option', 'Header Font')
+					}">{{ option.description }}</p>
 							<p class="col-md-2" ng-style="{
 						'font-size': L('option', 'Price Font Size'),
 						color: L('option', 'Price Text Color'),
@@ -129,7 +107,5 @@
 					</div>
 				</div>
 			</div>
-		</div>
-	</body>
-	{% endraw %}
-{% endblock %}
+</div>
+{% endraw %}

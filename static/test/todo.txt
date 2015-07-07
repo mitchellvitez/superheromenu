@@ -2,7 +2,7 @@ x	a	create login form
 x	a	create signup form
 x	a	make iframe load for user properly
 
--	a	add more styling elements
+x	a	add more styling elements
 			What other styles should be changeable?
 				dots.......between item and price - https://jsfiddle.net/davidThomas/cqWFx/4/
 				fonts for headers vs items
@@ -57,3 +57,9 @@ x	e 	'remember me' for login
 	emenu: https://itunes.apple.com/us/app/emenu-pro-for-restaurants/id483325367?mt=8
 		Where's the option for the customer to place an order?
 		How does a customer modify a dish?
+
+x		search results shouldn't be lowercase
+x		updating items by clicking on menu
+		allergy (and vegan, etc.) filters
+		payment/paywall
+		images???
