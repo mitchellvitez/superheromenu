@@ -120,9 +120,6 @@ pre {
 	background: #A81010;
 	box-shadow: 0px 2px #B21717;
 }
-
-
-
 .btn-primary:active:focus {
 	background-color: #A81010;
 	box-shadow: 0px 2px #B21717;
@@ -154,6 +151,23 @@ pre {
   from { background-position: 0 0; }
   to   { background-position: 60px 30px; }
 }
+
+
+
+.btn-success, .btn-success:focus {
+	color: #f8f8f8;
+	background: #13BF44;
+	box-shadow: 0px 2px #1B8A3A;
+}
+
+.btn-success:hover, .btn-success:active, .btn-success:active:focus {
+	color: #f8f8f8;
+	background: #1B8A3A;
+	box-shadow: 0px 2px #0E4A1F;
+}
+
+
+
 
 
 .signupbutton {

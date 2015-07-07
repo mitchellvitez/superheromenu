@@ -7,6 +7,13 @@ x	a	make iframe load for user properly
 				dots.......between item and price - https://jsfiddle.net/davidThomas/cqWFx/4/
 				fonts for headers vs items
 				text decoration for headers???
+			styling options
+				general
+				title
+				category
+				item
+				option
+				information
 			
 x	a	auto-refresh iframe on changes
 x	a	refresh iframe on item add
@@ -45,3 +52,8 @@ x	e 	'remember me' for login
 	e 	better error data and error code handling
 	e 	food images
 	e 	"feedback survey" link (at bottom of menu, more info for restaurant owner)
+
+	FEEDBACK ON OTHERS' MENUS:
+	emenu: https://itunes.apple.com/us/app/emenu-pro-for-restaurants/id483325367?mt=8
+		Where's the option for the customer to place an order?
+		How does a customer modify a dish?

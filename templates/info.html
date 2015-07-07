@@ -1,18 +1,24 @@
 {% raw %}
 <div ng-controller="info">
-	<h2>More Information</h2>
+	<h2>Information</h2>
 	<div ng-repeat="item in info track by $index">
 		<h3>{{ item.name }}</h3>
 		<p><input type="text" ng-hide="isArray(item.value)" class="form-control" ng-model="item.value"></p>
-		<div ng-show="isArray(item.value)" class="input-group form-group" ng-repeat="pair in item.value track by $index">
-			<input type="text" class="form-control col-md-6" style="width: 49%" ng-model="pair.name"> 
-			<input type="text" class="form-control col-md-6" style="width: 49%; float: right" ng-model="pair.value">			
+			<div ng-show="isArray(item.value)" class="" ng-repeat="pair in item.value track by $index">
+				<input type="text" class="form-control" style="width: 49%; float: left" ng-model="pair.name"> <input type="text" class="form-control" style="width: 49%; float: right" ng-model="pair.value"><br><br>
+			</div>
+		<button class="btn center-block" ng-show="isArray(item.value)" ng-click="add(item)">+</button>
+	</div>
+	<br>
+	<div class="form-inline">
+		<div class="form-group">
+			<input type="text" class="form-control" placeholder="New Section Name" ng-model="sectionName">
+			<button class="btn btn-success" ng-click="addSection()">Add Section</button>
 		</div>
-		<button class="btn" ng-show="isArray(item.value)" ng-click="add(item)">Add</button>
 	</div>
-	<div class="form-group">
-		<br><input type="text" class="form-control" placeholder="New Section Name" ng-model="sectionName">
-		<br><button class="btn" ng-click="addSection()">Add Section</button> <button class="btn btn-primary" ng-click="save()">Save Info</button>
-	</div>
+	<br>
+
+	<button class="btn btn-warning" data-dismiss="modal">Close</button>
+	<button class="btn btn-primary" ng-click="save()">Save Info</button>
 </div>
 {% endraw %}

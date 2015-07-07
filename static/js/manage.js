@@ -218,7 +218,7 @@ app.controller('style', function($scope, $http, $rootScope) {
 	function load() {
 		$http.get('/api/' + user.username + '/style').
 		  	success(function(data, status, headers, config) {
-		    	$scope.style = data.style;
+		    	$scope.style = data.style.general;
 		  	});
 	}
 

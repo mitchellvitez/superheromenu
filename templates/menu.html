@@ -14,17 +14,17 @@
 		<div ng-controller="menu" ng-style="{'background-color': L('Background Color')}">
 
 			<nav class="navbar navbar-default" role="navigation">
-				        <div class="container">
-				            <div class="navbar-header">
-				            </div>
-				            <div id="navbar">
-				            	<ul class="nav navbar-nav">
-				                    <li><input type="text" class="form-control" style="margin: 10px" ng-keyup="$event.keyCode == 13 && search(query)" ng-model="query"></li>
-				                    <li><button class="btn btn-primary" style="margin: 10px; margin-left: 20px" ng-click="search(query)">Search</button></li>
-				                </ul>
-				            </div>
-				        </div>
-				    </nav>
+		        <div class="container">
+		            <div class="navbar-header">
+		            </div>
+		            <div id="navbar">
+		            	<ul class="nav navbar-nav">
+		                    <li><input type="text" class="form-control" style="margin: 10px" ng-keyup="$event.keyCode == 13 && search(query)" ng-model="query"></li>
+		                    <li><button class="btn btn-primary" style="margin: 10px; margin-left: 20px" ng-click="search(query)">Search</button></li>
+		                </ul>
+		            </div>
+		        </div>
+		    </nav>
 
 			<div class="container" ng-style="{
 				color: L('Text Color'),

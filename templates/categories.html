@@ -4,9 +4,16 @@
 	<p ng-repeat="category in categories track by $index"  ng-init="showDelete=false" ng-mouseenter="showDelete=true" ng-mouseleave="showDelete=false">{{ category.name }} 
 		<a ng-show="showDelete" style="cursor: pointer; text-decoration: none;" ng-click="remove(category)">&times;</a>
 	</p>
-	<div class="form-group">
-		<input type="text" placeholder="New Category" class="form-control" ng-model="newCategoryName">
+
+	<div class="form-inline">
+		<div class="form-group">
+			<input type="text" placeholder="New Category" class="form-control" ng-model="newCategoryName">
+			<button class="btn btn-success input-addon" ng-click="add(newCategoryName)">Add Category</button>
+		</div>
 	</div>
-	<button class="btn btn-primary" data-dismiss="modal" ng-click="add(newCategoryName)">Add Category</button>
+	<br>
+	<button class="btn btn-warning" data-dismiss="modal">Close</button>
+	<button class="btn btn-primary" data-dismiss="modal">Save Categories</button>
+	
 </div>
 {% endraw %}

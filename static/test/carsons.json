@@ -67,28 +67,91 @@
 			]
 		}
 	],
-	"style": [
-		{	"name": "Background Color",
-		 	"value": "#ffffff"
-		},
-		{	"name": "Text Color",
-			"value": "#444444"
-		},
-		{	"name": "Currency Symbol",
-			"value": "$"
-		},
-		{	"name": "Font",
-			"value": "'Hoefler Text', 'Baskerville Old Face', Garamond, 'Times New Roman', serif"
-		},
-		{
-			"name": "Font Size",
-			"value": "120%"
-		},
-		{
-			"name": "Title Font Size",
-			"value": "300%"
-		}
-	],
+	"style": {
+		"general" : [
+			{	"name": "Background Color",
+			 	"value": "#ffffff"
+			},
+			{	"name": "Text Color",
+				"value": "#444444"
+			},
+			{	"name": "Currency Symbol",
+				"value": "$"
+			},
+			{	"name": "Font",
+				"value": "'Hoefler Text', 'Baskerville Old Face', Garamond, 'Times New Roman', serif"
+			},
+			{
+				"name": "Font Size",
+				"value": "120%"
+			},
+		],
+		"title": [
+			{	"name": "Text Color",
+				"value": "#444444"
+			},
+			{	"name": "Font",
+				"value": "'Hoefler Text', 'Baskerville Old Face', Garamond, 'Times New Roman', serif"
+			},
+			{
+				"name": "Font Size",
+				"value": "300%"
+			}
+		],
+		"category": [
+			{	"name": "Text Color",
+				"value": "#444444"
+			},
+			{
+				"name": "Font",
+				"value": "'Hoefler Text', 'Baskerville Old Face', Garamond, 'Times New Roman', serif"
+			},
+			{
+				"name": "Font Size",
+				"value": "120%"
+			}
+		],
+		"item": [
+			{	"name": "Text Color",
+				"value": "#444444"
+			},
+			{
+				"name": "Font",
+				"value": "'Hoefler Text', 'Baskerville Old Face', Garamond, 'Times New Roman', serif"
+			},
+			{
+				"name": "Font Size",
+				"value": "120%"
+			}
+		],
+		"option": [
+			{	
+				"name": "Text Color",
+				"value": "#444444"
+			},
+			{
+				"name": "Font",
+				"value": "'Hoefler Text', 'Baskerville Old Face', Garamond, 'Times New Roman', serif"
+			},
+			{
+				"name": "Font Size",
+				"value": "120%"
+			}
+		],
+		"information": [
+			{	"name": "Text Color",
+				"value": "#444444"
+			},
+			{
+				"name": "Font",
+				"value": "'Hoefler Text', 'Baskerville Old Face', Garamond, 'Times New Roman', serif"
+			},
+			{
+				"name": "Font Size",
+				"value": "120%"
+			}
+		]
+	},
 	"categories": [
 		{	"name": "Starters",
 			"description": "",
