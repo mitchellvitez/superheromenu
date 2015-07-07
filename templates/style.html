@@ -1,10 +1,68 @@
-{% raw %}
-<div ng-controller="style">
-	<h2>Style</h2>
-		<div class="input-group form-group" ng-repeat="element in style track by $index">
-			<span class="input-group-addon">{{ element.name }}</span>
-			<input type="text" class="form-control" ng-model="element.value">
-		</div>
-	<button class="btn btn-primary" ng-click="save()">Save Style</button>
+
+
+
+{% for component in [
+	{
+		"modal": "style-general",
+		"controller": "stylegeneral",
+		"name": "General",
+		"id": "general"
+	},
+	{
+		"modal": "style-title",
+		"controller": "styletitle",
+		"name": "Title",
+		"id": "title"
+	},
+	{
+		"modal": "style-category",
+		"controller": "stylecategory",
+		"name": "Category",
+		"id": "category"
+	},
+	{
+		"modal": "style-item",
+		"controller": "styleitem",
+		"name": "Item",
+		"id": "item"
+	},
+	{
+		"modal": "style-option",
+		"controller": "styleoption",
+		"name": "Option",
+		"id": "option"
+	},
+	{
+		"modal": "style-info",
+		"controller": "styleinfo",
+		"name": "Information",
+		"id": "info"
+	}
+] %}
+
+<div ng-controller="{{ component.controller }}">
+
+	<div class="modal fade" id="{{ component.modal }}" tabindex="-1" role="dialog" aria-labelledby="{{ component.modal }}" aria-hidden="true">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-body">
+	      		
+				<h2>{{ component.name }} Style</h2>
+				{% raw %}
+					<div class="input-group form-group" ng-repeat="element in style track by $index">
+
+						<span class="input-group-addon">{{ element.name }}</span>
+						<input type="text" class="form-control" ng-model="element.value">
+					</div>
+				<button class="btn btn-warning" data-dismiss="modal">Cancel</button>
+				<button class="btn btn-primary" ng-click="save()" data-dismiss="modal">Save Style</button>
+				{% endraw %}
+			
+	      </div>
+	    </div>
+	  </div>
+	</div>
 </div>
-{% endraw %}
+
+</div>
+{% endfor %}

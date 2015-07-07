@@ -374,7 +374,12 @@ def style(restaurantName):
 			# if request.data["action"] == "delete":
 			# 	db.menus.update({"identifier": restaurantName}, {"$pull": {"style": request.data['element'] } })
 			if request.data["action"] == "save":
-				db.menus.update({"identifier": restaurantName}, {"$set": {"style": request.data['style'] } })
+				styleAndComponent = "style." + request.data["component"]
+
+				print styleAndComponent
+				print request.data
+				
+				db.menus.update({"identifier": restaurantName}, {"$set": {styleAndComponent: request.data['style'] } })
 
 	return dumps(db.menus.find_one({"identifier": restaurantName}, {"style": True}))
 

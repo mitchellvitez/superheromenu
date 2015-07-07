@@ -11,7 +11,7 @@
 {% block body %}
 	{% raw %}
 	<body ng-app="menu" style="background: white">
-		<div ng-controller="menu" ng-style="{'background-color': L('Background Color')}">
+		<div ng-controller="menu" ng-style="{'background-color': L('general', 'Background Color')}">
 
 			<nav class="navbar navbar-default" role="navigation">
 		        <div class="container">
@@ -27,13 +27,17 @@
 		    </nav>
 
 			<div class="container" ng-style="{
-				color: L('Text Color'),
-				'font-family': L('Font'),
-				'font-size': L('Font Size')
+				color: L('general', 'Text Color'),
+				'font-family': L('general', 'Font')
 			}" >
-				<h1 class="text-center" ng-style="{'font-size': L('Title Font Size')}">{{ menu.name }}</h1>
 
-
+				<h1 class="text-center" ng-style="{
+						'font-size': L('title', 'Font Size'),
+						color: L('title', 'Text Color'),
+						'font-family': L('title', 'Font')
+					}">
+					{{ menu.name }}
+				</h1>
 
 
 				<div class="row">
@@ -42,64 +46,86 @@
 
 							<div ng-hide="dotted">
 								<p class="col-md-10" style="font-style: italic;">{{ item.description }}</p>
-								<p class="col-md-2" ng-show="item.price">{{ getElement("Currency Symbol") }}{{ item.price }}</p>
+								<p class="col-md-2" ng-show="item.price">{{ getElement('general', "Currency Symbol") }}{{ item.price }}</p>
 							</div>
 							<div class="row" ng-repeat="option in item.options">
 								<p class="col-md-5">{{ option.name }}</p>
 								<p class="col-md-5">{{ option.description }}</p>
-								<p class="col-md-2">{{ getElement("Currency Symbol") }}{{ option.price }}</p>
+								<p class="col-md-2">{{ getElement('general', "Currency Symbol") }}{{ option.price }}</p>
 							</div>
 					</div>
+
 				</div>
 
+				<div class="row" ng-repeat="category in menu.categories" >
+					<h2 ng-style="{
+						'font-size': L('category', 'Header Font Size'),
+						color: L('category', 'Header Text Color'),
+						'font-family': L('category', 'Header Font')
+					}">{{ category.name }}</h2>
+					<p class="col-md-12" ng-style="{
+						'font-size': L('category', 'Description Font Size'),
+						color: L('category', 'Description Text Color'),
+						'font-family': L('category', 'Description Font')
+					}">{{ category.description }}</p>
 
-
-
-
-
-
-
-
-
-
-
-				<div class="row" ng-repeat="category in menu.categories">
-					<h2>{{ category.name }}</h2>
-					<p class="col-md-12">{{ category.description }}</p>
 					<div class="col-md-6" ng-repeat="item in category.items">
-						<h3>{{ item.name }}</h3>
+						<h3 ng-style="{
+						'font-size': L('item', 'Header Font Size'),
+						color: L('item', 'Header Text Color'),
+						'font-family': L('item', 'Header Font')
+					}">{{ item.name }}</h3>
 
-						<div ng-hide="dotted">
-							<p class="col-md-10" style="font-style: italic;">{{ item.description }}</p>
-							<p class="col-md-2" ng-show="item.price">{{ getElement("Currency Symbol") }}{{ item.price }}</p>
-						</div>
-
-						<!-- <ul ng-show="dotted">
-						    <li>
-						    	<span style="font-style: italic;">{{ item.description }}</span>
-						    	<span ng-show="item.price">{{ getElement("Currency Symbol") }}{{ item.price }}</span>
-						    </li>
-						</ul> -->
+						<p class="col-md-10" ng-style="{
+						'font-size': L('item', 'Description Font Size'),
+						color: L('item', 'Description Text Color'),
+						'font-style': L('item', 'Description Style'),
+						'font-family': L('item', 'Description Font')
+					}">{{ item.description }}</p>
+						<p class="col-md-2" ng-show="item.price" ng-style="{
+						'font-size': L('item', 'Price Font Size'),
+						color: L('item', 'Price Text Color'),
+						'font-family': L('item', 'Price Font')
+					}">{{ getElement('general', "Currency Symbol") }}{{ item.price }}</p>
 
 						<div class="row" ng-repeat="option in item.options">
-							<p class="col-md-5">{{ option.name }}</p>
-							<p class="col-md-5">{{ option.description }}</p>
-							<p class="col-md-2">{{ getElement("Currency Symbol") }}{{ option.price }}</p>
+							<p class="col-md-10" ng-style="{
+						'font-size': L('option', 'Header Font Size'),
+						color: L('option', 'Header Text Color'),
+						'font-family': L('option', 'Header Font')
+					}">{{ option.name }}</p>
+							<!-- <p class="col-md-5">{{ option.description }}</p> -->
+							<p class="col-md-2" ng-style="{
+						'font-size': L('option', 'Price Font Size'),
+						color: L('option', 'Price Text Color'),
+						'font-family': L('option', 'Price Font')
+					}">{{ getElement('general', "Currency Symbol") }}{{ option.price }}</p>
 						</div>
 					</div>
 				</div>
 				<br>
 
-
-
 				<br><hr><br>
+
 				<h2 class="text-center" ng-show="menu.info.length > 0">Information</h2>
 				<div class="col-md-6" ng-repeat="item in menu.info track by $index">
-					<h3>{{ item.name }}</h3>
+					<h3 ng-style="{
+						'font-size': L('info', 'Header Font Size'),
+						color: L('info', 'Header Text Color'),
+						'font-family': L('info', 'Header Font')
+					}">{{ item.name }}</h3>
 					<p ng-hide="isArray(item.value)">{{ item.value }}</p>
 					<div ng-show="isArray(item.value)" ng-repeat="pair in item.value track by $index">
-						<p class="col-md-6">{{ pair.name }}</p>
-						<p class="col-md-6">{{ pair.value }}</p>
+						<p class="col-md-6" ng-style="{
+						'font-size': L('info', 'Font Size'),
+						color: L('info', 'Text Color'),
+						'font-family': L('info', 'Font')
+					}">{{ pair.name }}</p>
+						<p class="col-md-6" ng-style="{
+						'font-size': L('info', 'Font Size'),
+						color: L('info', 'Text Color'),
+						'font-family': L('info', 'Font')
+					}">{{ pair.value }}</p>
 					</div>
 				</div>
 			</div>

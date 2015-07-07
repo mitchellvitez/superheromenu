@@ -211,7 +211,7 @@ app.controller('items', function($scope, $http, $rootScope) {
     };
 });
 
-app.controller('style', function($scope, $http, $rootScope) {
+app.controller('stylegeneral', function($scope, $http, $rootScope) {
 
 	load();
 
@@ -225,14 +225,147 @@ app.controller('style', function($scope, $http, $rootScope) {
 	function post(data) {
 		$http.post('/api/' + user.username + '/style', data).
 			success(function(data, status, headers, config) {
-				$scope.style = data.style;
+				$scope.style = data.style.general;
 			});
 		$rootScope.$broadcast('styleRefresh');
 	}
 
 	$scope.save = function() {
     	var style = $scope.style;
-    	post({"action":"save", style });
+    	console.log($scope.style);
+    	post({"action":"save", "component":"general", style });
     };
 
 });
+
+app.controller('styletitle', function($scope, $http, $rootScope) {
+
+	load();
+
+	function load() {
+		$http.get('/api/' + user.username + '/style').
+		  	success(function(data, status, headers, config) {
+		    	$scope.style = data.style.title;
+		  	});
+	}
+
+	function post(data) {
+		$http.post('/api/' + user.username + '/style', data).
+			success(function(data, status, headers, config) {
+				$scope.style = data.style.title;
+			});
+		$rootScope.$broadcast('styleRefresh');
+	}
+
+	$scope.save = function() {
+    	var style = $scope.style;
+    	console.log($scope.style);
+    	post({"action":"save", "component":"title", style });
+    };
+
+});
+app.controller('stylecategory', function($scope, $http, $rootScope) {
+
+	load();
+
+	function load() {
+		$http.get('/api/' + user.username + '/style').
+		  	success(function(data, status, headers, config) {
+		    	$scope.style = data.style.category;
+		  	});
+	}
+
+	function post(data) {
+		$http.post('/api/' + user.username + '/style', data).
+			success(function(data, status, headers, config) {
+				$scope.style = data.style.category;
+			});
+		$rootScope.$broadcast('styleRefresh');
+	}
+
+	$scope.save = function() {
+    	var style = $scope.style;
+    	console.log($scope.style);
+    	post({"action":"save", "component":"category", style });
+    };
+
+});
+app.controller('styleitem', function($scope, $http, $rootScope) {
+
+	load();
+
+	function load() {
+		$http.get('/api/' + user.username + '/style').
+		  	success(function(data, status, headers, config) {
+		    	$scope.style = data.style.item;
+		  	});
+	}
+
+	function post(data) {
+		$http.post('/api/' + user.username + '/style', data).
+			success(function(data, status, headers, config) {
+				$scope.style = data.style.item;
+			});
+		$rootScope.$broadcast('styleRefresh');
+	}
+
+	$scope.save = function() {
+    	var style = $scope.style;
+    	console.log($scope.style);
+    	post({"action":"save", "component":"item", style });
+    };
+
+});
+app.controller('styleoption', function($scope, $http, $rootScope) {
+
+	load();
+
+	function load() {
+		$http.get('/api/' + user.username + '/style').
+		  	success(function(data, status, headers, config) {
+		    	$scope.style = data.style.option;
+		  	});
+	}
+
+	function post(data) {
+		$http.post('/api/' + user.username + '/style', data).
+			success(function(data, status, headers, config) {
+				$scope.style = data.style.option;
+			});
+		$rootScope.$broadcast('styleRefresh');
+	}
+
+	$scope.save = function() {
+    	var style = $scope.style;
+    	console.log($scope.style);
+    	post({"action":"save", "component":"option", style });
+    };
+
+});
+app.controller('styleinfo', function($scope, $http, $rootScope) {
+
+	load();
+
+	function load() {
+		$http.get('/api/' + user.username + '/style').
+		  	success(function(data, status, headers, config) {
+		    	$scope.style = data.style.info;
+		  	});
+	}
+
+	function post(data) {
+		$http.post('/api/' + user.username + '/style', data).
+			success(function(data, status, headers, config) {
+				$scope.style = data.style.info;
+			});
+		$rootScope.$broadcast('styleRefresh');
+	}
+
+	$scope.save = function() {
+    	var style = $scope.style;
+    	console.log("saving: " +  style);
+    	post({"action":"save", "component":"info", style });
+    };
+
+});
+

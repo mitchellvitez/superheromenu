@@ -42,18 +42,19 @@
 			return Object.prototype.toString.call( array ) === '[object Array]';
 		}
 
-		$scope.L = function(elementName) {
-			return $scope.getElement(elementName);
+		$scope.L = function(component, elementName) {
+			return $scope.getElement(component, elementName);
 		}
 
-		$scope.getElement = function(elementName) {
+		$scope.getElement = function(component, elementName) {
 			if (! $scope.menu)
 				return;
-			var idx = indexOf($scope.menu.style, "name", elementName);
+			console.log($scope.menu.style);
+			var idx = indexOf($scope.menu.style[component], "name", elementName);
 			if (idx == -1) {
 				return "null";
 			}
-			return $scope.menu.style[idx].value;
+			return $scope.menu.style[component][idx].value;
 		}
 
 		function indexOf(array, key, value) {
