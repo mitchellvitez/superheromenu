@@ -455,7 +455,7 @@ def restaurantInfo(restaurantName):
 	restaurantName = restaurantName.lower()
 	return dumps(db.menus.find_one({"identifier": restaurantName}))
 
-# @app.route('/admin/resetdb')
+@app.route('/admin/resetdb')
 #@login_required
 def resetDatabase():
 	#if current_user.username != 'carsons' and current_user.username != 'mitchellvitez':
@@ -601,4 +601,4 @@ def home():
 if __name__ == '__main__':
 	app.secret_key = 'TotallySecret2937498374982'
 	app.config['SECRET_KEY'] = 'TotallySecret2937498374982'
-	app.run()
+	app.run(debug=True)
