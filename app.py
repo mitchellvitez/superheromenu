@@ -38,13 +38,14 @@ login_manager = LoginManager()
 login_manager.init_app(app)
 
 class User():
-	def __init__(self, username, password):
+	def __init__(self, username, password, email=''):
 		self.username = username
 		self.password = password
-		db.users.update({'username': self.username, "password": self.password}, {"username": self.username, "password": self.password}, upsert=True)
+		self.email = email
+		db.users.update({'username': self.username, "email": self.email, "password": self.password}, {"username": self.username, "password": self.password, "email": self.email}, upsert=True)
 
 	def is_authenticated(self):
-		return db.users.find({'username': self.username, "password": self.password}).limit(1).count() > 0
+		return db.users.find({'username': self.username, 'email': self.email, "password": self.password}).limit(1).count() > 0
 
 	def is_active(self):
 		return True # return db.users.find({'username': self.username, "password": self.password}).limit(1).count() > 0
@@ -56,9 +57,9 @@ class User():
 		return unicode(self.username)
 
 @login_manager.user_loader
-def load_user(username, password=''):
+def load_user(username, password='', email=''):
 	# returns user object, sans password, from this user id
-	return User(username, password)
+	return User(username, password, email)
 
 @login_manager.unauthorized_handler
 def unauthorized():
@@ -70,8 +71,8 @@ def page_not_found(e):
 
 @app.route('/signup', methods=['GET','POST'])
 def signup():
-	if current_user.is_authenticated():
-		return redirect('../manage')
+	# if current_user.is_authenticated():
+	# 	return redirect('../manage')
 
 	if request.method == 'POST':
 
@@ -86,10 +87,10 @@ def signup():
 			rememberMe = False
 
 		if db.users.find( {'username': username } ).count() > 0:
-			return redirect('login')
+			return redirect('login?alert=usernameexists&username=' + username)
 
 		if db.users.find( {'email': email } ).count() > 0:
-			return redirect('login')
+			return redirect('signup?alert=emailinuse&username=' + username)
 
 		if not username.isalnum():
 			return render_template('signup.html')
@@ -358,7 +359,7 @@ def signup():
 				]
 			})
 
-		login_user(User(username, password), remember=rememberMe)
+		login_user(User(username, password, email), remember=rememberMe)
 		if current_user.is_authenticated():
 			return redirect('login')
 

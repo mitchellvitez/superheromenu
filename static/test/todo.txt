@@ -40,7 +40,7 @@ x	c	search for an item
 x	c	better "unauthorized" page, 404 page
 x	c 	forum for feature requests
 
-	d 	dairy-free, nut-free, shellfish etc. filters
+x	d 	dairy-free, nut-free, shellfish etc. filters
 	d 	advanced users add new element to style array using css "border-radius":"4px"
 x	d 	multiple language support (selling point, better than pdf)
 	d	manual for restaurant owners
@@ -58,6 +58,8 @@ x	e 	'remember me' for login
 		Where's the option for the customer to place an order?
 		How does a customer modify a dish?
 
+	https://www.reddit.com/r/restaurant/comments/3cj8pp/whats_your_favorite_menupos_app/
+
 x		search results shouldn't be lowercase
 x		updating items by clicking on menu
 x		delete items by clicking on menu  
@@ -70,5 +72,9 @@ x		style should start off empty (no category font, uses general font, etc.)
 		fun 404 page
 		hide and unhide item via checkbox
 x		user-side search by filters (can be all client-side)
+x		easier input correction (login page,
+		and bad item data, (no category, etc.))
+		let customers rate and comment on individual menu items (5 stars)
+
 
 

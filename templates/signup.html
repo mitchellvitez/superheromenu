@@ -5,12 +5,22 @@
 {% block body %}
 	<body>
 		<div class="container">
+
 			<div class="col-md-4 col-md-offset-4">
+			<div style="margin-top: 20px"></div>
+				{% if request.args.get('alert') %}
+			      	<div class="alert alert-danger alert-dismissible" role="alert">
+			      	<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			      		{% if request.args.get('alert') == 'emailinuse' %} This Email Is Already In Use
+			      		{% else %} An Error Occurred
+			      		{% endif %} 
+			      	</div>
+			      {% endif %}
 		      <form class="form-signin" action="" method="post">
 		        <h2 class="form-signin-heading">Ready for greatness?</h2>
 		        <div class="form-group">
 					<label for="username">Username</label>
-					<input type="text" name="username" class="form-control">
+					<input type="text" name="username" value="{{ request.args.get('username') if request.args.get('username') }}"class="form-control">
 				</div>
 				<div class="form-group">
 					<label for="email">Email</label>
