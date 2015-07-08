@@ -9,10 +9,60 @@
 		$locationProvider.html5Mode(true);
 	});
 
+
+
 	app.controller('menu', function($scope, $http) {
 
 		load();
 		reset();
+
+		$scope.filters = [
+        	{"name": "Vegan", "value": false},
+        	{"name": "Vegetarian", "value": false},
+        	{"name": "Not Spicy", "value": false},
+        	{"name": "Gluten free", "value": false},
+        	{"name": "No Peanuts", "value": false},
+        	{"name": "No Tree Nuts", "value": false},
+        	{"name": "No Milk", "value": false},
+        	{"name": "No Egg", "value": false},
+        	{"name": "No Wheat", "value": false},
+        	{"name": "No Soy", "value": false},
+        	{"name": "No Fish", "value": false},
+        	{"name": "No Shellfish", "value": false}
+        ];
+
+        $scope.filterInclude = [
+        	{"name": "Vegan", "value": true},
+        	{"name": "Vegetarian", "value": true},
+        	{"name": "Not Spicy", "value": false},
+        	{"name": "Gluten free", "value": true},
+        	{"name": "No Peanuts", "value": false},
+        	{"name": "No Tree Nuts", "value": false},
+        	{"name": "No Milk", "value": false},
+        	{"name": "No Egg", "value": false},
+        	{"name": "No Wheat", "value": false},
+        	{"name": "No Soy", "value": false},
+        	{"name": "No Fish", "value": false},
+        	{"name": "No Shellfish", "value": false}
+        ];
+
+        $scope.shouldShow = function(item) {
+        	if (item.filters) {
+	        	for (var i = 0; i < item.filters.length; ++i) {
+	        		if (JSON.parse(item.filters[i].value)) {
+	        			if (JSON.parse($scope.filters[i].value) != JSON.parse($scope.filterInclude[i].value)) {
+	        				return false;
+	        			}
+	        		}
+	        		else {
+	        			if (JSON.parse($scope.filters[i].value) && JSON.parse($scope.filterInclude[i].value)) {
+	        				return false;
+	        			}
+	        		}
+	        	}
+	        }
+        	return true;
+        }
 
 		function load() {
 	        $http.get('/api/' + restaurantName).

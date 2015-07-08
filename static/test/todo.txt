@@ -69,6 +69,6 @@ x		style should start off empty (no category font, uses general font, etc.)
 		analytics / feedback
 		fun 404 page
 		hide and unhide item via checkbox
-		user-side search by filters (can be all client-side)
+x		user-side search by filters (can be all client-side)
 
 

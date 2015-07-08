@@ -11,16 +11,32 @@
 {% block body %}
 	{% raw %}
 	<body ng-app="menu" style="background: white">
-		<div ng-controller="menu" ng-style="{'background-color': L('general', 'Background Color')}">
+		<div ng-controller="menu" ng-style="{'background-color': L('general', 'Background Color')}" style="padding-left: 20px; padding-right: 20px">
 
 			<nav class="navbar navbar-default" role="navigation">
 		        <div class="container">
 		            <div class="navbar-header">
 		            </div>
 		            <div id="navbar">
-		            	<ul class="nav navbar-nav">
-		                    <li><input type="text" class="form-control" style="margin: 10px" ng-keyup="$event.keyCode == 13 && search(query)" ng-model="query"></li>
-		                    <li><button class="btn" style="margin: 10px; margin-left: 20px;" ng-click="search(query)">Search</button></li>
+		            	<ul class="nav navbar-nav" style="padding: 6px">
+			            	<li style="padding: 6px">
+								<input type="text" class="form-control" width="auto" ng-keyup="$event.keyCode == 13 && search(query)" ng-model="query">
+							</li>
+							<li style="padding: 6px">
+		                    	<button class="btn" ng-click="search(query)">Search</button>
+		                    </li>
+		                    <li style="padding: 12px">
+		                    </li>
+		                    <li style="padding: 6px">
+		                    	<button class="btn" ng-click="showFilters = !showFilters">Filter</button>
+		                    </li>
+		                    <li>
+		                    	<div class="form-group" ng-show="showFilters">
+									<label class="btn" ng-repeat="filter in filters track by $index" style="margin: 6px">
+										<input type="checkbox" name="remember" ng-model="filter.value"> {{ filter.name }}
+									</label>
+								</div>
+		                    </li>
 		                </ul>
 		            </div>
 		        </div>
@@ -41,7 +57,7 @@
 
 
 				<div class="row">
-					<div class="col-md-6" ng-repeat="item in menu.items">
+					<div class="col-md-6" ng-repeat="item in menu.items" ng-show="shouldShow(item)">
 							<h3>{{ item.name }}</h3>
 
 							<div ng-hide="dotted">
@@ -69,7 +85,7 @@
 						'font-family': L('category', 'Description Font')
 					}">{{ category.description }}</p>
 
-					<div class="col-md-6" ng-repeat="item in category.items">
+					<div class="col-md-6" ng-repeat="item in category.items" ng-show="shouldShow(item)">
 						<h3 ng-style="{
 						'font-size': L('item', 'Header Font Size'),
 						color: L('item', 'Header Text Color'),
