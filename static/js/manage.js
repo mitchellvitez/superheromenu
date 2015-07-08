@@ -183,7 +183,7 @@ app.controller('categories', function($scope, $http, $rootScope) {
     };
 });
 
-app.controller('items', function($scope, $http, $rootScope) {
+app.controller('additem', function($scope, $http, $rootScope) {
 
 	load();
 	reset();
@@ -201,7 +201,7 @@ app.controller('items', function($scope, $http, $rootScope) {
 
 	function reset() {
     	$scope.item = {};
-        $scope.options = [];
+        $scope.item.options = [];
     }
 
     function post(data) {
@@ -213,7 +213,7 @@ app.controller('items', function($scope, $http, $rootScope) {
     }
 
     $scope.addOption = function() {
-        $scope.options.push(0);
+        $scope.item.options.push({});
     };
 
     $scope.save = function() {
@@ -244,6 +244,9 @@ app.controller('edititem', function($scope, $http, $rootScope, sharedItem) {
 	function load() {
 		$scope.item = sharedItem.get();
 		originalItem = JSON.parse(JSON.stringify($scope.item));
+		if (!$scope.item.options) {
+			$scope.item.options = [];
+		}
 	}
 
 	$scope.$on('editItem', function(event, args) {
@@ -259,12 +262,17 @@ app.controller('edititem', function($scope, $http, $rootScope, sharedItem) {
     }
 
     $scope.addOption = function() {
-        $scope.item.options.push(0);
+        $scope.item.options.push({});
     };
 
     $scope.save = function() {
     	var item = $scope.item;
     	post({"action":"update", item, originalItem });
+    };
+
+    $scope.delete = function() {
+    	var item = originalItem; // original to avoid lack of delete on changed items
+    	post({"action":"delete", item });
     };
 
 });
@@ -353,6 +361,11 @@ app.controller('view', function($scope, $http, $rootScope, sharedItem) {
 	}
 
 });
+
+
+
+
+
 
 
 

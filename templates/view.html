@@ -14,23 +14,6 @@
 				</h1>
 
 
-				<!-- <div class="row">
-					<div class="col-md-6" ng-repeat="item in menu.items">
-							<h3>{{ item.name }}</h3>
-
-							<div ng-hide="dotted">
-								<p class="col-md-10" style="font-style: italic;">{{ item.description }}</p>
-								<p class="col-md-2" ng-show="item.price">{{ getElement('general', "Currency Symbol") }}{{ item.price }}</p>
-							</div>
-							<div class="row" ng-repeat="option in item.options">
-								<p class="col-md-5">{{ option.name }}</p>
-								<p class="col-md-5">{{ option.description }}</p>
-								<p class="col-md-2">{{ getElement('general', "Currency Symbol") }}{{ option.price }}</p>
-							</div>
-					</div>
-
-				</div> -->
-
 				<div class="row" ng-repeat="category in menu.categories" >
 					<h2 ng-style="{
 						'font-size': L('category', 'Header Font Size'),
@@ -62,7 +45,7 @@
 						'font-family': L('item', 'Price Font')
 					}">{{ getElement('general', "Currency Symbol") }}{{ item.price }}</p>
 
-						<div class="row" ng-repeat="option in item.options">
+						<div class="row" ng-repeat="option in item.options track by $index">
 							<p class="col-md-5" ng-style="{
 						'font-size': L('option', 'Header Font Size'),
 						color: L('option', 'Header Text Color'),

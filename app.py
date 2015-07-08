@@ -489,8 +489,9 @@ def items(restaurantName):
 				db.menus.update({"identifier": restaurantName, "categories.name": categoryName },
 					{"$push" : {"categories.$.items" : request.data['item'] } } )
 					
-			# elif request.data["action"] == "delete":
-			# 	db.menus.update({"identifier": restaurantName}, {"$pull": {"categories": request.data['category'] } })
+			elif request.data["action"] == "delete":
+				db.menus.update({"identifier": restaurantName, "categories.name": categoryName },
+					{"$pull" : {"categories.$.items" : request.data['item'] } } )
 
 	return dumps(db.menus.find_one({"identifier": restaurantName}, {"categories": True}))
 

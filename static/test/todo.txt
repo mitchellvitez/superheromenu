@@ -25,7 +25,7 @@ x	a	landing page
 	
 x	b 	override bootstrap css so pretty
 
--	b	item deletion/update
+x	b	item deletion/update
 x	b	security of login
 x		Hash passwords
 x	b	security of JSON from db (( was already okay, just need to escape json after getting from /api ))
@@ -60,6 +60,11 @@ x	e 	'remember me' for login
 
 x		search results shouldn't be lowercase
 x		updating items by clicking on menu
+x		delete items by clicking on menu  
 		allergy (and vegan, etc.) filters
+		style should start off empty (no category font, uses general font, etc.)
 		payment/paywall
 		images???
+		analytics / feedback
+		fun 404 page
+		hide and unhide item via checkbox

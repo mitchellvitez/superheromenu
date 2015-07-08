@@ -1,5 +1,5 @@
 {% raw %}
-<div ng-controller="items">
+<div ng-controller="additem">
 	<h2>Add Item</h2>
 
 	<div class="dropdown form-group">
@@ -25,25 +25,25 @@
 		<input type="number" id="price" class="form-control" ng-model="item.price">
 	</div>
 
-	<div ng-repeat="option in options track by $index" class="form-horizontal">
+	<div ng-repeat="option in item.options track by $index" class="form-horizontal">
 		<br>
 		<h5 class="text-center">Option {{$index + 1}}</h5>
 		<div class="form-group">
 			<label for="optionname" class="col-md-3 control-label">Name</label>
 			<div class="col-md-9">
-				<input type="text" id="optionname" class="form-control" ng-model="item['option' + $index].name">
+				<input type="text" id="optionname" class="form-control" ng-model="option.name">
 			</div>
 		</div>
 		<div class="form-group">
 			<label for="optiondescription" class="col-md-3 control-label">Description</label>
 			<div class="col-md-9">
-				<input type="text" id="optiondescription" class="form-control" ng-model="item['option' + $index].description">
+				<input type="text" id="optiondescription" class="form-control" ng-model="option.description">
 			</div>
 		</div>
 		<div class="form-group">
 			<label for="optionprice" class="col-md-3 control-label">Price</label>
 			<div class="col-md-9">
-				<input type="number" id="optionprice" class="form-control" ng-model="item['option' + $index].price">
+				<input type="number" id="optionprice" class="form-control" ng-model="option.price">
 			</div>
 		</div>
 	</div>

@@ -48,7 +48,7 @@
 								<p class="col-md-10" style="font-style: italic;">{{ item.description }}</p>
 								<p class="col-md-2" ng-show="item.price">{{ getElement('general', "Currency Symbol") }}{{ item.price }}</p>
 							</div>
-							<div class="row" ng-repeat="option in item.options">
+							<div class="row" ng-repeat="option in item.options track by $index">
 								<p class="col-md-5">{{ option.name }}</p>
 								<p class="col-md-5">{{ option.description }}</p>
 								<p class="col-md-2">{{ getElement('general', "Currency Symbol") }}{{ option.price }}</p>
@@ -88,7 +88,7 @@
 						'font-family': L('item', 'Price Font')
 					}">{{ getElement('general', "Currency Symbol") }}{{ item.price }}</p>
 
-						<div class="row" ng-repeat="option in item.options">
+						<div class="row" ng-repeat="option in item.options track by $index">
 							<p class="col-md-10" ng-style="{
 						'font-size': L('option', 'Header Font Size'),
 						color: L('option', 'Header Text Color'),
