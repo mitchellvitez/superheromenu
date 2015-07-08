@@ -82,6 +82,21 @@
 						'font-style': L('item', 'Description Style'),
 						'font-family': L('item', 'Description Font')
 					}">{{ item.description }}</p>
+					
+						<!--  <div class="col-md-3" ng-style="{
+						'font-size': L('item', 'Description Font Size'),
+						color: L('item', 'Description Text Color'),
+						'font-family': L('item', 'Description Font')
+					}" style="font-variant: small-caps;">
+
+					 <a href="#" class="btn danger popover" rel="popover" data-original-title="title" data-content="content">popover</a>
+
+					<a href="#" id="example" data-html="true" data-content="<p>test</p>" rel="popover">test</a>
+
+					<a href="#" id="example" rel="popover" data-content="<p ng-repeat='filter in item.filters track by $index' ng-show='filter.value'>{{ filter.name }}</p>" data-html="true" data-original-title="Filter">Info</a> 
+							
+						</div> -->
+
 						<p class="col-md-2" ng-show="item.price" ng-style="{
 						'font-size': L('item', 'Price Font Size'),
 						color: L('item', 'Price Text Color'),

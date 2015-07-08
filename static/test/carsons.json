@@ -84,10 +84,10 @@
 		],
 		"title": [
 			{	"name": "Text Color",
-				"value": "#444444"
+				"value": ""
 			},
 			{	"name": "Font",
-				"value": "'Hoefler Text', 'Baskerville Old Face', Garamond, 'Times New Roman', serif"
+				"value": ""
 			},
 			{
 				"name": "Font Size",
@@ -96,22 +96,22 @@
 		],
 		"category": [
 			{	"name": "Header Text Color",
-				"value": "#444444"
+				"value": ""
 			},
 			{
 				"name": "Header Font",
-				"value": "'Hoefler Text', 'Baskerville Old Face', Garamond, 'Times New Roman', serif"
+				"value": ""
 			},
 			{
 				"name": "Header Font Size",
 				"value": "220%"
 			},
 			{	"name": "Description Text Color",
-				"value": "#444444"
+				"value": ""
 			},
 			{
 				"name": "Description Font",
-				"value": "'Hoefler Text', 'Baskerville Old Face', Garamond, 'Times New Roman', serif"
+				"value": ""
 			},
 			{
 				"name": "Description Font Size",
@@ -120,22 +120,22 @@
 		],
 		"item": [
 			{	"name": "Header Text Color",
-				"value": "#444444"
+				"value": ""
 			},
 			{
 				"name": "Header Font",
-				"value": "'Hoefler Text', 'Baskerville Old Face', Garamond, 'Times New Roman', serif"
+				"value": ""
 			},
 			{
 				"name": "Header Font Size",
 				"value": "24px"
 			},
 			{	"name": "Description Text Color",
-				"value": "#444444"
+				"value": ""
 			},
 			{
 				"name": "Description Font",
-				"value": "'Hoefler Text', 'Baskerville Old Face', Garamond, 'Times New Roman', serif"
+				"value": ""
 			},
 			{
 				"name": "Description Font Size",
@@ -146,11 +146,11 @@
 				"value": "italic"
 			},
 			{	"name": "Price Text Color",
-				"value": "#444444"
+				"value": ""
 			},
 			{
 				"name": "Price Font",
-				"value": "'Hoefler Text', 'Baskerville Old Face', Garamond, 'Times New Roman', serif"
+				"value": ""
 			},
 			{
 				"name": "Price Font Size",
@@ -160,11 +160,11 @@
 		"option": [
 			{	
 				"name": "Header Text Color",
-				"value": "#444444"
+				"value": ""
 			},
 			{
 				"name": "Header Font",
-				"value": "'Hoefler Text', 'Baskerville Old Face', Garamond, 'Times New Roman', serif"
+				"value": ""
 			},
 			{
 				"name": "Header Font Size",
@@ -172,11 +172,11 @@
 			},
 			{	
 				"name": "Price Text Color",
-				"value": "#444444"
+				"value": ""
 			},
 			{
 				"name": "Price Font",
-				"value": "'Hoefler Text', 'Baskerville Old Face', Garamond, 'Times New Roman', serif"
+				"value": ""
 			},
 			{
 				"name": "Price Font Size",
@@ -185,22 +185,22 @@
 		],
 		"info": [
 			{	"name": "Header Text Color",
-				"value": "#444444"
+				"value": ""
 			},
 			{
 				"name": "Header Font",
-				"value": "'Hoefler Text', 'Baskerville Old Face', Garamond, 'Times New Roman', serif"
+				"value": ""
 			},
 			{
 				"name": "Header Font Size",
-				"value": "20px%"
+				"value": "20px"
 			},
 			{	"name": "Text Color",
-				"value": "#444444"
+				"value": ""
 			},
 			{
 				"name": "Font",
-				"value": "'Hoefler Text', 'Baskerville Old Face', Garamond, 'Times New Roman', serif"
+				"value": ""
 			},
 			{
 				"name": "Font Size",

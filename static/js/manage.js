@@ -18,6 +18,21 @@ app.config(function($routeProvider, $locationProvider) {
 	$locationProvider.html5Mode(true);
 });
 
+FILTERS = [
+        	{"name": "Vegan", "value": false},
+        	{"name": "Vegetarian", "value": false},
+        	{"name": "Spicy", "value": false},
+        	{"name": "Gluten free", "value": false},
+        	{"name": "Peanuts", "value": false},
+        	{"name": "Tree nuts", "value": false},
+        	{"name": "Milk", "value": false},
+        	{"name": "Egg", "value": false},
+        	{"name": "Wheat", "value": false},
+        	{"name": "Soy", "value": false},
+        	{"name": "Fish", "value": false},
+        	{"name": "Shellfish", "value": false}
+        ];
+
 app.service('sharedItem', function () {
     var item = {};
 
@@ -202,6 +217,7 @@ app.controller('additem', function($scope, $http, $rootScope) {
 	function reset() {
     	$scope.item = {};
         $scope.item.options = [];
+        $scope.item.filters = FILTERS;
     }
 
     function post(data) {
@@ -218,6 +234,11 @@ app.controller('additem', function($scope, $http, $rootScope) {
 
     $scope.save = function() {
     	var item = $scope.item;
+
+    	for (var index = 0; index < item.filters.length; ++index) {
+    		item.filters[index].value = item.filters[index].value.toString();
+    	}
+    	
     	post({"action":"save", item });
         reset();
     };
@@ -244,9 +265,19 @@ app.controller('edititem', function($scope, $http, $rootScope, sharedItem) {
 	function load() {
 		$scope.item = sharedItem.get();
 		originalItem = JSON.parse(JSON.stringify($scope.item));
+
+		if (!$scope.item.filters) {
+			$scope.item.filters = FILTERS;
+		}
+
+		for (var index = 0; index < $scope.item.filters.length; ++index) {
+    		$scope.item.filters[index].value = JSON.parse($scope.item.filters[index].value);
+    	}
+
 		if (!$scope.item.options) {
 			$scope.item.options = [];
 		}
+		
 	}
 
 	$scope.$on('editItem', function(event, args) {
@@ -267,6 +298,11 @@ app.controller('edititem', function($scope, $http, $rootScope, sharedItem) {
 
     $scope.save = function() {
     	var item = $scope.item;
+
+    	for (var index = 0; index < item.filters.length; ++index) {
+    		item.filters[index].value = item.filters[index].value.toString();
+    	}
+
     	post({"action":"update", item, originalItem });
     };
 

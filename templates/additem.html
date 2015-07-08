@@ -25,6 +25,8 @@
 		<input type="number" id="price" class="form-control" ng-model="item.price">
 	</div>
 
+	
+
 	<div ng-repeat="option in item.options track by $index" class="form-horizontal">
 		<br>
 		<h5 class="text-center">Option {{$index + 1}}</h5>
@@ -47,8 +49,15 @@
 			</div>
 		</div>
 	</div>
+	<button class="btn btn-success center-block" ng-click="addOption()">Add Option</button><br>
 
-	<button class="btn btn-default center-block" ng-click="addOption()">Add Option</button><br>
+	<div class="form-group">
+		<label class="btn" ng-repeat="filter in item.filters track by $index" style="margin: 6px">
+			<input type="checkbox" name="remember" ng-model="filter.value"> {{ filter.name }}
+		</label>
+	</div>
+
+
 	<button class="btn btn-warning" data-dismiss="modal">Cancel</button>
 	<button class="btn btn-primary" data-dismiss="modal" ng-click="save()">Save Item</button>
 

@@ -61,10 +61,14 @@ x	e 	'remember me' for login
 x		search results shouldn't be lowercase
 x		updating items by clicking on menu
 x		delete items by clicking on menu  
-		allergy (and vegan, etc.) filters
-		style should start off empty (no category font, uses general font, etc.)
+x		allergy (and vegan, etc.) filters
+x		updating item should maintain its ordering place in the category
+x		style should start off empty (no category font, uses general font, etc.)
 		payment/paywall
 		images???
 		analytics / feedback
 		fun 404 page
 		hide and unhide item via checkbox
+		user-side search by filters (can be all client-side)
+
+

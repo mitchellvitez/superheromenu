@@ -114,10 +114,10 @@ def signup():
 				],
 				"title": [
 					{	"name": "Text Color",
-						"value": "#444444"
+						"value": ""
 					},
 					{	"name": "Font",
-						"value": "'Hoefler Text', 'Baskerville Old Face', Garamond, 'Times New Roman', serif"
+						"value": ""
 					},
 					{
 						"name": "Font Size",
@@ -126,22 +126,22 @@ def signup():
 				],
 				"category": [
 					{	"name": "Header Text Color",
-						"value": "#444444"
+						"value": ""
 					},
 					{
 						"name": "Header Font",
-						"value": "'Hoefler Text', 'Baskerville Old Face', Garamond, 'Times New Roman', serif"
+						"value": ""
 					},
 					{
 						"name": "Header Font Size",
 						"value": "220%"
 					},
 					{	"name": "Description Text Color",
-						"value": "#444444"
+						"value": ""
 					},
 					{
 						"name": "Description Font",
-						"value": "'Hoefler Text', 'Baskerville Old Face', Garamond, 'Times New Roman', serif"
+						"value": ""
 					},
 					{
 						"name": "Description Font Size",
@@ -150,22 +150,22 @@ def signup():
 				],
 				"item": [
 					{	"name": "Header Text Color",
-						"value": "#444444"
+						"value": ""
 					},
 					{
 						"name": "Header Font",
-						"value": "'Hoefler Text', 'Baskerville Old Face', Garamond, 'Times New Roman', serif"
+						"value": ""
 					},
 					{
 						"name": "Header Font Size",
 						"value": "24px"
 					},
 					{	"name": "Description Text Color",
-						"value": "#444444"
+						"value": ""
 					},
 					{
 						"name": "Description Font",
-						"value": "'Hoefler Text', 'Baskerville Old Face', Garamond, 'Times New Roman', serif"
+						"value": ""
 					},
 					{
 						"name": "Description Font Size",
@@ -176,11 +176,11 @@ def signup():
 						"value": "italic"
 					},
 					{	"name": "Price Text Color",
-						"value": "#444444"
+						"value": ""
 					},
 					{
 						"name": "Price Font",
-						"value": "'Hoefler Text', 'Baskerville Old Face', Garamond, 'Times New Roman', serif"
+						"value": ""
 					},
 					{
 						"name": "Price Font Size",
@@ -190,11 +190,11 @@ def signup():
 				"option": [
 					{	
 						"name": "Header Text Color",
-						"value": "#444444"
+						"value": ""
 					},
 					{
 						"name": "Header Font",
-						"value": "'Hoefler Text', 'Baskerville Old Face', Garamond, 'Times New Roman', serif"
+						"value": ""
 					},
 					{
 						"name": "Header Font Size",
@@ -202,11 +202,11 @@ def signup():
 					},
 					{	
 						"name": "Price Text Color",
-						"value": "#444444"
+						"value": ""
 					},
 					{
 						"name": "Price Font",
-						"value": "'Hoefler Text', 'Baskerville Old Face', Garamond, 'Times New Roman', serif"
+						"value": ""
 					},
 					{
 						"name": "Price Font Size",
@@ -215,22 +215,22 @@ def signup():
 				],
 				"info": [
 					{	"name": "Header Text Color",
-						"value": "#444444"
+						"value": ""
 					},
 					{
 						"name": "Header Font",
-						"value": "'Hoefler Text', 'Baskerville Old Face', Garamond, 'Times New Roman', serif"
+						"value": ""
 					},
 					{
 						"name": "Header Font Size",
 						"value": "20px"
 					},
 					{	"name": "Text Color",
-						"value": "#444444"
+						"value": ""
 					},
 					{
 						"name": "Font",
-						"value": "'Hoefler Text', 'Baskerville Old Face', Garamond, 'Times New Roman', serif"
+						"value": ""
 					},
 					{
 						"name": "Font Size",
@@ -296,20 +296,62 @@ def signup():
 										"name": "bowl",
 										"price": 8
 									}
-								]
+								],
+								"filters" : [
+						        	{"name": "Vegan", "value": "false"},
+						        	{"name": "Vegetarian", "value": "false"},
+						        	{"name": "Spicy", "value": "false"},
+						        	{"name": "Gluten free", "value": "false"},
+						        	{"name": "Peanuts", "value": "false"},
+						        	{"name": "Tree nuts", "value": "false"},
+						        	{"name": "Milk", "value": "false"},
+						        	{"name": "Egg", "value": "false"},
+						        	{"name": "Wheat", "value": "false"},
+						        	{"name": "Soy", "value": "false"},
+						        	{"name": "Fish", "value": "false"},
+						        	{"name": "Shellfish", "value": "false"}
+						        ]
 							},
 							{	"name": "Item 2",
 								"description": "You can also adjust the look and feel of your menu with \"Style\" in the manager",
-								"price": 19.95
+								"price": 19.95,
+								"filters" : [
+						        	{"name": "Vegan", "value": "false"},
+						        	{"name": "Vegetarian", "value": "false"},
+						        	{"name": "Spicy", "value": "false"},
+						        	{"name": "Gluten free", "value": "false"},
+						        	{"name": "Peanuts", "value": "false"},
+						        	{"name": "Tree nuts", "value": "false"},
+						        	{"name": "Milk", "value": "false"},
+						        	{"name": "Egg", "value": "false"},
+						        	{"name": "Wheat", "value": "false"},
+						        	{"name": "Soy", "value": "false"},
+						        	{"name": "Fish", "value": "false"},
+						        	{"name": "Shellfish", "value": "false"}
+						        ]
 							}
 						]
 					},
 					{	"name": "Appetizers",
 						"description": "Yummy little pre-meal treats",
 						"items": [
-							{	"name": "Celery sticks",
+							{	"name": "Celery sticks and peanut butter",
 								"description": "Like eating crunchy water",
-								"price": 99
+								"price": 99,
+								"filters" : [
+						        	{"name": "Vegan", "value": "false"},
+						        	{"name": "Vegetarian", "value": "false"},
+						        	{"name": "Spicy", "value": "false"},
+						        	{"name": "Gluten free", "value": "false"},
+						        	{"name": "Peanuts", "value": "true"},
+						        	{"name": "Tree nuts", "value": "false"},
+						        	{"name": "Milk", "value": "false"},
+						        	{"name": "Egg", "value": "false"},
+						        	{"name": "Wheat", "value": "false"},
+						        	{"name": "Soy", "value": "false"},
+						        	{"name": "Fish", "value": "false"},
+						        	{"name": "Shellfish", "value": "false"}
+						        ]
 							}, 
 						]
 					}
@@ -464,6 +506,7 @@ def items(restaurantName):
 		if current_user.username != restaurantName:
 			return 'ERROR', 401
 		else:
+			print request.data
 			request.data = ast.literal_eval(request.data)
 
 			categoryName = request.data['item']['category']['name']
@@ -484,11 +527,22 @@ def items(restaurantName):
 				except KeyError:
 					pass # "category" should always be a key
 
+				# insert into correct position
+				insertPosition = 0 
+				menuForCount = db.menus.find_one({"identifier": restaurantName})
+				for category in menuForCount['categories']:
+					if category['name'] == originalCategoryName:
+						for item in category['items']:
+							if item['name'] == request.data['originalItem']['name']:
+								break
+							insertPosition += 1
+
 				db.menus.update({"identifier": restaurantName, "categories.name": originalCategoryName },
 					{"$pull" : {"categories.$.items" : request.data['originalItem'] } } )
 				db.menus.update({"identifier": restaurantName, "categories.name": categoryName },
-					{"$push" : {"categories.$.items" : request.data['item'] } } )
+					{"$push" : { "categories.$.items" : { "$each": [ request.data['item'] ], "$position": insertPosition } } } )
 					
+
 			elif request.data["action"] == "delete":
 				db.menus.update({"identifier": restaurantName, "categories.name": categoryName },
 					{"$pull" : {"categories.$.items" : request.data['item'] } } )

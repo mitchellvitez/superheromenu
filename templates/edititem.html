@@ -48,7 +48,16 @@
 		</div>
 	</div>
 
-	<button class="btn btn-default center-block" ng-click="addOption()">Add Option</button><br>
+	<button class="btn btn-success center-block" ng-click="addOption()">Add Option</button><br>
+
+	<div class="form-group">
+		<label class="btn" ng-repeat="filter in item.filters track by $index" style="margin: 6px">
+			<input type="checkbox" name="remember" ng-model="filter.value"> {{ filter.name }}
+		</label>
+	</div>
+
+
+
 	<button class="btn btn-warning" data-dismiss="modal">Cancel</button>
 	<button class="btn btn-primary" data-dismiss="modal" ng-click="save()">Save Item</button>
 	<button class="btn btn-danger pull-right" data-dismiss="modal" ng-click="delete()">Delete Item</button>

@@ -49,7 +49,7 @@
 		$scope.getElement = function(component, elementName) {
 			if (! $scope.menu)
 				return;
-			console.log($scope.menu.style);
+			// console.log($scope.menu.style);
 			var idx = indexOf($scope.menu.style[component], "name", elementName);
 			if (idx == -1) {
 				return "null";
