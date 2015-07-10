@@ -35,6 +35,7 @@ FILTERS = [
 
 app.service('sharedItem', function () {
     var item = {};
+    var category = {};
 
     return {
         get: function () {
@@ -42,6 +43,18 @@ app.service('sharedItem', function () {
         },
         set: function(value) {
             item = value;
+        },
+        getCategory: function() {
+        	return category;
+        },
+        setCategory: function(value) {
+        	category = value;
+        },
+        getTitle: function() {
+        	return title;
+        },
+        setTitle: function(value) {
+        	title = value;
         }
     };
 });
@@ -244,6 +257,64 @@ app.controller('additem', function($scope, $http, $rootScope) {
     };
 });
 
+app.controller('edittitle', function($scope, $http, $rootScope, sharedItem) {
+
+	function load() {
+		$scope.title = sharedItem.getTitle();
+	}
+
+	$scope.$on('editTitle', function(event, args) {
+		load();
+	});
+
+	function post(data) {
+    	$http.post('/api/' + user.username, data).
+			success(function(data, status, headers, config) {
+
+			});
+		$rootScope.$broadcast('titleRefresh');
+    }
+
+    $scope.save = function() {
+    	var title = $scope.title;
+    	post({"action":"title", "title": title });
+    };
+
+});
+
+app.controller('editcategory', function($scope, $http, $rootScope, sharedItem) {
+
+	var originalCategory = {};
+
+	function load() {
+		$scope.category = sharedItem.getCategory();
+		originalCategory= JSON.parse(JSON.stringify($scope.category));
+	}
+
+	$scope.$on('editCategory', function(event, args) {
+		load();
+	});
+
+	function post(data) {
+    	$http.post('/api/' + user.username + '/categories', data).
+			success(function(data, status, headers, config) {
+
+			});
+		$rootScope.$broadcast('categoryRefresh');
+    }
+
+    $scope.save = function() {
+    	var category = $scope.category;
+    	post({"action":"update", category, originalCategory });
+    };
+
+    $scope.delete = function() {
+    	var category = originalCategory; // original to avoid lack of delete on changed categories
+    	post({"action":"delete", category });
+    };
+
+});
+
 app.controller('edititem', function($scope, $http, $rootScope, sharedItem) {
 
 
@@ -330,6 +401,10 @@ app.controller('view', function($scope, $http, $rootScope, sharedItem) {
 		load();
 	});
 
+	$scope.$on('titleRefresh', function(event, args) {
+		load();
+	});
+
 	$scope.$on('styleRefresh', function(event, args) {
 		load();
 	});
@@ -353,6 +428,18 @@ app.controller('view', function($scope, $http, $rootScope, sharedItem) {
 		$rootScope.$broadcast('editItem');
 		$('#edititem').modal('show');
 
+	}
+
+	$scope.editCategory = function(category) {
+		sharedItem.setCategory(category);
+		$rootScope.$broadcast('editCategory');
+		$('#editcategory').modal('show');
+	}
+
+	$scope.editTitle = function(title) {
+		sharedItem.setTitle(title);
+		$rootScope.$broadcast('editTitle');
+		$('#edittitle').modal('show');
 	}
 
 	$scope.search = function(query) {

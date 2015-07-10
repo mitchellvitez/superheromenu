@@ -1,0 +1,13 @@
+{% raw %}
+<div ng-controller="edittitle">
+	<h2>Edit Title</h2>
+
+	<div class="form-group">
+		<label for="name">Title</label>
+		<input type="text" id="name" class="form-control" ng-model="title">
+	</div>
+	<br>
+	<button class="btn btn-warning" data-dismiss="modal">Cancel</button>
+	<button class="btn btn-primary" data-dismiss="modal" ng-click="save()">Save</button>
+</div>
+{% endraw %}

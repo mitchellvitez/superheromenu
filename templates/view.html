@@ -5,7 +5,7 @@
 				'font-family': L('general', 'Font')
 			}" >
 
-				<h1 class="text-center" ng-style="{
+				<h1 class="text-center outlineonhover" ng-click="editTitle(menu.name)" ng-style="{
 						'font-size': L('title', 'Font Size'),
 						color: L('title', 'Text Color'),
 						'font-family': L('title', 'Font')
@@ -14,17 +14,19 @@
 				</h1>
 
 
-				<div class="row" ng-repeat="category in menu.categories" >
-					<h2 ng-style="{
-						'font-size': L('category', 'Header Font Size'),
-						color: L('category', 'Header Text Color'),
-						'font-family': L('category', 'Header Font')
-					}">{{ category.name }}</h2>
-					<p class="col-md-12" ng-style="{
-						'font-size': L('category', 'Description Font Size'),
-						color: L('category', 'Description Text Color'),
-						'font-family': L('category', 'Description Font')
-					}">{{ category.description }}</p>
+				<div class="row" ng-repeat="category in menu.categories">
+					<div class="outlineonhover col-md-12" ng-click="editCategory(category)">
+						<h2 ng-style="{
+							'font-size': L('category', 'Header Font Size'),
+							color: L('category', 'Header Text Color'),
+							'font-family': L('category', 'Header Font')
+						}">{{ category.name }}</h2>
+						<p ng-style="{
+							'font-size': L('category', 'Description Font Size'),
+							color: L('category', 'Description Text Color'),
+							'font-family': L('category', 'Description Font')
+						}">{{ category.description }}</p>
+					</div>
 
 					<div class="col-md-6 outlineonhover" ng-repeat="item in category.items" ng-click="edit(item, category, item.options)">
 						<h3 ng-style="{
@@ -67,26 +69,27 @@
 				<br>
 
 				<br><hr><br>
-
-				<h2 class="text-center" ng-show="menu.info.length > 0">Information</h2>
-				<div class="col-md-6" ng-repeat="item in menu.info track by $index">
-					<h3 ng-style="{
-						'font-size': L('info', 'Header Font Size'),
-						color: L('info', 'Header Text Color'),
-						'font-family': L('info', 'Header Font')
-					}">{{ item.name }}</h3>
-					<p ng-hide="isArray(item.value)">{{ item.value }}</p>
-					<div ng-show="isArray(item.value)" ng-repeat="pair in item.value track by $index">
-						<p class="col-md-6" ng-style="{
-						'font-size': L('info', 'Font Size'),
-						color: L('info', 'Text Color'),
-						'font-family': L('info', 'Font')
-					}">{{ pair.name }}</p>
-						<p class="col-md-6" ng-style="{
-						'font-size': L('info', 'Font Size'),
-						color: L('info', 'Text Color'),
-						'font-family': L('info', 'Font')
-					}">{{ pair.value }}</p>
+				<div class="outlineonhover col-md-12" data-toggle="modal" data-target="#info">
+					<h2 class="text-center" ng-show="menu.info.length > 0">Information</h2>
+					<div class="col-md-6" ng-repeat="item in menu.info track by $index">
+						<h3 ng-style="{
+							'font-size': L('info', 'Header Font Size'),
+							color: L('info', 'Header Text Color'),
+							'font-family': L('info', 'Header Font')
+						}">{{ item.name }}</h3>
+						<p ng-hide="isArray(item.value)">{{ item.value }}</p>
+						<div ng-show="isArray(item.value)" ng-repeat="pair in item.value track by $index">
+							<p class="col-md-6" ng-style="{
+							'font-size': L('info', 'Font Size'),
+							color: L('info', 'Text Color'),
+							'font-family': L('info', 'Font')
+						}">{{ pair.name }}</p>
+							<p class="col-md-6" ng-style="{
+							'font-size': L('info', 'Font Size'),
+							color: L('info', 'Text Color'),
+							'font-family': L('info', 'Font')
+						}">{{ pair.value }}</p>
+						</div>
 					</div>
 				</div>
 			</div>

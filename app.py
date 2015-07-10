@@ -450,9 +450,20 @@ def search(restaurantName, query):
 
 	return dumps(result)
 
-@app.route('/api/<restaurantName>')
+@app.route('/api/<restaurantName>', methods=['GET', 'POST'])
 def restaurantInfo(restaurantName):
 	restaurantName = restaurantName.lower()
+	if request.method == 'POST':
+		if current_user.username != restaurantName:
+			return 'ERROR', 401
+		else:
+			request.data = ast.literal_eval(request.data)
+
+			# if request.data["action"] == "delete":
+			# 	db.menus.update({"identifier": restaurantName}, {"$pull": {"info": request.data['info'] } })
+			if request.data["action"] == "title":
+				db.menus.update({"identifier": restaurantName}, {"$set": {"name": request.data['title'] } })
+
 	return dumps(db.menus.find_one({"identifier": restaurantName}))
 
 @app.route('/admin/resetdb')
@@ -497,6 +508,23 @@ def categories(restaurantName):
 				db.menus.update({"identifier": restaurantName}, {"$pull": {"categories": request.data['category'] } })
 			elif request.data["action"] == "save":
 				db.menus.update({"identifier": restaurantName}, {"$push": {"categories": request.data['category'] } })
+
+			elif request.data["action"] == "update":
+
+				originalCategoryName = request.data['originalCategory']['name']
+
+				# insert into correct position
+				insertPosition = 0
+				menuForCount = db.menus.find_one({"identifier": restaurantName})
+				for category in menuForCount['categories']:
+					if category['name'] == originalCategoryName:
+						break
+					insertPosition += 1
+							
+				db.menus.update({"identifier": restaurantName}, {"$pull": {"categories": request.data['originalCategory'] } })
+				db.menus.update({"identifier": restaurantName}, {"$push": {"categories": { "$each": [ request.data['category'] ], "$position": insertPosition } } })
+
+				print request.data
 
 	return dumps(db.menus.find_one({"identifier": restaurantName}, {"categories.name": True}))
 
