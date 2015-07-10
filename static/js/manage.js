@@ -270,9 +270,9 @@ app.controller('edittitle', function($scope, $http, $rootScope, sharedItem) {
 	function post(data) {
     	$http.post('/api/' + user.username, data).
 			success(function(data, status, headers, config) {
-
+				$rootScope.$broadcast('titleRefresh');
 			});
-		$rootScope.$broadcast('titleRefresh');
+		
     }
 
     $scope.save = function() {
@@ -298,9 +298,9 @@ app.controller('editcategory', function($scope, $http, $rootScope, sharedItem) {
 	function post(data) {
     	$http.post('/api/' + user.username + '/categories', data).
 			success(function(data, status, headers, config) {
-
+				$rootScope.$broadcast('categoryRefresh');
 			});
-		$rootScope.$broadcast('categoryRefresh');
+		
     }
 
     $scope.save = function() {
@@ -358,9 +358,9 @@ app.controller('edititem', function($scope, $http, $rootScope, sharedItem) {
 	function post(data) {
     	$http.post('/api/' + user.username + '/items', data).
 			success(function(data, status, headers, config) {
-
+				$rootScope.$broadcast('itemRefresh');
 			});
-		$rootScope.$broadcast('itemRefresh');
+		
     }
 
     $scope.addOption = function() {

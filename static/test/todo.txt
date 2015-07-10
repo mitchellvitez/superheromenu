@@ -86,6 +86,12 @@ x		easier input correction (login page,
 		pdf export for printing
 x		category edit by clicking on menu
 x		edit title on menu
-
+		delete KV pairs from information
+		delete sections from information
+		on first opening menu, get "add categories" button
+		"add item" button in edit category
+		better color selection
+		fonts from a dropdown
+		restaurant logos
 
 
