@@ -43,37 +43,29 @@ login_manager = LoginManager()
 login_manager.init_app(app)
 
 class User():
-	def __init__(self, username, password, email=None):
+	def __init__(self, username):
 
 		self.username = username
 
-		if password:
-			self.password = password
-		else:
-			try:
-				self.password = db.users.find_one({'username': self.username}, {'password': 1})['password']
-			except TypeError:
-				self.password = None
+		userFromDatabase = db.users.find_one({'username': self.username })
 
-		if email:
-			self.email = email
-		else:
-			try:
-				self.email = db.users.find_one({'username': self.username}, {'email': 1})['email']
-			except TypeError:
-				self.email = None
+		if userFromDatabase:
 
-		stripeIdObj = db.users.find_one({'username': self.username}, {'stripeid': 1})
-		if stripeIdObj:
-			self.stripeid = stripeIdObj.get('stripeid', None)
+			self.authenticated = True
+
+			self.password = userFromDatabase['password']
+
+			self.email = userFromDatabase['email']
+
+			self.stripeid = userFromDatabase.get('stripeid', None)
 		
-		db.users.update({'username': self.username, "email": self.email, "password": self.password}, {"username": self.username, "password": self.password, "email": self.email}, upsert=True)
+		# db.users.update({'username': self.username, "email": self.email, "password": self.password}, {"username": self.username, "password": self.password, "email": self.email}, upsert=True)
 
 	def is_authenticated(self):
-		return db.users.find({'username': self.username, 'email': self.email, "password": self.password}).limit(1).count() > 0
+		return self.authenticated
 
 	def is_active(self):
-		return True # return db.users.find({'username': self.username, "password": self.password}).limit(1).count() > 0
+		return True
 
 	def is_anonymous(self):
 		return False
@@ -82,10 +74,7 @@ class User():
 		return unicode(self.username)
 
 	def saveStripeId(self, stripeId):
-		print stripeId
 		db.users.update({'username': self.username}, { '$set': {"stripeid": stripeId} } )
-		print 'USER: ', db.users.find_one({'username': self.username})
-		print "SAVED STRIPE ID"
 
 def isPaid(restaurantName):
 	result = db.users.find_one({'username': restaurantName})
@@ -99,8 +88,8 @@ def isPaid(restaurantName):
 	return False
 
 @login_manager.user_loader
-def load_user(username, password=None, email=None):
-	return User(username, password, email)
+def load_user(username):
+	return User(username)
 
 @login_manager.unauthorized_handler
 def unauthorized():
@@ -402,7 +391,7 @@ def signup():
 				]
 			})
 
-		login_user(User(username, password, email), remember=rememberMe)
+		login_user(User(username), remember=rememberMe)
 		if current_user.is_authenticated():
 			return redirect('login')
 
@@ -430,7 +419,7 @@ def login():
 			userdata = ast.literal_eval(str(userdata))
 
 			if bcrypt.checkpw(password, userdata['password']):
-				login_user(User(username, password, None), remember=rememberMe)
+				login_user(User(username), remember=rememberMe)
 
 	if current_user.is_authenticated():
 		return redirect('../manage')
@@ -688,7 +677,7 @@ def buy():
 @app.route('/thanks')
 @login_required
 def thanks():
-	return render_template('thankyou.html')
+	return render_template('thankyou.html', username=current_user.username)
 
 @app.route('/manage')
 @login_required

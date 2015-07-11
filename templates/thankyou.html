@@ -1,0 +1,18 @@
+{% extends "main.html" %}
+{% block head %}
+	<title>Superhero Menu</title>
+	<script>
+    	var user = {{ userAsJson()|safe }};
+    </script>
+{% endblock %}
+{% block body %}
+<div class="container">
+	<div class="col-md-6 col-md-offset-3">
+		<h1>Thank you!</h1>
+		<p style="font-size: 140%">Thank you so much for signing up for superhero menu!</p>
+		<p style="font-size: 140%">We look forward to helping you make your menu the best it's ever been.</p>
+		<p><a href="manage" class="btn btn-primary">Manage Menu</a></p>
+		<p><a href="menu/{{ username }}" class="btn btn-success">View Menu</a></p>		
+	</div>
+</div>
+{% endblock %}
