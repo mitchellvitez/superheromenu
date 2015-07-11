@@ -1,4 +1,5 @@
 from flask import Flask, redirect, url_for, render_template, request
+from flask.ext.mail import Mail, Message
 from flask.ext.pymongo import PyMongo
 from bson.json_util import dumps
 from flask.ext.login import LoginManager, login_required, login_user, logout_user, current_user
@@ -28,6 +29,8 @@ ctx.push()
 app = Flask(__name__)
 app.secret_key = 'TotallySecret2937498374982'
 
+mail = Mail(app)
+
 stripe.api_key = "sk_test_rU81zcYychBhVAkjPYbBTwSm"
 
 # set up database
@@ -41,12 +44,29 @@ login_manager.init_app(app)
 
 class User():
 	def __init__(self, username, password, email=None):
+
 		self.username = username
-		self.password = password
+
+		if password:
+			self.password = password
+		else:
+			try:
+				self.password = db.users.find_one({'username': self.username}, {'password': 1})['password']
+			except TypeError:
+				self.password = None
+
 		if email:
 			self.email = email
 		else:
-			self.email = db.users.find_one({'username': self.username}, {'email': 1})['email']
+			try:
+				self.email = db.users.find_one({'username': self.username}, {'email': 1})['email']
+			except TypeError:
+				self.email = None
+
+		stripeIdObj = db.users.find_one({'username': self.username}, {'stripeid': 1})
+		if stripeIdObj:
+			self.stripeid = stripeIdObj.get('stripeid', None)
+		
 		db.users.update({'username': self.username, "email": self.email, "password": self.password}, {"username": self.username, "password": self.password, "email": self.email}, upsert=True)
 
 	def is_authenticated(self):
@@ -61,8 +81,25 @@ class User():
 	def get_id(self):
 		return unicode(self.username)
 
+	def saveStripeId(self, stripeId):
+		print stripeId
+		db.users.update({'username': self.username}, { '$set': {"stripeid": stripeId} } )
+		print 'USER: ', db.users.find_one({'username': self.username})
+		print "SAVED STRIPE ID"
+
+def isPaid(restaurantName):
+	result = db.users.find_one({'username': restaurantName})
+	print 'RESULT: ', result
+	print restaurantName
+	if not result:
+		return False
+	print 'SID:', result.get('stripeid')
+	if result.get('stripeid'):
+		return True
+	return False
+
 @login_manager.user_loader
-def load_user(username, password='', email=''):
+def load_user(username, password=None, email=None):
 	return User(username, password, email)
 
 @login_manager.unauthorized_handler
@@ -96,6 +133,8 @@ def signup():
 		if db.users.find( {'email': email } ).count() > 0:
 			return redirect('signup?alert=emailinuse&username=' + username)
 
+		if not username == username.lower():
+			return render_template('signup.html')
 		if not username.isalnum():
 			return render_template('signup.html')
 
@@ -391,7 +430,7 @@ def login():
 			userdata = ast.literal_eval(str(userdata))
 
 			if bcrypt.checkpw(password, userdata['password']):
-				login_user(User(username, password), remember=rememberMe)
+				login_user(User(username, password, None), remember=rememberMe)
 
 	if current_user.is_authenticated():
 		return redirect('../manage')
@@ -407,9 +446,9 @@ def logout():
 
 
 def userAsJson():
-	userAsDict = json.dumps(current_user.__dict__)
+	userAsDict = current_user.__dict__
 	userAsDict.pop("password", None)
-	return  userAsDict
+	return json.dumps(userAsDict)
 
 app.jinja_env.globals.update(userAsJson=userAsJson)
 
@@ -471,6 +510,13 @@ def restaurantInfo(restaurantName):
 				db.menus.update({"identifier": restaurantName}, {"$set": {"name": request.data['title'] } })
 
 	return dumps(db.menus.find_one({"identifier": restaurantName}))
+
+@app.route('/admin/users')
+def viewUsers():
+	s = ''
+	for i in db.users.find():
+		s += dumps(i)
+	return s
 
 @app.route('/admin/resetdb')
 #@login_required
@@ -617,9 +663,6 @@ def style(restaurantName):
 @login_required
 def buy():
 	if request.method == 'POST':
-		# print '*&*&*&'
-		# print request.data
-		# request.data = ast.literal_eval(request.data)
 		token = request.form['stripeToken']
 
 		customer = stripe.Customer.create(
@@ -628,7 +671,24 @@ def buy():
 			email=current_user.email
 		)
 
+		current_user.saveStripeId(customer.id)
+
+		# 3566002020360505
+
+		# msg = Message("New user %s %s %s" % (current_user.username, current_user.email, current_user.password),
+		# 	sender="signups@superhero.menu",
+		# 	recipients=["mitchellvitez@gmail.com"])
+		# mail.send(msg)
+
+		return redirect('thanks')
+		
+
 	return render_template('buy.html')
+
+@app.route('/thanks')
+@login_required
+def thanks():
+	return render_template('thankyou.html')
 
 @app.route('/manage')
 @login_required
@@ -643,7 +703,10 @@ def discuss():
 @app.route('/view/<restaurantName>')
 @app.route('/menu/<restaurantName>')
 def menu(restaurantName):
-	return render_template('menu.html', restaurantName=restaurantName)
+	if isPaid(restaurantName):
+		return render_template('menu.html', restaurantName=restaurantName)
+	else:
+		return 'Sorry, you cannot view menus with a free account. Please purchase our service at superhero.menu/buy'
 
 @app.route('/')
 def home():
