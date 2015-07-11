@@ -6,6 +6,7 @@ import datetime
 import json
 import ast
 import bcrypt
+import stripe
 
 """
 Flask for login/security issues, api
@@ -27,6 +28,7 @@ ctx.push()
 app = Flask(__name__)
 app.secret_key = 'TotallySecret2937498374982'
 
+stripe.api_key = "sk_test_rU81zcYychBhVAkjPYbBTwSm"
 
 # set up database
 mongo = PyMongo(app)
@@ -38,10 +40,13 @@ login_manager = LoginManager()
 login_manager.init_app(app)
 
 class User():
-	def __init__(self, username, password, email=''):
+	def __init__(self, username, password, email=None):
 		self.username = username
 		self.password = password
-		self.email = email
+		if email:
+			self.email = email
+		else:
+			self.email = db.users.find_one({'username': self.username}, {'email': 1})['email']
 		db.users.update({'username': self.username, "email": self.email, "password": self.password}, {"username": self.username, "password": self.password, "email": self.email}, upsert=True)
 
 	def is_authenticated(self):
@@ -58,7 +63,6 @@ class User():
 
 @login_manager.user_loader
 def load_user(username, password='', email=''):
-	# returns user object, sans password, from this user id
 	return User(username, password, email)
 
 @login_manager.unauthorized_handler
@@ -403,7 +407,9 @@ def logout():
 
 
 def userAsJson():
-    return json.dumps(current_user.__dict__) #.pop("password", None))
+	userAsDict = json.dumps(current_user.__dict__)
+	userAsDict.pop("password", None)
+	return  userAsDict
 
 app.jinja_env.globals.update(userAsJson=userAsJson)
 
@@ -606,6 +612,23 @@ def style(restaurantName):
 # 		return '["Main Menu", "Wine List", "Dessert Menu", "Breakfast Menu"]'
 # 	else:
 # 		return '[]'
+
+@app.route('/buy', methods=['GET','POST'])
+@login_required
+def buy():
+	if request.method == 'POST':
+		# print '*&*&*&'
+		# print request.data
+		# request.data = ast.literal_eval(request.data)
+		token = request.form['stripeToken']
+
+		customer = stripe.Customer.create(
+			source=token,
+			plan="basic",
+			email=current_user.email
+		)
+
+	return render_template('buy.html')
 
 @app.route('/manage')
 @login_required

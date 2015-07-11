@@ -94,4 +94,6 @@ x		edit title on menu
 		fonts from a dropdown
 		restaurant logos
 
+		eventually: inline editing, like google docs, instead of modals
+
 
