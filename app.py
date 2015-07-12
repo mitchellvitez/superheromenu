@@ -682,10 +682,9 @@ def thanks():
 @app.route('/manage')
 @login_required
 def manage():
-	return render_template('manage.html', username=current_user.username, restaurantName=current_user.username)
+	return render_template('manage.html', username=current_user.username)
 
 @app.route('/discuss')
-# @login_required
 def discuss():
 	return render_template('discuss.html')
 
@@ -693,7 +692,7 @@ def discuss():
 @app.route('/menu/<restaurantName>')
 def menu(restaurantName):
 	if isPaid(restaurantName):
-		return render_template('menu.html', restaurantName=restaurantName)
+		return render_template('menu.html', username=restaurantName)
 	else:
 		return 'Sorry, you cannot view menus with a free account. Please purchase our service at superhero.menu/buy'
 

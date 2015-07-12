@@ -65,7 +65,7 @@
         }
 
 		function load() {
-	        $http.get('/api/' + restaurantName).
+	        $http.get('/api/' + user.username).
 	        	success(function(data, status, headers, config) {
 				    $scope.menu = data;
 			  	});
@@ -81,7 +81,7 @@
 				load();
 			}
 
-			$http.get('/api/' + restaurantName + '/search/' + query).
+			$http.get('/api/' + user.username + '/search/' + query).
 		  	success(function(data, status, headers, config) {
 		    	$scope.menu.categories = data.categories;
 		    	$scope.menu.items = data.items;

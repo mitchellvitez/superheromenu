@@ -3,7 +3,6 @@
 	<title>Menu Viewer</title>
 	<script>
     	var user = {{ userAsJson()|safe }};
-    	var restaurantName = '{{ restaurantName }}';
     </script>
     <script src="{{ url_for('static', filename='js/menu.js') }}"></script>
     <base href="/">
