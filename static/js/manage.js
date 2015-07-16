@@ -135,6 +135,34 @@ app.controller('info', function($scope, $http, $rootScope) {
 		reset();
 	}
 
+	$scope.deleteSection = function(sectionName) {
+		if (! confirm('Are you sure you want to remove the section ' + sectionName + '? This will delete all of the items in it.')) {
+    		return;
+    	}
+
+    	console.log($scope.info);
+
+    	console.log(sectionName);
+
+    	var index = -1;
+
+    	for (var i = 0; i < $scope.info.length; ++i) {
+
+    		console.log($scope.info[i].name);
+
+    		if ($scope.info[i].name == sectionName) {
+    			index = i;
+    			break;
+    		}
+    	}
+
+    	console.log(index);
+
+    	if (index !== -1) {
+    		$scope.info.splice(index, 1);
+    	}
+	}
+
 	$scope.save = function() {
 		var info = $scope.info;
 		post( {"action":"save", "info":{ info }} );
