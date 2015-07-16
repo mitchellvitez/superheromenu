@@ -86,15 +86,16 @@ x		easier input correction (login page,
 		pdf export for printing
 x		category edit by clicking on menu
 x		edit title on menu
-		delete KV pairs from information
-		delete sections from information
+
+x		delete sections from information
 		on first opening menu, get "add categories" button
-		"add item" button in edit category
+
 		better color selection
 		fonts from a dropdown
 		restaurant logos
 		when adding category, select from mongo by name, not by whole category... what if it changes in the meantime? same for items...
 
 		eventually: inline editing, like google docs, instead of modals
+			use ng-model and contenteditables
 
 
