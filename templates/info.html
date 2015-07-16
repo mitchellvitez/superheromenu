@@ -2,8 +2,8 @@
 <div ng-controller="info">
 	<h2>Information</h2>
 	<div ng-repeat="item in info track by $index">
-		<h3>{{ item.name }}</h3>
-		<a class="btn btn-danger" ng-click="deleteSection(item.name)">&times;</a>
+		<h3>{{ item.name }} <a class="btn btn-xs btn-danger" ng-click="deleteSection(item.name)">&times;</a></h3>
+
 		<p><input type="text" ng-hide="isArray(item.value)" class="form-control" ng-model="item.value"></p>
 			<div ng-show="isArray(item.value)" class="" ng-repeat="pair in item.value track by $index">
 				<input type="text" class="form-control" style="width: 49%; float: left" ng-model="pair.name"> <input type="text" class="form-control" style="width: 49%; float: right" ng-model="pair.value"><br><br>
