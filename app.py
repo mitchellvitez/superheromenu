@@ -694,7 +694,7 @@ def menu(restaurantName):
 	if isPaid(restaurantName):
 		return render_template('menu.html', username=restaurantName)
 	else:
-		return 'Sorry, you cannot view menus with a free account. Please purchase our service at superhero.menu/buy'
+		return render_template('paywall.html')
 
 @app.route('/')
 def home():
