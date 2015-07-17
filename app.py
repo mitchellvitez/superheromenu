@@ -672,7 +672,7 @@ def buy():
 		return redirect('thanks')
 		
 
-	return render_template('buy.html')
+	return render_template('buy.html', username=current_user.username)
 
 @app.route('/thanks')
 @login_required

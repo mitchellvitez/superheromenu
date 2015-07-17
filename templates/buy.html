@@ -48,6 +48,8 @@
 		      	  <h2 class="form-signin-heading">Buy</h2>
 				  <span class="payment-errors"></span>
 
+				  <p>Buying for user "{{ username }}"</p>
+
 				  <div class="form-group">
 				    <label>
 				      <span>Card Number</span>
@@ -65,11 +67,12 @@
 
 				  <div class="form-group">
 				    <label>
-				      <span>Expiration (MM/YYYY)</span>
+				      <span>Expiration (Month, Year)</span>
 				      
 				    </label>
-				    <input type="text" class="form-control" size="2" data-stripe="exp-month"/><br>
-				    <input type="text" class="form-control" size="4" data-stripe="exp-year"/>
+				    <br>
+				    <input type="text" class="form-control" style="width: auto; display: inline-block" size="2" data-stripe="exp-month" placeholder="mm"/>
+				    <input type="text" class="form-control" style="width: auto; display: inline-block" size="4" data-stripe="exp-year" placeholder="yyyy"/>
 				    
 				  </div>
 
