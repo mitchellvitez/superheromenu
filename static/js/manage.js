@@ -59,6 +59,11 @@ app.service('sharedItem', function () {
     };
 });
 
+function htmlDecode(x) {
+	x = JSON.stringify(x);
+	return JSON.parse( x.split('&gt;').join('>').split('&lt;').join('<').split('&amp;').join('&') );
+}
+
 app.controller('sidebarController', function($scope, $http) {
 	$scope.sidebarInstruction = "←";
 
@@ -105,7 +110,7 @@ app.controller('info', function($scope, $http, $rootScope) {
 	function load() {
 		$http.get('/api/' + user.username + '/info').
 	  	success(function(data, status, headers, config) {
-	    	$scope.info = data.info;
+	    	$scope.info = htmlDecode(data.info);
 	  	});
 	}
 
@@ -203,7 +208,7 @@ app.controller('categories', function($scope, $http, $rootScope) {
 	function load() {
 		$http.get('/api/' + user.username + '/categories').
 	  	success(function(data, status, headers, config) {
-	    	$scope.categories = data.categories;
+	    	$scope.categories = htmlDecode(data.categories);
 	  	});
 	}
 
@@ -247,7 +252,7 @@ app.controller('additem', function($scope, $http, $rootScope) {
 	function load() {
 		$http.get('/api/' + user.username + '/categories').
 	  	success(function(data, status, headers, config) {
-	    	$scope.categories = data.categories;
+	    	$scope.categories = htmlDecode(data.categories);
 	  	});
 	}
 
@@ -353,7 +358,7 @@ app.controller('edititem', function($scope, $http, $rootScope, sharedItem) {
 	function categoryLoad() {
 		$http.get('/api/' + user.username + '/categories').
 	  	success(function(data, status, headers, config) {
-	    	$scope.categories = data.categories;
+	    	$scope.categories = htmlDecode(data.categories);
 	  	});
 	}
 
@@ -441,7 +446,7 @@ app.controller('view', function($scope, $http, $rootScope, sharedItem) {
         $http.get('/api/' + user.username).
 
         	success(function(data, status, headers, config) {
-			    $scope.menu = data;
+			    $scope.menu = htmlDecode(data);
 		  	});
 	}
 
@@ -479,8 +484,8 @@ app.controller('view', function($scope, $http, $rootScope, sharedItem) {
 
 		$http.get('/api/' + user.username + '/search/' + query).
 	  	success(function(data, status, headers, config) {
-	    	$scope.menu.categories = data.categories;
-	    	$scope.menu.items = data.items;
+	    	$scope.menu.categories = htmlDecode(data.categories);
+	    	$scope.menu.items = htmlDecode(data.items);
 	  	});
 	}
 
@@ -543,7 +548,7 @@ app.controller('stylegeneral', function($scope, $http, $rootScope) {
 	function load() {
 		$http.get('/api/' + user.username + '/style').
 		  	success(function(data, status, headers, config) {
-		    	$scope.style = data.style.general;
+		    	$scope.style = htmlDecode(data.style.general);
 		  	});
 	}
 
@@ -569,7 +574,7 @@ app.controller('styletitle', function($scope, $http, $rootScope) {
 	function load() {
 		$http.get('/api/' + user.username + '/style').
 		  	success(function(data, status, headers, config) {
-		    	$scope.style = data.style.title;
+		    	$scope.style = htmlDecode(data.style.title);
 		  	});
 	}
 
@@ -594,7 +599,7 @@ app.controller('stylecategory', function($scope, $http, $rootScope) {
 	function load() {
 		$http.get('/api/' + user.username + '/style').
 		  	success(function(data, status, headers, config) {
-		    	$scope.style = data.style.category;
+		    	$scope.style = htmlDecode(data.style.category);
 		  	});
 	}
 
@@ -619,7 +624,7 @@ app.controller('styleitem', function($scope, $http, $rootScope) {
 	function load() {
 		$http.get('/api/' + user.username + '/style').
 		  	success(function(data, status, headers, config) {
-		    	$scope.style = data.style.item;
+		    	$scope.style = htmlDecode(data.style.item);
 		  	});
 	}
 
@@ -644,7 +649,7 @@ app.controller('styleoption', function($scope, $http, $rootScope) {
 	function load() {
 		$http.get('/api/' + user.username + '/style').
 		  	success(function(data, status, headers, config) {
-		    	$scope.style = data.style.option;
+		    	$scope.style = htmlDecode(data.style.option);
 		  	});
 	}
 
@@ -669,7 +674,7 @@ app.controller('styleinfo', function($scope, $http, $rootScope) {
 	function load() {
 		$http.get('/api/' + user.username + '/style').
 		  	success(function(data, status, headers, config) {
-		    	$scope.style = data.style.info;
+		    	$scope.style = htmlDecode(data.style.info);
 		  	});
 	}
 

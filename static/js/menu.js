@@ -9,7 +9,10 @@
 		$locationProvider.html5Mode(true);
 	});
 
-
+function htmlDecode(x) {
+	x = JSON.stringify(x);
+	return JSON.parse( x.split('&gt;').join('>').split('&lt;').join('<').split('&amp;').join('&') );
+}
 
 	app.controller('menu', function($scope, $http) {
 
@@ -67,7 +70,7 @@
 		function load() {
 	        $http.get('/api/' + user.username).
 	        	success(function(data, status, headers, config) {
-				    $scope.menu = data;
+				    $scope.menu = htmlDecode(data);
 			  	});
 		}
 
@@ -83,8 +86,8 @@
 
 			$http.get('/api/' + user.username + '/search/' + query).
 		  	success(function(data, status, headers, config) {
-		    	$scope.menu.categories = data.categories;
-		    	$scope.menu.items = data.items;
+		    	$scope.menu.categories = htmlDecode(data.categories);
+		    	$scope.menu.items = htmlDecode(data.items);
 		  	});
 		}
 

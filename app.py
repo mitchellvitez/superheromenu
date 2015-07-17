@@ -8,6 +8,7 @@ import json
 import ast
 import bcrypt
 import stripe
+import cgi
 
 """
 Flask for login/security issues, api
@@ -459,7 +460,7 @@ def filter(restaurantName, query):
 				if word in item['name'] or word in item.get('description', ''):
 					result['items'].append(item)
 
-	return dumps(result)
+	return cgi.escape(dumps(result))
 
 
 @app.route('/api/<restaurantName>/search/<query>')
@@ -482,7 +483,7 @@ def search(restaurantName, query):
 				if word in item['name'].lower() or word in item.get('description', '').lower():
 					result['items'].append(item)
 
-	return dumps(result)
+	return cgi.escape(dumps(result))
 
 @app.route('/api/<restaurantName>', methods=['GET', 'POST'])
 def restaurantInfo(restaurantName):
@@ -498,7 +499,7 @@ def restaurantInfo(restaurantName):
 			if request.data["action"] == "title":
 				db.menus.update({"identifier": restaurantName}, {"$set": {"name": request.data['title'] } })
 
-	return dumps(db.menus.find_one({"identifier": restaurantName}))
+	return cgi.escape(dumps(db.menus.find_one({"identifier": restaurantName})))
 
 @app.route('/admin/users')
 def viewUsers():
@@ -534,7 +535,7 @@ def info(restaurantName):
 			if request.data["action"] == "save":
 				db.menus.update({"identifier": restaurantName}, {"$set": {"info": request.data['info']['info'] } })
 
-	return dumps(db.menus.find_one({"identifier": restaurantName}, {"info": True}))
+	return cgi.escape(dumps(db.menus.find_one({"identifier": restaurantName}, {"info": True})))
 
 @app.route('/api/<restaurantName>/categories', methods=['GET', 'POST'])
 def categories(restaurantName):
@@ -567,7 +568,7 @@ def categories(restaurantName):
 
 				print request.data
 
-	return dumps(db.menus.find_one({"identifier": restaurantName}, {"categories.name": True}))
+	return cgi.escape(dumps(db.menus.find_one({"identifier": restaurantName}, {"categories.name": True})))
 
 @app.route('/api/<restaurantName>/items', methods=['GET', 'POST'])
 def items(restaurantName):
@@ -617,7 +618,7 @@ def items(restaurantName):
 				db.menus.update({"identifier": restaurantName, "categories.name": categoryName },
 					{"$pull" : {"categories.$.items" : request.data['item'] } } )
 
-	return dumps(db.menus.find_one({"identifier": restaurantName}, {"categories": True}))
+	return cgi.escape(dumps(db.menus.find_one({"identifier": restaurantName}, {"categories": True})))
 
 @app.route('/api/<restaurantName>/style', methods=['GET', 'POST'])
 def style(restaurantName):
@@ -638,7 +639,7 @@ def style(restaurantName):
 
 				db.menus.update({"identifier": restaurantName}, {"$set": {styleAndComponent: request.data['style'] } })
 
-	return dumps(db.menus.find_one({"identifier": restaurantName}, {"style": True}))
+	return cgi.escape(dumps(db.menus.find_one({"identifier": restaurantName}, {"style": True})))
 
 # @app.route('/api/<restaurantName>/menus')
 # def getMenus(restaurantName):
