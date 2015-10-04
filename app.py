@@ -28,11 +28,11 @@ ctx.push()
 """
 
 app = Flask(__name__)
-app.secret_key = 'TotallySecret2937498374982'
+app.secret_key = 'TotallySecret2937498374982213' # Set to something better
 
 mail = Mail(app)
 
-stripe.api_key = "sk_test_rU81zcYychBhVAkjPYbBTwSm"
+stripe.api_key = "STRIPE_KEY_HERE" # Was test key before, won't send real money
 
 # set up database
 mongo = PyMongo(app)
